@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSMBe5", "NSMBe5\NSMBe5.csproj", "{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ClientProfileRelease|Any CPU = ClientProfileRelease|Any CPU
+		ClientProfileRelease|x86 = ClientProfileRelease|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|Any CPU.Build.0 = Release|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|x86.ActiveCfg = Release|x86
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.ClientProfileRelease|x86.Build.0 = Release|x86
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Debug|x86.ActiveCfg = Debug|x86
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Debug|x86.Build.0 = Debug|x86
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|x86.ActiveCfg = Release|x86
+		{FFFD2137-21D2-4B8D-97AF-A8DE692704C4}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBD4F038-19F9-46E8-B67F-5F7B58AE8A9C}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = NSMBe4\NSMBe4.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $4
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$4.FileWidth = 120
+		$4.inheritsSet = VisualStudio
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
+		$0.StandardHeader = $5
+		$5.Text = 
+		$5.inheritsSet = Apache2License
+		$0.VersionControlPolicy = $6
+		$6.inheritsSet = Mono
+		$0.ChangeLogPolicy = $7
+		$7.UpdateMode = None
+		$7.MessageStyle = $8
+		$8.LineAlign = 0
+		$7.inheritsSet = Mono
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
