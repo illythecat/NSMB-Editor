@@ -338,6 +338,12 @@
     <Compile Include="TilesetEditor\BehaviorEditor.Designer.cs">
       <DependentUpon>BehaviorEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TilesetEditor\SetBGPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TilesetEditor\SetBGPropertiesDialog.Designer.cs">
+      <DependentUpon>SetBGPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="TilesetEditor\TilesetList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -534,6 +540,9 @@
     <EmbeddedResource Include="TilemapEditor\TilePicker.resx">
       <DependentUpon>TilePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetEditor\SetBGPropertiesDialog.resx">
+      <DependentUpon>SetBGPropertiesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetEditor\TilesetEditor.resx">
       <DependentUpon>TilesetEditor.cs</DependentUpon>

@@ -19,7 +19,7 @@ namespace NSMBe5.TilemapEditor
         public int bgFirstTileOffset;
         public bool finished = false;
 
-        public BgPNGImportPrompt(bool topLayer)
+        public BgPNGImportPrompt(bool topLayer, bool mappedTileset)
         {
             InitializeComponent();
 
@@ -29,6 +29,12 @@ namespace NSMBe5.TilemapEditor
                 label1.Text = "Before importing as PNG, please input the same settings you used when importing the corresponding foreground.";
 
             UpdateVariables();
+
+            if (mappedTileset)
+            {
+                finished = true;
+                return;
+            }
 
             ShowDialog();
         }

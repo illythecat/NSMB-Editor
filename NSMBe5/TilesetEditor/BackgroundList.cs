@@ -35,13 +35,14 @@ namespace NSMBe5
             public int id;
             public string name;
             public bool mappedTileset;
+            public bool empty;
             public int GFXFileID;
             public int PalFileID;
             public int LayoutFileID;
             public int BitmapOffset;
             public int PaletteOffsets;
 
-            public BackgroundEntry(bool topLayer, int id, string name, bool mappedTileset)
+            public BackgroundEntry(bool topLayer, int id, string name, bool mappedTileset, bool empty = false)
             {
                 string[] nameArray = name.Split('@');
 
@@ -49,16 +50,17 @@ namespace NSMBe5
                 this.name = nameArray[0];
                 this.topLayer = topLayer;
                 this.mappedTileset = mappedTileset;
+                this.empty = empty;
                 this.GFXFileID = ROM.GetFileIDFromTable(this.id, this.topLayer ? ROM.Data.Table_FG_NCG : ROM.Data.Table_BG_NCG);
                 this.PalFileID = ROM.GetFileIDFromTable(this.id, this.topLayer ? ROM.Data.Table_FG_NCL : ROM.Data.Table_BG_NCL);
                 this.LayoutFileID = ROM.GetFileIDFromTable(this.id, this.topLayer ? ROM.Data.Table_FG_NSC : ROM.Data.Table_BG_NSC);
                 this.BitmapOffset = this.topLayer ? 256 : 576;
                 this.PaletteOffsets = this.topLayer ? 8 : 10;
-                try { if (nameArray.Length > 1) this.GFXFileID = int.Parse(nameArray[1]); } catch (Exception) { this.GFXFileID = 65535; }
-                try { if (nameArray.Length > 2) this.PalFileID = int.Parse(nameArray[2]); } catch (Exception) { this.PalFileID = 65535; }
-                try { if (nameArray.Length > 3) this.LayoutFileID = int.Parse(nameArray[3]); } catch (Exception) { this.LayoutFileID = 65535; }
-                try { if (nameArray.Length > 4) this.BitmapOffset = int.Parse(nameArray[4]); } catch (Exception) { this.BitmapOffset = 0; }
-                try { if (nameArray.Length > 5) this.PaletteOffsets = int.Parse(nameArray[5]); } catch (Exception) { this.PaletteOffsets = 0; }
+                try { if (nameArray.Length > 1 && nameArray[1] != "default") this.GFXFileID = int.Parse(nameArray[1]); } catch (Exception) { this.GFXFileID = 65535; }
+                try { if (nameArray.Length > 2 && nameArray[2] != "default") this.PalFileID = int.Parse(nameArray[2]); } catch (Exception) { this.PalFileID = 65535; }
+                try { if (nameArray.Length > 3 && nameArray[3] != "default") this.LayoutFileID = int.Parse(nameArray[3]); } catch (Exception) { this.LayoutFileID = 65535; }
+                try { if (nameArray.Length > 4 && nameArray[4] != "default") this.BitmapOffset = int.Parse(nameArray[4]); } catch (Exception) { this.BitmapOffset = 0; }
+                try { if (nameArray.Length > 5 && nameArray[5] != "default") this.PaletteOffsets = int.Parse(nameArray[5]); } catch (Exception) { this.PaletteOffsets = 0; }
             }
 
             public override string ToString()
@@ -70,6 +72,10 @@ namespace NSMBe5
                     type = LanguageManager.Get("BackgroundList", "top");
                 else
                     type = LanguageManager.Get("BackgroundList", "bottom");
+
+                if(id > 75 && !mappedTileset)
+                    return "PSEUDO " + type + " " + name;
+
                 return type + " " + name;
             }
         }
@@ -89,7 +95,22 @@ namespace NSMBe5
                 if (name == list[list.Count - 1]) continue;
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
-                tilesetListBox.Items.Add(new BackgroundEntry(true, id, trimmedname, false));
+
+                bool empty = false;
+                string[] nameArray = trimmedname.Split(':');
+                if (nameArray[1] == "")
+                {
+                    //if (int.Parse(nameArray[0]) < 76)
+                    //{
+                        nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
+                        empty = true;
+                    //}
+                    //else
+                        //continue;
+                }
+                trimmedname = string.Join(":", nameArray[0], nameArray[1]);
+
+                tilesetListBox.Items.Add(new BackgroundEntry(true, id, trimmedname, false, empty));
                 id++;
             }
             id = 0;
@@ -99,16 +120,46 @@ namespace NSMBe5
                 if (name == list[list.Count - 1]) continue;
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
-                tilesetListBox.Items.Add(new BackgroundEntry(false, id, trimmedname, false));
+
+                bool empty = false;
+                string[] nameArray = trimmedname.Split(':');
+                if (nameArray[1] == "")
+                {
+                    //if (int.Parse(nameArray[0]) < 76)
+                    //{
+                        nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
+                        empty = true;
+                    //}
+                    //else
+                        //continue;
+                }
+                trimmedname = string.Join(":", nameArray[0], nameArray[1]);
+
+                tilesetListBox.Items.Add(new BackgroundEntry(false, id, trimmedname, false, empty));
                 id++;
             }
             list = ROM.UserInfo.getFullList("MappedTilesets");
             foreach (string name in list)
             {
-                //if (name == list[list.Count - 1]) continue;
+                if (name == list[list.Count - 1]) continue;
                 string trimmedname = name.Trim();
                 if (trimmedname == "") continue;
-                tilesetListBox.Items.Add(new BackgroundEntry(false, int.Parse(trimmedname.Split(':')[0]), trimmedname, true));
+
+                bool empty = false;
+                string[] nameArray = trimmedname.Split(':');
+                if (nameArray[1] == "")
+                {
+                    //if (int.Parse(nameArray[0]) < 76)
+                    //{
+                        nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
+                        empty = true;
+                    //}
+                    //else
+                        //continue;
+                }
+                trimmedname = string.Join(":", nameArray[0], nameArray[1]);
+
+                tilesetListBox.Items.Add(new BackgroundEntry(false, int.Parse(nameArray[0]), trimmedname, true, empty));
             }
         }
 
@@ -162,8 +213,16 @@ namespace NSMBe5
         {
             if (tilesetListBox.SelectedItem == null)
                 return;
+
             Tilemap t = getTilemap();
             if (t == null) return;
+
+            if (bg.empty)
+            {
+                MessageBox.Show("This background is empty, please set it up first.", "NSMBe 5.3", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             t.render();
             new TilemapEditorWindow(t).Show();
         }
@@ -264,6 +323,12 @@ namespace NSMBe5
             int offs = bg.topLayer ? 256 : 576;
             int palOffs = bg.topLayer ? 8 : 10;
 
+            if(bg.mappedTileset)
+            {
+                offs = 192;
+                palOffs = 2;
+            }
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = LanguageManager.Get("Filters", "png");
             ofd.CheckFileExists = true;
@@ -276,7 +341,7 @@ namespace NSMBe5
             if (b.Size != new Size(512, 512))
                 throw new Exception("Wrong image size");
 
-            BgPNGImportPrompt bgPrompt = new BgPNGImportPrompt(bg.topLayer);
+            BgPNGImportPrompt bgPrompt = new BgPNGImportPrompt(bg.topLayer, bg.mappedTileset);
             if (!bgPrompt.finished)
                 return;
 
@@ -351,6 +416,50 @@ namespace NSMBe5
                 ROM.UserInfo.setListItem(listName, bg.id, newName, true);
                 tilesetListBox.Items[tilesetListBox.SelectedIndex] = new BackgroundEntry(bg.topLayer, bg.id, newName, false);
             }
+        }
+
+        private void Setproperties_btn_Click(object sender, EventArgs e)
+        {
+            bg = (BackgroundEntry)tilesetListBox.SelectedItem;
+
+            bool IsLevelBG = true;
+            if (bg.id > 75 || bg.mappedTileset)
+                IsLevelBG = false;
+            SetBGPropertiesDialog newBg = new SetBGPropertiesDialog(bg.id, bg.name.Split(':')[1].Remove(0, 1), bg.GFXFileID, bg.PalFileID, bg.LayoutFileID, bg.BitmapOffset, bg.PaletteOffsets, IsLevelBG);
+            if (newBg.Canceled)
+                return;
+
+            string listName = bg.topLayer ? "Foregrounds" : "Backgrounds";
+            if (bg.mappedTileset)
+                listName = "MappedTileset";
+
+            if (string.IsNullOrWhiteSpace(newBg.bgName))
+            {
+                ROM.UserInfo.removeListItem(listName, bg.id, true);
+                string newName = LanguageManager.GetList(listName)[bg.id];
+                bool empty = false;
+                if (string.IsNullOrWhiteSpace(newName.Split(':')[1]))
+                {
+                    newName += " " + LanguageManager.Get("BackgroundList", "empty");
+                    empty = true;
+                }
+
+                tilesetListBox.Items[tilesetListBox.SelectedIndex] = new BackgroundEntry(bg.topLayer, bg.id, newName, bg.mappedTileset, empty);
+                return;
+            }
+
+            string NewFullName = string.Format("{0}: {1}", bg.id, newBg.bgName);
+            if (!IsLevelBG)
+                NewFullName = string.Format("{0}: {1}@{2}@{3}@{4}@{5}@{6}@not_level_bg", bg.id, newBg.bgName, newBg.bgNCGID, newBg.bgNCLID, newBg.bgNSCID, newBg.bgBMPOffs, newBg.bgPALOffs);
+            else
+            {
+                ROM.SetFileIDFromTable(bg.id, bg.topLayer ? ROM.Data.Table_FG_NCG : ROM.Data.Table_BG_NCG, (ushort)newBg.bgNCGID);
+                ROM.SetFileIDFromTable(bg.id, bg.topLayer ? ROM.Data.Table_FG_NCL : ROM.Data.Table_BG_NCL, (ushort)newBg.bgNCLID);
+                ROM.SetFileIDFromTable(bg.id, bg.topLayer ? ROM.Data.Table_FG_NSC : ROM.Data.Table_BG_NSC, (ushort)newBg.bgNSCID);
+            }
+
+            ROM.UserInfo.setListItem(listName, bg.id, NewFullName, true);
+            tilesetListBox.Items[tilesetListBox.SelectedIndex] = new BackgroundEntry(bg.topLayer, bg.id, NewFullName, false);
         }
     }
 }
