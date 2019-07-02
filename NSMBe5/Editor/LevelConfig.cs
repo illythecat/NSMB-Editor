@@ -86,8 +86,8 @@ namespace NSMBe5 {
 
                 string[] nameArray = ss.Split('@');
 
-                if (nameArray[0].Split(':')[1] == "")
-                    continue;
+                /*if (nameArray[0].Split(':')[1] == "")
+                    continue;*/
 
                 if (nameArray.Length > 6 && nameArray[6] == "not_level_bg")
                     continue;

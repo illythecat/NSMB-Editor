@@ -54,6 +54,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox renderer;
+        public System.Windows.Forms.PictureBox renderer;
     }
 }

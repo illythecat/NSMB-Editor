@@ -29,6 +29,8 @@ namespace NSMBe5 {
         public int G = 0;
         public int B = 0;
 
+        public event EventHandler ValueChanged;
+
         public int Value {
             get { return (B << 10) | (G << 5) | R; }
             set { R = value & 31; G = (value >> 5) & 31; B = (value >> 10) & 31; }
@@ -130,6 +132,7 @@ namespace NSMBe5 {
                 if (target == 1) G = newval;
                 if (target == 2) B = newval;
                 renderer.Invalidate();
+                this.ValueChanged(this, e);
             }
         }
 

@@ -25,14 +25,29 @@ using System.Windows.Forms;
 
 namespace NSMBe5 {
     public partial class ColourPicker : Form {
-        public int R { get { return colourPickerControl1.R; } set { colourPickerControl1.R = value; } }
-        public int G { get { return colourPickerControl1.G; } set { colourPickerControl1.G = value; } }
-        public int B { get { return colourPickerControl1.B; } set { colourPickerControl1.B = value; } }
+        public int R { get { return colourPickerControl1.R; } set { colourPickerControl1.R = value; r_UpDown.Value = value; } }
+        public int G { get { return colourPickerControl1.G; } set { colourPickerControl1.G = value; g_UpDown.Value = value; } }
+        public int B { get { return colourPickerControl1.B; } set { colourPickerControl1.B = value; b_UpDown.Value = value; } }
         public int Value { get { return colourPickerControl1.Value; } set { colourPickerControl1.Value = value; } }
 
         public ColourPicker() {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "ColourPicker");
+        }
+
+        private void RBG_UpDown_ValueChanged(object sender, EventArgs e)
+        {
+            colourPickerControl1.R = (int)r_UpDown.Value;
+            colourPickerControl1.G = (int)g_UpDown.Value;
+            colourPickerControl1.B = (int)b_UpDown.Value;
+            colourPickerControl1.renderer.Invalidate();
+        }
+
+        private void ColourPickerControl_ValueChanged(object sender, EventArgs e)
+        {
+            r_UpDown.Value = colourPickerControl1.R;
+            g_UpDown.Value = colourPickerControl1.G;
+            b_UpDown.Value = colourPickerControl1.B;
         }
     }
 }
