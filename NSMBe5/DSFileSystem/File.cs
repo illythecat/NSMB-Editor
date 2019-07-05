@@ -112,7 +112,15 @@ namespace NSMBe5.DSFileSystem
                     ROM.LZ77_Decompress(this.getContents(), true);
                     return CompressedFile.CompressionType.LZWithHeader;
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+                    try
+                    {
+                        ROM.Yaz0_Decompress(this.getContents());
+                        return CompressedFile.CompressionType.Yaz0;
+                    }
+                    catch (Exception) { }
+                }
             }
 
             return CompressedFile.CompressionType.None;

@@ -421,7 +421,22 @@ namespace NSMBe5.DSFileSystem
                 return;
             }
             byte[] RawFile = f.getContents();
-            byte[] CompFile = ROM.LZ77_Compress(RawFile);
+            byte[] CompFile = RawFile;
+
+            CompressFilePrompt compressFilePrompt = new CompressFilePrompt();
+            if (compressFilePrompt.Canceled)
+            {
+                f.endEdit(this);
+                return;
+            }
+
+            if (compressFilePrompt.ChosenCompression == CompressedFile.CompressionType.LZ)
+                CompFile = ROM.LZ77_Compress(CompFile, false);
+            else if (compressFilePrompt.ChosenCompression == CompressedFile.CompressionType.LZWithHeader)
+                CompFile = ROM.LZ77_Compress(CompFile, true);
+            else if (compressFilePrompt.ChosenCompression == CompressedFile.CompressionType.Yaz0)
+                CompFile = ROM.Yaz0_Compress(CompFile);
+
             f.replace(CompFile, this);
             UpdateFileInfo();
             f.endEdit(this);
