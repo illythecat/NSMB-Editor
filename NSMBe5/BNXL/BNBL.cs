@@ -16,7 +16,7 @@ namespace NSMBe5
     {
         DSFileSystem.File f;
 
-        public BNBL(DSFileSystem.File f, LZFile.CompressionType LZ77)
+        public BNBL(DSFileSystem.File f, CompressedFile.CompressionType LZ77)
         {
             this.f = f;
             f.beginEdit(this);
@@ -24,9 +24,9 @@ namespace NSMBe5
             InitializeComponent();
 
             Text += " - " + f.name;
-            if (LZ77 == LZFile.CompressionType.LZ)
+            if (LZ77 == CompressedFile.CompressionType.LZ)
                 Text += " - LZ";
-            else if (LZ77 == LZFile.CompressionType.LZWithHeader)
+            else if (LZ77 == CompressedFile.CompressionType.LZWithHeader)
                 Text += " - LZwh";
 
             LoadBNBL();

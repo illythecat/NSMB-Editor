@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 using NSMBe5.DSFileSystem;
 
 namespace NSMBe5.NSBMD
@@ -79,6 +80,7 @@ namespace NSMBe5.NSBMD
             {
                 textures = new PalettedImage[0];
                 palettes = new PaletteDef[0];
+                MessageBox.Show("This model file doesn't contain any valid texture data.", "NSMBe5.3", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

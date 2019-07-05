@@ -66,9 +66,9 @@ namespace NSMBe5
         {
             rawdata = f.getContents();
             if(LZCompression == 1)
-                rawdata = ROM.LZ77_Decompress(rawdata);
+                rawdata = ROM.LZ77_Decompress(rawdata, false);
             else if (LZCompression == 2)
-                rawdata = ROM.LZ77_DecompressWithHeader(rawdata);
+                rawdata = ROM.LZ77_Decompress(rawdata, true);
             loadImageData();
         }
 

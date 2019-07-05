@@ -41,7 +41,7 @@ namespace NSMBe5.DSFileSystem
             str = new MemoryStream();
             byte[] data = f.getContents();
             if (lz)
-                data = ROM.LZ77_Decompress(data);
+                data = ROM.LZ77_Decompress(data, false);
 
             str.Write(data, 0, data.Length);
 

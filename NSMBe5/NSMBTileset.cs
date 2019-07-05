@@ -245,11 +245,11 @@ namespace NSMBe5
         public void load()
         {
             //Palettes
-            int palCount = ROM.LZ77_GetDecompressedSize(PalFile.getContents()) / 512;
+            int palCount = ROM.LZ77_GetDecompressedSize(PalFile.getContents(), false) / 512;
             
             palettes = new Palette[palCount];
             
-            LZFile PalFileLz = new LZFile(PalFile, LZFile.CompressionType.LZ);
+            CompressedFile PalFileLz = new CompressedFile(PalFile, CompressedFile.CompressionType.LZ);
             for(int i = 0; i < palCount; i++)
 	            palettes[i] = new FilePalette(new InlineFile(PalFileLz, i*512, 512, "Palette "+i));
 

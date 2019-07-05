@@ -74,7 +74,7 @@ namespace NSMBe5
                     type = LanguageManager.Get("BackgroundList", "bottom");
 
                 if(id > 75 && !mappedTileset)
-                    return "PSEUDO " + type + " " + name;
+                    return "" + type + " " + name;
 
                 return type + " " + name;
             }
@@ -100,13 +100,13 @@ namespace NSMBe5
                 string[] nameArray = trimmedname.Split(':');
                 if (nameArray[1] == "")
                 {
-                    //if (int.Parse(nameArray[0]) < 76)
-                    //{
+                    if (int.Parse(nameArray[0]) < 76)
+                    {
                         nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
                         empty = true;
-                    //}
-                    //else
-                        //continue;
+                    }
+                    else
+                        continue;
                 }
                 trimmedname = string.Join(":", nameArray[0], nameArray[1]);
 
@@ -125,13 +125,13 @@ namespace NSMBe5
                 string[] nameArray = trimmedname.Split(':');
                 if (nameArray[1] == "")
                 {
-                    //if (int.Parse(nameArray[0]) < 76)
-                    //{
+                    if (int.Parse(nameArray[0]) < 76)
+                    {
                         nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
                         empty = true;
-                    //}
-                    //else
-                        //continue;
+                    }
+                    else
+                        continue;
                 }
                 trimmedname = string.Join(":", nameArray[0], nameArray[1]);
 
@@ -149,13 +149,13 @@ namespace NSMBe5
                 string[] nameArray = trimmedname.Split(':');
                 if (nameArray[1] == "")
                 {
-                    //if (int.Parse(nameArray[0]) < 76)
-                    //{
+                    if (int.Parse(nameArray[0]) < 76)
+                    {
                         nameArray[1] = " " + LanguageManager.Get("BackgroundList", "empty");
                         empty = true;
-                    //}
-                    //else
-                        //continue;
+                    }
+                    else
+                        continue;
                 }
                 trimmedname = string.Join(":", nameArray[0], nameArray[1]);
 
@@ -185,10 +185,10 @@ namespace NSMBe5
             if (PalFile == null) return null;
             if (LayoutFile == null) return null;
 
-            LayoutFile = new LZFile(LayoutFile, LZFile.CompressionType.LZ);
+            LayoutFile = new CompressedFile(LayoutFile, CompressedFile.CompressionType.LZ);
 
             Image2D image = new Image2D(GFXFile, 256, false);
-            LZFile paletteFile = new LZFile(PalFile, LZFile.CompressionType.MaybeLZ);
+            CompressedFile paletteFile = new CompressedFile(PalFile, CompressedFile.CompressionType.MaybeCompressed);
 
             int palSize = 256;
             Color[] pal = FilePalette.arrayToPalette(paletteFile.getContents());

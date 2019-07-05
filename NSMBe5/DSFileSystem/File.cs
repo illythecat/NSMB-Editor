@@ -98,24 +98,24 @@ namespace NSMBe5.DSFileSystem
         	endEditInterval(offset, offset+data.Length);
         }
 
-        public LZFile.CompressionType getLZ()
+        public CompressedFile.CompressionType getCompression()
         {
             try
             {
-                ROM.LZ77_Decompress(this.getContents());
-                return LZFile.CompressionType.LZ;
+                ROM.LZ77_Decompress(this.getContents(), false);
+                return CompressedFile.CompressionType.LZ;
             }
             catch (Exception)
             {
                 try
                 {
-                    ROM.LZ77_DecompressWithHeader(this.getContents());
-                    return LZFile.CompressionType.LZWithHeader;
+                    ROM.LZ77_Decompress(this.getContents(), true);
+                    return CompressedFile.CompressionType.LZWithHeader;
                 }
                 catch (Exception) { }
             }
 
-            return LZFile.CompressionType.None;
+            return CompressedFile.CompressionType.None;
         }
         
         

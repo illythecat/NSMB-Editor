@@ -21,7 +21,7 @@ using System.Text;
 
 namespace NSMBe5.DSFileSystem
 {
-    public class LZFile : FileWithLock
+    public class CompressedFile : FileWithLock
     {
         private File parentFile;
         private CompressionType comp;
@@ -30,35 +30,43 @@ namespace NSMBe5.DSFileSystem
         {
             None,
             LZ,
-            // Used for palette files, they might be compressed, might not
-            MaybeLZ,
-            LZWithHeader
+            LZWithHeader,
+            Yaz0,
+            MaybeCompressed
         }
         
-        public LZFile(File parent, CompressionType ct)
+        public CompressedFile(File parent, CompressionType ct)
         {
         	nameP = parent.name;
             parentFile = parent;
 			comp = ct;
 
             // If we think it might be compressed, try decompressing it. If it succeeds, assume it was compressed.
-            if (comp == CompressionType.MaybeLZ)
+            if (comp == CompressionType.MaybeCompressed)
             {
                 try
                 {
-                    ROM.LZ77_Decompress(parentFile.getContents());
+                    ROM.LZ77_Decompress(parentFile.getContents(), false);
                     comp = CompressionType.LZ;
                 }
                 catch (Exception)
                 {
                     try
                     {
-                        ROM.LZ77_DecompressWithHeader(parentFile.getContents());
+                        ROM.LZ77_Decompress(parentFile.getContents(), true);
                         comp = CompressionType.LZWithHeader;
                     }
                     catch (Exception)
                     {
-                        comp = CompressionType.None;
+                        try
+                        {
+                            ROM.Yaz0_Decompress(parentFile.getContents());
+                            comp = CompressionType.Yaz0;
+                        }
+                        catch (Exception)
+                        {
+                            comp = CompressionType.None;
+                        }
                     }
                 }
             }
@@ -66,18 +74,22 @@ namespace NSMBe5.DSFileSystem
             if (comp == CompressionType.None)
         		fileSizeP = parent.fileSize;
             else if (comp == CompressionType.LZ)
-            	fileSizeP = ROM.LZ77_GetDecompressedSize(parent.getInterval(0, 4));
+            	fileSizeP = ROM.LZ77_GetDecompressedSize(parent.getInterval(0, 4), false);
             else if (comp == CompressionType.LZWithHeader)
-            	fileSizeP = ROM.LZ77_GetDecompressedSizeWithHeader(parent.getInterval(0, 8));
+            	fileSizeP = ROM.LZ77_GetDecompressedSize(parent.getInterval(0, 8), true);
+            else if (comp == CompressionType.Yaz0)
+                fileSizeP = ROM.Yaz0_Decompress(parent.getContents()).Length;
         }
 
         public override byte[] getContents()
         {
-            if(comp == CompressionType.LZWithHeader)
-                return ROM.LZ77_DecompressWithHeader(parentFile.getContents());
-            else if(comp == CompressionType.LZ)
-                return ROM.LZ77_Decompress(parentFile.getContents());
-            else 
+            if(comp == CompressionType.LZ)
+                return ROM.LZ77_Decompress(parentFile.getContents(), false);
+            else if (comp == CompressionType.LZWithHeader)
+                return ROM.LZ77_Decompress(parentFile.getContents(), true);
+            else if (comp == CompressionType.Yaz0)
+                return ROM.Yaz0_Decompress(parentFile.getContents());
+            else
             	return parentFile.getContents();
         }
 
@@ -86,10 +98,12 @@ namespace NSMBe5.DSFileSystem
             if (!isAGoodEditor(editor))
                 throw new Exception("NOT CORRECT EDITOR " + name);
 
-            if(comp == CompressionType.LZWithHeader)
-                parentFile.replace(ROM.LZ77_Compress(newFile, true), this);
-            else if(comp == CompressionType.LZ)
+            if(comp == CompressionType.LZ)
                 parentFile.replace(ROM.LZ77_Compress(newFile, false), this);
+            else if (comp == CompressionType.LZWithHeader)
+                parentFile.replace(ROM.LZ77_Compress(newFile, true), this);
+            else if (comp == CompressionType.Yaz0)
+                parentFile.replace(ROM.Yaz0_Compress(newFile), this);
             else 
             	parentFile.replace(newFile, this);
         }
@@ -99,11 +113,13 @@ namespace NSMBe5.DSFileSystem
             if (comp == CompressionType.None)
 	            return parentFile.getInterval(start, end);
     
-            byte[] data;
-            if(comp == CompressionType.LZWithHeader)
-                data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
-            else
-                data = ROM.LZ77_Decompress(parentFile.getContents());
+            byte[] data = parentFile.getContents();
+            if(comp == CompressionType.LZ)
+                data = ROM.LZ77_Decompress(parentFile.getContents(), false);
+            else if (comp == CompressionType.LZWithHeader)
+                data = ROM.LZ77_Decompress(parentFile.getContents(), true);
+            else if (comp == CompressionType.Yaz0)
+                data = ROM.Yaz0_Decompress(parentFile.getContents());
 
             int len = end-start;
             byte[] thisdata = new byte[len];
@@ -119,11 +135,14 @@ namespace NSMBe5.DSFileSystem
             	parentFile.replaceInterval(newFile, start);
 			else
             {
-                byte[] data;
-                if (comp == CompressionType.LZWithHeader)
-                    data = ROM.LZ77_DecompressWithHeader(parentFile.getContents());
-                else
-                    data = ROM.LZ77_Decompress(parentFile.getContents());
+                byte[] data = parentFile.getContents();
+                if (comp == CompressionType.LZ)
+                    data = ROM.LZ77_Decompress(parentFile.getContents(), false);
+                else if (comp == CompressionType.LZWithHeader)
+                    data = ROM.LZ77_Decompress(parentFile.getContents(), true);
+                else if (comp == CompressionType.Yaz0)
+                    data = ROM.Yaz0_Decompress(parentFile.getContents());
+
                 Array.Copy(newFile, 0, data, start, newFile.Length);
                 parentFile.replace(ROM.LZ77_Compress(data, comp == CompressionType.LZWithHeader), this);
             }

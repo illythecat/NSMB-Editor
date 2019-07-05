@@ -46,7 +46,7 @@ namespace NSMBe5.DSFileSystem
             fileTreeView.ImageList = new ImageList();
             fileTreeView.ImageList.ColorDepth = ColorDepth.Depth32Bit;
 
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < 4; i++)
             {
                 List<Bitmap> bitmaps = new List<Bitmap>();
 
@@ -81,6 +81,8 @@ namespace NSMBe5.DSFileSystem
                         g.DrawImage(new Bitmap(Properties.Resources.lz_icon, new Size(16, 16)), new Point(0, 0));
                     else if (i == 2)
                         g.DrawImage(new Bitmap(Properties.Resources.lz_wh_icon, new Size(16, 16)), new Point(0, 0));
+                    else if (i == 3)
+                        g.DrawImage(new Bitmap(Properties.Resources.yaz0_icon, new Size(16, 16)), new Point(0, 0));
 
                     fileTreeView.ImageList.Images.Add(result);
                 }
@@ -104,18 +106,20 @@ namespace NSMBe5.DSFileSystem
             main.Expand();
         }
 
-        private string getFileTypeForFile(File f, out LZFile.CompressionType LZ77)
+        private string getFileTypeForFile(File f, out CompressedFile.CompressionType CompressionType)
         {
-            LZ77 = LZFile.CompressionType.None;
+            CompressionType = CompressedFile.CompressionType.None;
             string name = f.name.ToLowerInvariant();
 
             if (f.id == 131)
                 return "NSMBeUD";
 
             if (f.fileSize > 0 && f.getByteAt(0) == 0x10)
-                LZ77 = LZFile.CompressionType.LZ;
+                CompressionType = CompressedFile.CompressionType.LZ;
             else if (f.fileSize >= 4 && f.getUintAt(0) == 0x37375A4C)
-                LZ77 = LZFile.CompressionType.LZWithHeader;
+                CompressionType = CompressedFile.CompressionType.LZWithHeader;
+            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x307A6159)
+                CompressionType = CompressedFile.CompressionType.Yaz0;
 
             //Name checks
             if (name == "banner.bin") return "BANNER";
@@ -125,45 +129,41 @@ namespace NSMBe5.DSFileSystem
             if (name.EndsWith(".enpg")) return "ENPG"; //ENPG (256x256 Bitmap with 256x256 Palette)
 
             //Header checks
-            for (int i = 0; i <= 9; i++)
-            {
-                //i variable will be 0, 5 and 9 so it can also check for LZ compressed files and LZ compressed files with header
-                if (i > 0 && i < 5)
-                    continue;
-                if (i > 5 && i < 9)
-                    continue;
+            int i = 0;
+            if (CompressionType == CompressedFile.CompressionType.LZ)
+                i = 5;
+            else if (CompressionType == CompressedFile.CompressionType.LZWithHeader)
+                i = 9;
+            else if (CompressionType == CompressedFile.CompressionType.Yaz0)
+                i = 17;
 
-                if (i == 5)
-                    LZ77 = LZFile.CompressionType.LZ;
-                if (i == 9)
-                    LZ77 = LZFile.CompressionType.LZWithHeader;
+            int HeaderMinSize = 4 + i;
 
-                int HeaderMinSize = 4 + i;
+            if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x43484152) return "NCGR"; //NCGR (NCR with header)
+            if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x504C5454) return "NCLR"; //NCLR (NCL with header)
+            if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x5343524E) return "NSCR"; //NSCR (NSC with header)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4352414E) return "NARC"; //NARC (ARCHIVE)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30444D42) return "BMD0"; //BMD0 (NSBMD/MODEL)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30585442) return "BTX0"; //BTX0 (NSBTX/MODEL TEXTURE)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x54414453) return "SDAT"; //SDAT (SDAT/MUSIC)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30414342) return "BCA0"; //BCA0 (NSBCA/ANIMATION)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30505442) return "BTP0"; //BTP0 (NSBTP)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30415442) return "BTA0"; //BTA0 (NSBTA)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30414D42) return "BMA0"; //BMA0 (NSBMA)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30415642) return "BVA0"; //BVA0 (NSBVA)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4753454D) return "BMG"; //MESG (BMG/MESSAGE)
+            if (f.fileSize >= HeaderMinSize + 4 && f.getUintAt(i) == 0x53504120 && f.getUintAt(i + 4) == 0x315F3232) return "SPA"; // APS22_1 (SPA/PARTICLE)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0X4C424E4A) return "BNBL"; //JNBL (BNBL/TOUCHPOS)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4C434E4A) return "BNCL"; //JNCL (BNCL/GFXPOS)
+            if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x44434E4A) return "BNCD"; //JNCD (BNCD/BITMAP)
 
-                if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x43484152) return "NCGR"; //NCGR (NCR with header)
-                if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x504C5454) return "NCLR"; //NCLR (NCL with header)
-                if (f.fileSize >= HeaderMinSize + 0x10 && f.getUintAt(i + 0x10) == 0x5343524E) return "NSCR"; //NSCR (NSC with header)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4352414E) return "NARC"; //NARC (ARCHIVE)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30444D42) return "BMD0"; //BMD0 (NSBMD/MODEL)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30585442) return "BTX0"; //BTX0 (NSBTX/MODEL TEXTURE)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x54414453) return "SDAT"; //SDAT (SDAT/MUSIC)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30414342) return "BCA0"; //BCA0 (NSBCA/ANIMATION)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30505442) return "BTP0"; //BTP0 (NSBTP)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30415442) return "BTA0"; //BTA0 (NSBTA)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30414D42) return "BMA0"; //BMA0 (NSBMA)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x30415642) return "BVA0"; //BVA0 (NSBVA)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4753454D) return "BMG"; //MESG (BMG/MESSAGE)
-                if (f.fileSize >= HeaderMinSize + 4 && f.getUintAt(i) == 0x53504120 && f.getUintAt(i + 4) == 0x315F3232) return "SPA"; // APS22_1 (SPA/PARTICLE)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0X4C424E4A) return "BNBL"; //JNBL (BNBL/TOUCHPOS)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4C434E4A) return "BNCL"; //JNCL (BNCL/GFXPOS)
-                if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x44434E4A) return "BNCD"; //JNCD (BNCD/BITMAP)
-            }
-
-            LZ77 = LZFile.CompressionType.None;
+            CompressionType = CompressedFile.CompressionType.None;
             if (f.fileSize > 0 && f.getByteAt(0) == 0x10)
-                LZ77 = LZFile.CompressionType.LZ;
+                CompressionType = CompressedFile.CompressionType.LZ;
             else if (f.fileSize >= 4 && f.getUintAt(0) == 0x37375A4C)
-                LZ77 = LZFile.CompressionType.LZWithHeader;
+                CompressionType = CompressedFile.CompressionType.LZWithHeader;
+            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x307A6159)
+                CompressionType = CompressedFile.CompressionType.Yaz0;
             return "Unknown File";
         }
 
@@ -171,7 +171,7 @@ namespace NSMBe5.DSFileSystem
         {
             int returnValue = 1;
 
-            LZFile.CompressionType LZ77;
+            CompressedFile.CompressionType LZ77;
             string type = getFileTypeForFile(f, out LZ77);
 
             if (type == "NSMBeUD") returnValue = 17;
@@ -199,13 +199,15 @@ namespace NSMBe5.DSFileSystem
             if (type == "BNBL") returnValue = 18;
             if (type == "BNCL") returnValue = 19;
 
-            int intLZ77 = 0;
-            if (LZ77 == LZFile.CompressionType.LZ)
-                intLZ77 = 1;
-            else if (LZ77 == LZFile.CompressionType.LZWithHeader)
-                intLZ77 = 2;
+            int intCompressionType = 0;
+            if (LZ77 == CompressedFile.CompressionType.LZ)
+                intCompressionType = 1;
+            else if (LZ77 == CompressedFile.CompressionType.LZWithHeader)
+                intCompressionType = 2;
+            else if (LZ77 == CompressedFile.CompressionType.Yaz0)
+                intCompressionType = 3;
 
-            return returnValue + (intLZ77 * (fileTreeView.ImageList.Images.Count / 3));
+            return returnValue + (intCompressionType * (fileTreeView.ImageList.Images.Count / 4));
         }
 
         private void loadDir(TreeNode node, Directory dir)
@@ -441,7 +443,15 @@ namespace NSMBe5.DSFileSystem
                     return;
                 }
                 byte[] CompFile = f.getContents();
-                byte[] RawFile = ROM.LZ77_Decompress(CompFile);
+                byte[] RawFile = CompFile;
+
+                if (f.getCompression() == CompressedFile.CompressionType.LZ)
+                    RawFile = ROM.LZ77_Decompress(CompFile, false);
+                else if (f.getCompression() == CompressedFile.CompressionType.LZWithHeader)
+                    RawFile = ROM.LZ77_Decompress(CompFile, true);
+                else if (f.getCompression() == CompressedFile.CompressionType.Yaz0)
+                    RawFile = ROM.Yaz0_Decompress(CompFile);
+
                 f.replace(RawFile, this);
                 UpdateFileInfo();
                 f.endEdit(this);
@@ -500,7 +510,7 @@ namespace NSMBe5.DSFileSystem
                 byte[] CompFile = f.getContents();
                 byte[] CompFileWithoutHeader = new byte[CompFile.Length - 4];
                 Array.Copy(CompFile, 4, CompFileWithoutHeader, 0, CompFileWithoutHeader.Length);
-                byte[] RawFile = ROM.LZ77_Decompress(CompFileWithoutHeader);
+                byte[] RawFile = ROM.LZ77_Decompress(CompFileWithoutHeader, false);
                 f.replace(RawFile, this);
                 UpdateFileInfo();
                 f.endEdit(this);
@@ -524,11 +534,11 @@ namespace NSMBe5.DSFileSystem
 
             try
             {
-                LZFile.CompressionType LZ77;
-                string type = getFileTypeForFile(f, out LZ77);
+                CompressedFile.CompressionType CompressionType;
+                string type = getFileTypeForFile(f, out CompressionType);
 
-                if (LZ77 != LZFile.CompressionType.None)
-                    f = new LZFile(f, LZ77);
+                if (CompressionType != CompressedFile.CompressionType.None)
+                    f = new CompressedFile(f, CompressionType);
 
                 switch (type)
                 {
@@ -581,7 +591,7 @@ namespace NSMBe5.DSFileSystem
                         break;
                     case "NCL":
                         {
-                            new PaletteViewer(new LZFile(f, 0)).Show();
+                            new PaletteViewer(new CompressedFile(f, 0)).Show();
                         }
                         break;
                     case "NSC":

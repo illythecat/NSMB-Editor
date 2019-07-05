@@ -26,7 +26,7 @@ namespace NSMBe5
                 if (!(leveltxt.StartsWith(clipboardHeader) && leveltxt.EndsWith(clipboardFooter)))
                     throw new Exception();
                 leveltxt = leveltxt.Substring(11, leveltxt.Length - 12);
-                byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt));
+                byte[] leveldata = ROM.LZ77_Decompress(Convert.FromBase64String(leveltxt), false);
                 ByteArrayInputStream strm = new ByteArrayInputStream(leveldata);
                 br = new BinaryReader(strm);
             }

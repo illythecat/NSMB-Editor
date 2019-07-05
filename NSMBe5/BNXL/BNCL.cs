@@ -22,9 +22,9 @@ namespace NSMBe5
         public BNCL(DSFileSystem.File f, int LZ77, bool UseAutoValues = false)
         {
             if (LZ77 == 1)
-                f = new LZFile(f, LZFile.CompressionType.LZ);
+                f = new CompressedFile(f, CompressedFile.CompressionType.LZ);
             else if (LZ77 == 2)
-                f = new LZFile(f, LZFile.CompressionType.LZWithHeader);
+                f = new CompressedFile(f, CompressedFile.CompressionType.LZWithHeader);
 
             this.f = f;
             f.beginEdit(this);

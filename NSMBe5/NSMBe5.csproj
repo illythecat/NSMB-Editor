@@ -664,6 +664,7 @@
     <Content Include="Resources\Icons\lz_icon.png" />
     <Content Include="Resources\Icons\lz_wh_icon.png" />
     <Content Include="Resources\Icons\search.png" />
+    <Content Include="Resources\Icons\yaz0_icon.png" />
     <Content Include="Resources\MsgBoxIcons\imageres_information.ico" />
     <Content Include="Resources\MsgBoxIcons\imageres_warning.ico" />
     <Content Include="Resources\MsgBoxIcons\imageres_error.ico" />
@@ -1079,7 +1080,7 @@
     <Compile Include="ByteArrayOutputStream.cs" />
     <Compile Include="Patcher\Arm9BinSection.cs" />
     <Compile Include="DSFileSystem\BannerFile.cs" />
-    <Compile Include="DSFileSystem\LZFile.cs" />
+    <Compile Include="DSFileSystem\CompressedFile.cs" />
     <Compile Include="DSFileSystem\ExternalFilesystemSource.cs" />
     <Compile Include="DSFileSystem\File.cs" />
     <Compile Include="DSFileSystem\PhysicalFile.cs" />
