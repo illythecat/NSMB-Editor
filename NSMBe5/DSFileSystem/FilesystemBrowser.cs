@@ -262,8 +262,8 @@ namespace NSMBe5.DSFileSystem
             compressFileButton.Enabled = e;
             decompressFileButton.Enabled = e;
             hexEdButton.Enabled = e;
-            compressWithHeaderButton.Enabled = e;
-            decompressWithHeaderButton.Enabled = e;
+            //compressWithHeaderButton.Enabled = e;
+            //decompressWithHeaderButton.Enabled = e;
             decompressOverlayButton.Enabled = e;
 
             selectedFileInfo.Text = StatusMsg;
