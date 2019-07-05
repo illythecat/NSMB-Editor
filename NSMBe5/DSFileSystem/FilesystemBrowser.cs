@@ -157,13 +157,6 @@ namespace NSMBe5.DSFileSystem
             if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x4C434E4A) return "BNCL"; //JNCL (BNCL/GFXPOS)
             if (f.fileSize >= HeaderMinSize && f.getUintAt(i) == 0x44434E4A) return "BNCD"; //JNCD (BNCD/BITMAP)
 
-            CompressionType = CompressedFile.CompressionType.None;
-            if (f.fileSize > 0 && f.getByteAt(0) == 0x10)
-                CompressionType = CompressedFile.CompressionType.LZ;
-            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x37375A4C)
-                CompressionType = CompressedFile.CompressionType.LZWithHeader;
-            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x307A6159)
-                CompressionType = CompressedFile.CompressionType.Yaz0;
             return "Unknown File";
         }
 
