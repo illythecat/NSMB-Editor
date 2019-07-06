@@ -254,7 +254,8 @@ namespace NSMBe5
 	            palettes[i] = new FilePalette(new InlineFile(PalFileLz, i*512, 512, "Palette "+i));
 
             //Graphics
-            graphics = new Image2D(GFXFile, 256, false);
+            CompressedFile GFXFileLz = new CompressedFile(GFXFile, CompressedFile.CompressionType.LZ);
+            graphics = new Image2D(GFXFileLz, 256, false);
 
             //Map16
             map16 = new Map16Tilemap(Map16File, 32, graphics, palettes, Map16TileOffset, Map16PaletteOffset);

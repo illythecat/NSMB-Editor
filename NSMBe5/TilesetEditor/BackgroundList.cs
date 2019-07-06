@@ -187,7 +187,7 @@ namespace NSMBe5
 
             LayoutFile = new CompressedFile(LayoutFile, CompressedFile.CompressionType.LZ);
 
-            Image2D image = new Image2D(GFXFile, 256, false);
+            Image2D image = new Image2D(new CompressedFile(GFXFile, CompressedFile.CompressionType.MaybeCompressed), 256, false);
             CompressedFile paletteFile = new CompressedFile(PalFile, CompressedFile.CompressionType.MaybeCompressed);
 
             int palSize = 256;
