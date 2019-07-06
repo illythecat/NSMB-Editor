@@ -121,7 +121,8 @@ namespace NSMBe5 {
         }
 
 
-        private void LoadLevelNames() {
+        private void LoadLevelNames()
+        {
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
             TreeNode WorldNode = null;
@@ -226,9 +227,9 @@ namespace NSMBe5 {
                 return;
 
             // Get the files
-            string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
-            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
+            int LevelID = (int)levelTreeView.SelectedNode.Tag;
+            DSFileSystem.File LevelFile = ROM.FS.getFileById(LevelID);
+            DSFileSystem.File BGFile = ROM.FS.getFileById(LevelID + 1);
 
             // Load it
             try
@@ -250,9 +251,9 @@ namespace NSMBe5 {
                 return;
 
             // Get the files
-            string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
-            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
+            int LevelID = (int)levelTreeView.SelectedNode.Tag;
+            DSFileSystem.File LevelFile = ROM.FS.getFileById(LevelID);
+            DSFileSystem.File BGFile = ROM.FS.getFileById(LevelID + 1);
 
             // Load it
             FileStream fs = new FileStream(exportLevelDialog.FileName, FileMode.Create);
@@ -278,9 +279,9 @@ namespace NSMBe5 {
                 return;
             try
             {
-                string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-                DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
-                DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
+                int LevelID = (int)levelTreeView.SelectedNode.Tag;
+                DSFileSystem.File LevelFile = ROM.FS.getFileById(LevelID);
+                DSFileSystem.File BGFile = ROM.FS.getFileById(LevelID + 1);
                 ClipboardLevelSource level = new ClipboardLevelSource();
                 level.level.Import(LevelFile, BGFile);
             }
@@ -292,9 +293,9 @@ namespace NSMBe5 {
 
         private void exportClipboard_Click(object sender, EventArgs e)
         {
-            string LevelFilename = (string)levelTreeView.SelectedNode.Tag;
-            DSFileSystem.File LevelFile = ROM.getLevelFile(LevelFilename);
-            DSFileSystem.File BGFile = ROM.getBGDatFile(LevelFilename);
+            int LevelID = (int)levelTreeView.SelectedNode.Tag;
+            DSFileSystem.File LevelFile = ROM.FS.getFileById(LevelID);
+            DSFileSystem.File BGFile = ROM.FS.getFileById(LevelID + 1);
 
             ByteArrayInputStream strm = new ByteArrayInputStream(new byte[0]);
             BinaryWriter bw = new BinaryWriter(strm);
