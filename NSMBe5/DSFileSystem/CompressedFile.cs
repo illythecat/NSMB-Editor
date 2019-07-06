@@ -41,35 +41,8 @@ namespace NSMBe5.DSFileSystem
             parentFile = parent;
 			comp = ct;
 
-            // If we think it might be compressed, try decompressing it. If it succeeds, assume it was compressed.
             if (comp == CompressionType.MaybeCompressed)
-            {
-                try
-                {
-                    ROM.LZ77_Decompress(parentFile.getContents(), false);
-                    comp = CompressionType.LZ;
-                }
-                catch (Exception)
-                {
-                    try
-                    {
-                        ROM.LZ77_Decompress(parentFile.getContents(), true);
-                        comp = CompressionType.LZWithHeader;
-                    }
-                    catch (Exception)
-                    {
-                        try
-                        {
-                            ROM.Yaz0_Decompress(parentFile.getContents());
-                            comp = CompressionType.Yaz0;
-                        }
-                        catch (Exception)
-                        {
-                            comp = CompressionType.None;
-                        }
-                    }
-                }
-            }
+                comp = parent.guessCompression(false);
 
             if (comp == CompressionType.None)
         		fileSizeP = parent.fileSize;

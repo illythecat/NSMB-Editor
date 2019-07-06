@@ -16,14 +16,13 @@ namespace NSMBe5
         byte[] BGDatData;
         bool editing = false;
 
-        public InternalLevelSource(string filename, string levelname)
-            : this(filename, levelname, "") { }
+        public InternalLevelSource(int LevelID, string levelname)
+            : this(LevelID, levelname, "") { }
 
-        public InternalLevelSource(string filename, string levelname, string loadFileName)
+        public InternalLevelSource(int LevelID, string levelname, string loadFileName)
         {
-            levelFile = ROM.getLevelFile(filename);
-            BGDatFile = ROM.getBGDatFile(filename);
-            this.filename = filename;
+            levelFile = ROM.FS.getFileById(LevelID);
+            BGDatFile = ROM.FS.getFileById(LevelID + 1);
             this.levelname = levelname;
             if (loadFileName == "")
             {

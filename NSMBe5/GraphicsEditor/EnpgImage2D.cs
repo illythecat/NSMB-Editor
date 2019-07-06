@@ -26,7 +26,7 @@ namespace NSMBe5
     {
         
         public EnpgImage2D(File f)
-            :base(f, 256, false, 0)
+            :base(f, 256, false)
         {
         }
 

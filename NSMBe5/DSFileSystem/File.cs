@@ -98,29 +98,40 @@ namespace NSMBe5.DSFileSystem
         	endEditInterval(offset, offset+data.Length);
         }
 
-        public CompressedFile.CompressionType getCompression()
+        //Checking faster can give imperfect results.
+        public CompressedFile.CompressionType guessCompression(bool Faster)
         {
-            try
-            {
-                ROM.LZ77_Decompress(this.getContents(), false);
-                return CompressedFile.CompressionType.LZ;
-            }
-            catch (Exception)
+            if (this.fileSize > 0 && this.getByteAt(0) == 0x10)
             {
                 try
                 {
-                    ROM.LZ77_Decompress(this.getContents(), true);
+                    if(!Faster)
+                        ROM.LZ77_Decompress(this.getContents(), false);
+                    return CompressedFile.CompressionType.LZ;
+                }
+                catch (Exception) { }
+            }
+
+            if (this.fileSize >= 4 && this.getUintAt(0) == 0x37375A4C)
+            {
+                try
+                {
+                    if (!Faster)
+                        ROM.LZ77_Decompress(this.getContents(), true);
                     return CompressedFile.CompressionType.LZWithHeader;
                 }
-                catch (Exception)
+                catch (Exception) { }
+            }
+
+            if (this.fileSize >= 4 && this.getUintAt(0) == 0x307A6159)
+            {
+                try
                 {
-                    try
-                    {
+                    if (!Faster)
                         ROM.Yaz0_Decompress(this.getContents());
-                        return CompressedFile.CompressionType.Yaz0;
-                    }
-                    catch (Exception) { }
+                    return CompressedFile.CompressionType.Yaz0;
                 }
+                catch (Exception) { }
             }
 
             return CompressedFile.CompressionType.None;

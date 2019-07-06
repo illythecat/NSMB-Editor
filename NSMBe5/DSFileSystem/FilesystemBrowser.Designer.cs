@@ -70,8 +70,8 @@
             // decompressFileButton
             // 
             this.decompressFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompressFileButton.Location = new System.Drawing.Point(547, 25);
-            this.decompressFileButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.decompressFileButton.Location = new System.Drawing.Point(547, 68);
+            this.decompressFileButton.Margin = new System.Windows.Forms.Padding(4);
             this.decompressFileButton.Name = "decompressFileButton";
             this.decompressFileButton.Size = new System.Drawing.Size(128, 28);
             this.decompressFileButton.TabIndex = 12;
@@ -82,8 +82,8 @@
             // compressFileButton
             // 
             this.compressFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.compressFileButton.Location = new System.Drawing.Point(436, 25);
-            this.compressFileButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.compressFileButton.Location = new System.Drawing.Point(436, 68);
+            this.compressFileButton.Margin = new System.Windows.Forms.Padding(4);
             this.compressFileButton.Name = "compressFileButton";
             this.compressFileButton.Size = new System.Drawing.Size(103, 28);
             this.compressFileButton.TabIndex = 11;
@@ -94,8 +94,8 @@
             // replaceFileButton
             // 
             this.replaceFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.replaceFileButton.Location = new System.Drawing.Point(112, 25);
-            this.replaceFileButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.replaceFileButton.Location = new System.Drawing.Point(112, 32);
+            this.replaceFileButton.Margin = new System.Windows.Forms.Padding(4);
             this.replaceFileButton.Name = "replaceFileButton";
             this.replaceFileButton.Size = new System.Drawing.Size(100, 28);
             this.replaceFileButton.TabIndex = 10;
@@ -106,8 +106,8 @@
             // extractFileButton
             // 
             this.extractFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.extractFileButton.Location = new System.Drawing.Point(4, 25);
-            this.extractFileButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.extractFileButton.Location = new System.Drawing.Point(4, 32);
+            this.extractFileButton.Margin = new System.Windows.Forms.Padding(4);
             this.extractFileButton.Name = "extractFileButton";
             this.extractFileButton.Size = new System.Drawing.Size(100, 28);
             this.extractFileButton.TabIndex = 9;
@@ -119,7 +119,7 @@
             // 
             this.fileTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileTreeView.Location = new System.Drawing.Point(0, 0);
-            this.fileTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileTreeView.Margin = new System.Windows.Forms.Padding(4);
             this.fileTreeView.Name = "fileTreeView";
             this.fileTreeView.Size = new System.Drawing.Size(679, 288);
             this.fileTreeView.TabIndex = 8;
@@ -130,8 +130,8 @@
             // hexEdButton
             // 
             this.hexEdButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexEdButton.Location = new System.Drawing.Point(325, 25);
-            this.hexEdButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hexEdButton.Location = new System.Drawing.Point(325, 68);
+            this.hexEdButton.Margin = new System.Windows.Forms.Padding(4);
             this.hexEdButton.Name = "hexEdButton";
             this.hexEdButton.Size = new System.Drawing.Size(103, 28);
             this.hexEdButton.TabIndex = 11;
@@ -141,9 +141,9 @@
             // 
             // decompressOverlayButton
             // 
-            this.decompressOverlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.decompressOverlayButton.Location = new System.Drawing.Point(27, 62);
-            this.decompressOverlayButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.decompressOverlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.decompressOverlayButton.Location = new System.Drawing.Point(4, 68);
+            this.decompressOverlayButton.Margin = new System.Windows.Forms.Padding(4);
             this.decompressOverlayButton.Name = "decompressOverlayButton";
             this.decompressOverlayButton.Size = new System.Drawing.Size(167, 28);
             this.decompressOverlayButton.TabIndex = 11;
@@ -174,7 +174,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.fileTreeView);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FilesystemBrowser";
             this.Size = new System.Drawing.Size(679, 388);
             this.panel1.ResumeLayout(false);

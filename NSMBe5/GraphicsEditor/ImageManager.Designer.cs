@@ -65,9 +65,11 @@
             // 
             this.imageListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageListBox.FormattingEnabled = true;
-            this.imageListBox.Location = new System.Drawing.Point(0, 13);
+            this.imageListBox.ItemHeight = 16;
+            this.imageListBox.Location = new System.Drawing.Point(0, 17);
+            this.imageListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.imageListBox.Name = "imageListBox";
-            this.imageListBox.Size = new System.Drawing.Size(243, 98);
+            this.imageListBox.Size = new System.Drawing.Size(324, 119);
             this.imageListBox.TabIndex = 1;
             this.imageListBox.SelectedIndexChanged += new System.EventHandler(this.imageListBox_SelectedIndexChanged);
             this.imageListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageListBox_MouseDown);
@@ -76,9 +78,11 @@
             // 
             this.paletteListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paletteListBox.FormattingEnabled = true;
-            this.paletteListBox.Location = new System.Drawing.Point(0, 13);
+            this.paletteListBox.ItemHeight = 16;
+            this.paletteListBox.Location = new System.Drawing.Point(0, 17);
+            this.paletteListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.paletteListBox.Name = "paletteListBox";
-            this.paletteListBox.Size = new System.Drawing.Size(243, 99);
+            this.paletteListBox.Size = new System.Drawing.Size(324, 120);
             this.paletteListBox.TabIndex = 2;
             this.paletteListBox.SelectedIndexChanged += new System.EventHandler(this.paletteListBox_SelectedIndexChanged);
             this.paletteListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paletteListBox_MouseDown);
@@ -90,8 +94,9 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 508);
+            this.panel1.Size = new System.Drawing.Size(332, 625);
             this.panel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -102,11 +107,12 @@
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(249, 235);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(332, 289);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel4
@@ -114,9 +120,10 @@
             this.panel4.Controls.Add(this.imageListBox);
             this.panel4.Controls.Add(this.lblBitmaps);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Location = new System.Drawing.Point(4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(243, 111);
+            this.panel4.Size = new System.Drawing.Size(324, 136);
             this.panel4.TabIndex = 5;
             // 
             // lblBitmaps
@@ -124,8 +131,9 @@
             this.lblBitmaps.AutoSize = true;
             this.lblBitmaps.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblBitmaps.Location = new System.Drawing.Point(0, 0);
+            this.lblBitmaps.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBitmaps.Name = "lblBitmaps";
-            this.lblBitmaps.Size = new System.Drawing.Size(56, 13);
+            this.lblBitmaps.Size = new System.Drawing.Size(74, 17);
             this.lblBitmaps.TabIndex = 2;
             this.lblBitmaps.Text = "<Bitmaps>";
             // 
@@ -134,9 +142,10 @@
             this.panel3.Controls.Add(this.paletteListBox);
             this.panel3.Controls.Add(this.lblPalettes);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 120);
+            this.panel3.Location = new System.Drawing.Point(4, 148);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(243, 112);
+            this.panel3.Size = new System.Drawing.Size(324, 137);
             this.panel3.TabIndex = 4;
             // 
             // lblPalettes
@@ -144,8 +153,9 @@
             this.lblPalettes.AutoSize = true;
             this.lblPalettes.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblPalettes.Location = new System.Drawing.Point(0, 0);
+            this.lblPalettes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPalettes.Name = "lblPalettes";
-            this.lblPalettes.Size = new System.Drawing.Size(57, 13);
+            this.lblPalettes.Size = new System.Drawing.Size(75, 17);
             this.lblPalettes.TabIndex = 3;
             this.lblPalettes.Text = "<Palettes>";
             // 
@@ -157,17 +167,19 @@
             this.image2dOptions.Controls.Add(this.tileWidthNumber);
             this.image2dOptions.Controls.Add(this.lblTileWidth);
             this.image2dOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.image2dOptions.Location = new System.Drawing.Point(0, 235);
+            this.image2dOptions.Location = new System.Drawing.Point(0, 289);
+            this.image2dOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.image2dOptions.Name = "image2dOptions";
-            this.image2dOptions.Size = new System.Drawing.Size(249, 87);
+            this.image2dOptions.Size = new System.Drawing.Size(332, 107);
             this.image2dOptions.TabIndex = 3;
             // 
             // fourBppCheckBox
             // 
             this.fourBppCheckBox.AutoSize = true;
-            this.fourBppCheckBox.Location = new System.Drawing.Point(44, 57);
+            this.fourBppCheckBox.Location = new System.Drawing.Point(59, 70);
+            this.fourBppCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fourBppCheckBox.Name = "fourBppCheckBox";
-            this.fourBppCheckBox.Size = new System.Drawing.Size(126, 17);
+            this.fourBppCheckBox.Size = new System.Drawing.Size(162, 21);
             this.fourBppCheckBox.TabIndex = 2;
             this.fourBppCheckBox.Text = "<ViewIn4bppFormat>";
             this.fourBppCheckBox.UseVisualStyleBackColor = true;
@@ -176,30 +188,33 @@
             // tileOffsetNumber
             // 
             this.tileOffsetNumber.Enabled = false;
-            this.tileOffsetNumber.Location = new System.Drawing.Point(75, 31);
+            this.tileOffsetNumber.Location = new System.Drawing.Point(100, 38);
+            this.tileOffsetNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tileOffsetNumber.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.tileOffsetNumber.Name = "tileOffsetNumber";
-            this.tileOffsetNumber.Size = new System.Drawing.Size(168, 20);
+            this.tileOffsetNumber.Size = new System.Drawing.Size(224, 22);
             this.tileOffsetNumber.TabIndex = 1;
             this.tileOffsetNumber.ValueChanged += new System.EventHandler(this.tileWidthNumber_ValueChanged);
             // 
             // lblTileOffset
             // 
             this.lblTileOffset.AutoSize = true;
-            this.lblTileOffset.Location = new System.Drawing.Point(3, 33);
+            this.lblTileOffset.Location = new System.Drawing.Point(4, 41);
+            this.lblTileOffset.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTileOffset.Name = "lblTileOffset";
-            this.lblTileOffset.Size = new System.Drawing.Size(64, 13);
+            this.lblTileOffset.Size = new System.Drawing.Size(85, 17);
             this.lblTileOffset.TabIndex = 0;
             this.lblTileOffset.Text = "<TileOffset>";
             // 
             // tileWidthNumber
             // 
             this.tileWidthNumber.Enabled = false;
-            this.tileWidthNumber.Location = new System.Drawing.Point(75, 5);
+            this.tileWidthNumber.Location = new System.Drawing.Point(100, 6);
+            this.tileWidthNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tileWidthNumber.Maximum = new decimal(new int[] {
             64,
             0,
@@ -211,7 +226,7 @@
             0,
             0});
             this.tileWidthNumber.Name = "tileWidthNumber";
-            this.tileWidthNumber.Size = new System.Drawing.Size(168, 20);
+            this.tileWidthNumber.Size = new System.Drawing.Size(224, 22);
             this.tileWidthNumber.TabIndex = 1;
             this.tileWidthNumber.Value = new decimal(new int[] {
             1,
@@ -223,9 +238,10 @@
             // lblTileWidth
             // 
             this.lblTileWidth.AutoSize = true;
-            this.lblTileWidth.Location = new System.Drawing.Point(3, 7);
+            this.lblTileWidth.Location = new System.Drawing.Point(4, 9);
+            this.lblTileWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTileWidth.Name = "lblTileWidth";
-            this.lblTileWidth.Size = new System.Drawing.Size(64, 13);
+            this.lblTileWidth.Size = new System.Drawing.Size(83, 17);
             this.lblTileWidth.TabIndex = 0;
             this.lblTileWidth.Text = "<TileWidth>";
             // 
@@ -239,9 +255,10 @@
             this.panel2.Controls.Add(this.importThisBtn);
             this.panel2.Controls.Add(this.exportThisBtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 322);
+            this.panel2.Location = new System.Drawing.Point(0, 396);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(249, 186);
+            this.panel2.Size = new System.Drawing.Size(332, 229);
             this.panel2.TabIndex = 5;
             // 
             // autopaletteCheckBox
@@ -249,18 +266,20 @@
             this.autopaletteCheckBox.AutoSize = true;
             this.autopaletteCheckBox.Checked = true;
             this.autopaletteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autopaletteCheckBox.Location = new System.Drawing.Point(6, 159);
+            this.autopaletteCheckBox.Location = new System.Drawing.Point(8, 196);
+            this.autopaletteCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.autopaletteCheckBox.Name = "autopaletteCheckBox";
-            this.autopaletteCheckBox.Size = new System.Drawing.Size(126, 17);
+            this.autopaletteCheckBox.Size = new System.Drawing.Size(163, 21);
             this.autopaletteCheckBox.TabIndex = 3;
             this.autopaletteCheckBox.Text = "<Auto palette select>";
             this.autopaletteCheckBox.UseVisualStyleBackColor = true;
             // 
             // importAllBtn
             // 
-            this.importAllBtn.Location = new System.Drawing.Point(3, 130);
+            this.importAllBtn.Location = new System.Drawing.Point(4, 160);
+            this.importAllBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.importAllBtn.Name = "importAllBtn";
-            this.importAllBtn.Size = new System.Drawing.Size(237, 23);
+            this.importAllBtn.Size = new System.Drawing.Size(316, 28);
             this.importAllBtn.TabIndex = 0;
             this.importAllBtn.Text = "<Import all bitmaps with all palettes>";
             this.importAllBtn.UseVisualStyleBackColor = true;
@@ -268,9 +287,10 @@
             // 
             // saveAllBtn
             // 
-            this.saveAllBtn.Location = new System.Drawing.Point(168, 3);
+            this.saveAllBtn.Location = new System.Drawing.Point(224, 4);
+            this.saveAllBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveAllBtn.Name = "saveAllBtn";
-            this.saveAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveAllBtn.Size = new System.Drawing.Size(100, 28);
             this.saveAllBtn.TabIndex = 0;
             this.saveAllBtn.Text = "<Save all>";
             this.saveAllBtn.UseVisualStyleBackColor = true;
@@ -278,9 +298,10 @@
             // 
             // exportAllBtn
             // 
-            this.exportAllBtn.Location = new System.Drawing.Point(3, 101);
+            this.exportAllBtn.Location = new System.Drawing.Point(4, 124);
+            this.exportAllBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exportAllBtn.Name = "exportAllBtn";
-            this.exportAllBtn.Size = new System.Drawing.Size(237, 23);
+            this.exportAllBtn.Size = new System.Drawing.Size(316, 28);
             this.exportAllBtn.TabIndex = 0;
             this.exportAllBtn.Text = "<Export all bitmaps with all palettes>";
             this.exportAllBtn.UseVisualStyleBackColor = true;
@@ -288,9 +309,10 @@
             // 
             // importThisWithPalBtn
             // 
-            this.importThisWithPalBtn.Location = new System.Drawing.Point(3, 61);
+            this.importThisWithPalBtn.Location = new System.Drawing.Point(4, 75);
+            this.importThisWithPalBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.importThisWithPalBtn.Name = "importThisWithPalBtn";
-            this.importThisWithPalBtn.Size = new System.Drawing.Size(240, 23);
+            this.importThisWithPalBtn.Size = new System.Drawing.Size(320, 28);
             this.importThisWithPalBtn.TabIndex = 0;
             this.importThisWithPalBtn.Text = "<Import this bitmap and recreate palette>";
             this.importThisWithPalBtn.UseVisualStyleBackColor = true;
@@ -298,9 +320,10 @@
             // 
             // importThisBtn
             // 
-            this.importThisBtn.Location = new System.Drawing.Point(3, 32);
+            this.importThisBtn.Location = new System.Drawing.Point(4, 39);
+            this.importThisBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.importThisBtn.Name = "importThisBtn";
-            this.importThisBtn.Size = new System.Drawing.Size(240, 23);
+            this.importThisBtn.Size = new System.Drawing.Size(320, 28);
             this.importThisBtn.TabIndex = 0;
             this.importThisBtn.Text = "<Import this bitmap with existing palette>";
             this.importThisBtn.UseVisualStyleBackColor = true;
@@ -308,9 +331,10 @@
             // 
             // exportThisBtn
             // 
-            this.exportThisBtn.Location = new System.Drawing.Point(3, 3);
+            this.exportThisBtn.Location = new System.Drawing.Point(4, 4);
+            this.exportThisBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exportThisBtn.Name = "exportThisBtn";
-            this.exportThisBtn.Size = new System.Drawing.Size(116, 23);
+            this.exportThisBtn.Size = new System.Drawing.Size(155, 28);
             this.exportThisBtn.TabIndex = 0;
             this.exportThisBtn.Text = "<Export this bitmap>";
             this.exportThisBtn.UseVisualStyleBackColor = true;
@@ -319,20 +343,22 @@
             // graphicsEditor1
             // 
             this.graphicsEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsEditor1.Location = new System.Drawing.Point(249, 0);
+            this.graphicsEditor1.Location = new System.Drawing.Point(332, 0);
+            this.graphicsEditor1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.graphicsEditor1.Name = "graphicsEditor1";
-            this.graphicsEditor1.Size = new System.Drawing.Size(568, 508);
+            this.graphicsEditor1.Size = new System.Drawing.Size(757, 625);
             this.graphicsEditor1.TabIndex = 4;
             this.graphicsEditor1.SomethingSaved += new NSMBe5.GraphicsEditor.SomethingSavedD(this.graphicsEditor1_SomethingSaved);
             // 
             // ImageManager
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.graphicsEditor1);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ImageManager";
-            this.Size = new System.Drawing.Size(817, 508);
+            this.Size = new System.Drawing.Size(1089, 625);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);

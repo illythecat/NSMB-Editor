@@ -149,7 +149,7 @@ namespace NSMBe5
 			foreach(BncdImage img in images)
 			{
 		        File imgFile = new InlineFile(f, (int)dataOffset+img.tileNumber*tileLen, img.tileCount*tileLen, f.name);
-		        LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 8*img.tileWidth, BPP4, 0));
+		        LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 8*img.tileWidth, BPP4));
 			}
     	}
     	
