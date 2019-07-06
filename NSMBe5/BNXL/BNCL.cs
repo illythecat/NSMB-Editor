@@ -19,23 +19,14 @@ namespace NSMBe5
     {
         DSFileSystem.File f;
 
-        public BNCL(DSFileSystem.File f, int LZ77, bool UseAutoValues = false)
+        public BNCL(DSFileSystem.File f)
         {
-            if (LZ77 == 1)
-                f = new CompressedFile(f, CompressedFile.CompressionType.LZ);
-            else if (LZ77 == 2)
-                f = new CompressedFile(f, CompressedFile.CompressionType.LZWithHeader);
-
             this.f = f;
             f.beginEdit(this);
 
             InitializeComponent();
 
             Text += " - " + f.name;
-            if (LZ77 == 1)
-                Text += " - LZ";
-            else if (LZ77 == 2)
-                Text += " - LZwh";
 
             LoadBNCL();
             Show();

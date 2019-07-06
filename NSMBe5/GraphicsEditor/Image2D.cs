@@ -33,9 +33,6 @@ namespace NSMBe5
 
         private bool is4bppI;
 
-        //TODO: Ask on file opening whether LZ Compresed?
-        public int LZCompression = 1;
-
         public bool is4bpp
         {
             get{return is4bppI;}
@@ -48,27 +45,16 @@ namespace NSMBe5
         }
 
         public Image2D(File f, int width, bool is4bpp)
-            :this(f, width, is4bpp, 1)
-        {
-        }
-
-		//TODO: Take the LZ flag out of here and use LZFile.
-        public Image2D(File f, int width, bool is4bpp, int LZCompression)
         {
             this.f = f;
             this.is4bppI = is4bpp;
             this.width = width;
-            this.LZCompression = LZCompression;
             reload();
         }
 
         public void reload()
         {
             rawdata = f.getContents();
-            if(LZCompression == 1)
-                rawdata = ROM.LZ77_Decompress(rawdata, false);
-            else if (LZCompression == 2)
-                rawdata = ROM.LZ77_Decompress(rawdata, true);
             loadImageData();
         }
 
@@ -162,12 +148,7 @@ namespace NSMBe5
         public override void save()
         {
             saveImageData();
-            if (LZCompression == 1)
-                f.replace(ROM.LZ77_Compress(rawdata), this);
-            else if (LZCompression == 2)
-                f.replace(ROM.LZ77_Compress(rawdata, true), this);
-            else
-                f.replace(rawdata, this);
+            f.replace(rawdata, this);
         }
 
         public override byte[] getRawData()

@@ -106,20 +106,12 @@ namespace NSMBe5.DSFileSystem
             main.Expand();
         }
 
-        private string getFileTypeForFile(File f, out CompressedFile.CompressionType CompressionType)
+        private string getFileTypeForFile(File f)
         {
-            CompressionType = CompressedFile.CompressionType.None;
             string name = f.name.ToLowerInvariant();
 
             if (f.id == 131)
                 return "NSMBeUD";
-
-            if (f.fileSize > 0 && f.getByteAt(0) == 0x10)
-                CompressionType = CompressedFile.CompressionType.LZ;
-            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x37375A4C)
-                CompressionType = CompressedFile.CompressionType.LZWithHeader;
-            else if (f.fileSize >= 4 && f.getUintAt(0) == 0x307A6159)
-                CompressionType = CompressedFile.CompressionType.Yaz0;
 
             //Name checks
             if (name == "banner.bin") return "BANNER";
@@ -129,6 +121,8 @@ namespace NSMBe5.DSFileSystem
             if (name.EndsWith(".enpg")) return "ENPG"; //ENPG (256x256 Bitmap with 256x256 Palette)
 
             //Header checks
+            CompressedFile.CompressionType CompressionType = f.guessCompression(true);
+
             int i = 0;
             if (CompressionType == CompressedFile.CompressionType.LZ)
                 i = 5;
@@ -164,8 +158,8 @@ namespace NSMBe5.DSFileSystem
         {
             int returnValue = 1;
 
-            CompressedFile.CompressionType LZ77;
-            string type = getFileTypeForFile(f, out LZ77);
+            CompressedFile.CompressionType CompressionType = f.guessCompression(true);
+            string type = getFileTypeForFile(f);
 
             if (type == "NSMBeUD") returnValue = 17;
             if (type == "NARC") returnValue = 2;
@@ -193,11 +187,11 @@ namespace NSMBe5.DSFileSystem
             if (type == "BNCL") returnValue = 19;
 
             int intCompressionType = 0;
-            if (LZ77 == CompressedFile.CompressionType.LZ)
+            if (CompressionType == CompressedFile.CompressionType.LZ)
                 intCompressionType = 1;
-            else if (LZ77 == CompressedFile.CompressionType.LZWithHeader)
+            else if (CompressionType == CompressedFile.CompressionType.LZWithHeader)
                 intCompressionType = 2;
-            else if (LZ77 == CompressedFile.CompressionType.Yaz0)
+            else if (CompressionType == CompressedFile.CompressionType.Yaz0)
                 intCompressionType = 3;
 
             return returnValue + (intCompressionType * (fileTreeView.ImageList.Images.Count / 4));
@@ -440,7 +434,6 @@ namespace NSMBe5.DSFileSystem
             File f = fileTreeView.SelectedNode.Tag as File;
             try
             {
-
                 try
                 {
                     f.beginEdit(this);
@@ -450,17 +443,10 @@ namespace NSMBe5.DSFileSystem
                     MessageBox.Show(LanguageManager.Get("Errors", "File"));
                     return;
                 }
-                byte[] CompFile = f.getContents();
-                byte[] RawFile = CompFile;
 
-                if (f.getCompression() == CompressedFile.CompressionType.LZ)
-                    RawFile = ROM.LZ77_Decompress(CompFile, false);
-                else if (f.getCompression() == CompressedFile.CompressionType.LZWithHeader)
-                    RawFile = ROM.LZ77_Decompress(CompFile, true);
-                else if (f.getCompression() == CompressedFile.CompressionType.Yaz0)
-                    RawFile = ROM.Yaz0_Decompress(CompFile);
+                CompressedFile RawFile = new CompressedFile(f, CompressedFile.CompressionType.MaybeCompressed);
 
-                f.replace(RawFile, this);
+                f.replace(RawFile.getContents(), this);
                 UpdateFileInfo();
                 f.endEdit(this);
             }
@@ -542,20 +528,17 @@ namespace NSMBe5.DSFileSystem
 
             try
             {
-                CompressedFile.CompressionType CompressionType;
-                string type = getFileTypeForFile(f, out CompressionType);
+                if (!(f.id < 0))
+                    f = new CompressedFile(f, CompressedFile.CompressionType.MaybeCompressed);
 
-                if (CompressionType != CompressedFile.CompressionType.None)
-                    f = new CompressedFile(f, CompressionType);
-
-                switch (type)
+                switch (getFileTypeForFile(f))
                 {
                     case "BANNER":
                         {
                             LevelChooser.showImgMgr();
                             File imgFile = new InlineFile(f, 0x20, 0x200, f.name);
                             File palFile = new InlineFile(f, 0x220, 0x20, f.name);
-                            LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 32, true, 0));
+                            LevelChooser.imgMgr.m.addImage(new Image2D(imgFile, 32, true));
                             LevelChooser.imgMgr.m.addPalette(new FilePalette(palFile));
                         }
                         break;
@@ -580,7 +563,7 @@ namespace NSMBe5.DSFileSystem
                     case "BTX0":
                     case "BMD0":
                         {
-                            new NSBTX(f, 0);
+                            new NSBTX(f);
                         }
                         break;
                     case "NSCR":
@@ -599,7 +582,7 @@ namespace NSMBe5.DSFileSystem
                         break;
                     case "NCL":
                         {
-                            new PaletteViewer(new CompressedFile(f, 0)).Show();
+                            new PaletteViewer(f).Show();
                         }
                         break;
                     case "NSC":
@@ -626,17 +609,17 @@ namespace NSMBe5.DSFileSystem
                     case "NCG":
                         {
                             LevelChooser.showImgMgr();
-                            LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false, 0));
+                            LevelChooser.imgMgr.m.addImage(new Image2D(f, 256, false));
                         }
                         break;
                     case "BNBL":
                         {
-                            new BNBL(f, 0);
+                            new BNBL(f);
                         }
                         break;
                     case "BNCL":
                         {
-                            new BNCL(f, 0);
+                            new BNCL(f);
                         }
                         break;
                 }

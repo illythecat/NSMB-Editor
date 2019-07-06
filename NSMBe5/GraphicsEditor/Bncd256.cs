@@ -112,7 +112,7 @@ namespace NSMBe5
       foreach (Bncd256.Bncd256Image image in this.images)
       {
         File f1 = (File) new InlineFile(f, (int) num3 + image.tileNumber * num6, image.tileCount * num6, f.name);
-        LevelChooser.imgMgr.m.addImage((PalettedImage) new Image2D(f1, 8 * image.tileWidth, false, 0));
+        LevelChooser.imgMgr.m.addImage((PalettedImage) new Image2D(f1, 8 * image.tileWidth, false));
       }
     }
 

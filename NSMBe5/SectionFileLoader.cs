@@ -20,7 +20,7 @@ namespace NSMBe5
                 int tileWidth = f.getUshortAt(offs + 0xA);
                 if (tileWidth == 0xFFFF)
                     tileWidth = 8;
-                LevelChooser.imgMgr.m.addImage(new Image2D(new InlineFile(f, offs + 0x20, size - 0x20, f.name), 8*tileWidth, true, 0));
+                LevelChooser.imgMgr.m.addImage(new Image2D(new InlineFile(f, offs + 0x20, size - 0x20, f.name), 8*tileWidth, true));
             }
             else if (magic == 0x5343524E) //SCRN
             {

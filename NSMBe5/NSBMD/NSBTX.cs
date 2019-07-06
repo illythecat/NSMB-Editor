@@ -38,21 +38,8 @@ namespace NSMBe5.NSBMD
         PaletteDef[] palettes;
         public ByteArrayInputStream str;
 
-        public NSBTX(File f, int LZ77)
+        public NSBTX(File f)
         {
-
-            bool LZd = false;
-            /*if(LZ77 == 1)
-            {
-                f = new LZFile(f, LZFile.CompressionType.LZ);
-                LZd = true;
-            }
-            else if (LZ77 == 2)
-            {
-                f = new LZFile(f, LZFile.CompressionType.LZWithHeader);
-                LZd = true;
-            }*/
-
             this.f = f;
 
             data = f.getContents();
@@ -131,7 +118,7 @@ namespace NSMBe5.NSBMD
                 str.readUInt(); // unused
 
                 int size = width*height*Image3D.bpps[format]/8;
-                Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ"+LZd);
+                //Console.Out.WriteLine(offset.ToString("X8") + " " + format + " " + width + "x" + height + " " + color0 + " LZ");
 
                 InlineFile mainfile = new InlineFile(f, offset, size, Image3D.formatNames[format]);
                 if (format == 5)

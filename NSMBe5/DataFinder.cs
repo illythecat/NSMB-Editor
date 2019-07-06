@@ -99,7 +99,7 @@ namespace NSMBe5 {
 
             for (int i = 0; i < Levels.Count; i++)
             {
-                NSMBLevel l = new NSMBLevel(new InternalLevelSource(LevelFiles[i], null));
+                NSMBLevel l = new NSMBLevel(new InternalLevelSource(ROM.FS.getFileByName(LevelFiles[i]).id, null));
 
                 string n = Levels[i];
                 n += ": ";
