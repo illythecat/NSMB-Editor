@@ -125,8 +125,7 @@
             // 
             // BgPNGImportPrompt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(472, 180);
             this.Controls.Add(this.bgBmpSize_label);
             this.Controls.Add(this.fgBmpSize_label);

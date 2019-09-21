@@ -25,7 +25,7 @@ namespace NSMBe5
                 return new ClipboardLevelSource(Path.Combine(backupDirectory, ClipboardLevelSource.backupInfoString + ".nml"));
             if (backupText.Contains(Path.DirectorySeparatorChar.ToString()))
                 return new ExternalLevelSource(backupText, Path.Combine(backupDirectory, Path.GetFileName(backupText)));
-            return new InternalLevelSource(ROM.FS.getFileByName(backupText).id, backupText, Path.Combine(backupDirectory, backupText + ".nml"));
+            return new InternalLevelSource(backupText, backupText, Path.Combine(backupDirectory, backupText + ".nml"));
         }
     }
 }

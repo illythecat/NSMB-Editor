@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageManagerWindow));
             this.m = new NSMBe5.ImageManager();
             this.SuspendLayout();
             // 
@@ -36,17 +35,17 @@
             // 
             this.m.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m.Location = new System.Drawing.Point(0, 0);
+            this.m.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.m.Name = "m";
-            this.m.Size = new System.Drawing.Size(881, 484);
+            this.m.Size = new System.Drawing.Size(1175, 596);
             this.m.TabIndex = 0;
             // 
             // ImageManagerWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 484);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(1175, 596);
             this.Controls.Add(this.m);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ImageManagerWindow";
             this.Text = "2D Texture Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageManagerWindow_FormClosing);

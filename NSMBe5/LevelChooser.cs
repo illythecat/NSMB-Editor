@@ -137,18 +137,18 @@ namespace NSMBe5 {
                     WorldNode = levelTreeView.Nodes.Add("ln" + NameIdx.ToString(), ParseWorld[0]);
                 } else {
                     // Create a level
-                    string[] LevelID = LevelNames[NameIdx].Split('|');
-                    if (LevelID.Length == 2) {
+                    string[] ParseLevel = LevelNames[NameIdx].Split('|');
+                    int AreaCount = ParseLevel.Length - 1;
+                    if (AreaCount == 1) {
                         // One area only; no need for a subfolder here
-                        LevelNode = WorldNode.Nodes.Add("ln" + NameIdx.ToString(), LevelID[0]);
-                        LevelNode.Tag = int.Parse(LevelID[1]);
+                        LevelNode = WorldNode.Nodes.Add("ln" + NameIdx.ToString(), ParseLevel[0]);
+                        LevelNode.Tag = ParseLevel[1];
                     } else {
                         // Create a subfolder
-                        LevelNode = WorldNode.Nodes.Add("ln" + NameIdx.ToString(), LevelID[0]);
-                        int AreaCount = LevelID.Length;
-                        for (int AreaIdx = 1; AreaIdx < AreaCount; AreaIdx++) {
+                        LevelNode = WorldNode.Nodes.Add("ln" + NameIdx.ToString(), ParseLevel[0]);
+                        for (int AreaIdx = 1; AreaIdx <= AreaCount; AreaIdx++) {
                             AreaNode = LevelNode.Nodes.Add("ln" + NameIdx.ToString() + "a" + AreaIdx.ToString(), LanguageManager.Get("LevelChooser", "Area") + " " + AreaIdx.ToString());
-                            AreaNode.Tag = int.Parse(LevelID[AreaIdx]);
+                            AreaNode.Tag = ParseLevel[AreaIdx];
                         }
                     }
                 }
@@ -179,7 +179,7 @@ namespace NSMBe5 {
             // Open it
             try
             {
-                LevelEditor NewEditor = new LevelEditor(new NSMBLevel(new InternalLevelSource((int)levelTreeView.SelectedNode.Tag, EditorCaption)));
+                LevelEditor NewEditor = new LevelEditor(new NSMBLevel(new InternalLevelSource((string)levelTreeView.SelectedNode.Tag, EditorCaption)));
                 NewEditor.Show();
             }
             catch (AlreadyEditingException)
@@ -534,7 +534,7 @@ namespace NSMBe5 {
 
         private void mpPatch2_Click(object sender, EventArgs e)
         {
-            NSMBLevel lvl = new NSMBLevel(new InternalLevelSource(1183, ""));
+            NSMBLevel lvl = new NSMBLevel(new InternalLevelSource("J01_1", ""));
             NarcReplace("Dat_Field.narc", "I_M_nohara.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Field.narc", "I_M_nohara_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Field.narc", "d_2d_PA_I_M_nohara.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -551,7 +551,7 @@ namespace NSMBe5 {
             NarcReplace("Dat_Field.narc", "d_2d_I_M_free_nohara_VS_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
-            lvl = new NSMBLevel(new InternalLevelSource(1185, ""));
+            lvl = new NSMBLevel(new InternalLevelSource("J02_1", ""));
             NarcReplace("Dat_Basement.narc", "I_M_chika3.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Basement.narc", "I_M_chika3_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Basement.narc", "d_2d_PA_I_M_chika3.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -564,7 +564,7 @@ namespace NSMBe5 {
             NarcReplace("Dat_Basement.narc", "d_2d_I_M_back_chika3_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x6], ROM.Data.Table_BG_NCL));
 
 
-            lvl = new NSMBLevel(new InternalLevelSource(1187, ""));
+            lvl = new NSMBLevel(new InternalLevelSource("J03_1", ""));
             NarcReplace("Dat_Ice.narc", "I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Ice.narc", "I_M_setsugen2_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Ice.narc", "d_2d_PA_I_M_setsugen2.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
@@ -581,11 +581,11 @@ namespace NSMBe5 {
             NarcReplace("Dat_Ice.narc", "d_2d_I_M_free_setsugen2_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
-            lvl = new NSMBLevel(new InternalLevelSource(1189, ""));
+            lvl = new NSMBLevel(new InternalLevelSource("J04_1", ""));
             NarcReplace("Dat_Pipe.narc", "W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Pipe.narc", "W_M_dokansoto_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Pipe.narc", "d_2d_PA_W_M_dokansoto.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));
-            NarcReplace("Dat_Pipe.narc", "dokansotoMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
+            NarcReplace("Dat_Pipe.narc", "DoKaNSoToMainUnitChangeData.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_CHK));
             NarcReplace("Dat_Pipe.narc", "d_2d_W_M_tikei_dokansoto_ncg.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCG));
             NarcReplace("Dat_Pipe.narc", "d_2d_W_M_tikei_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_NCL));
 
@@ -598,7 +598,7 @@ namespace NSMBe5 {
             NarcReplace("Dat_Pipe.narc", "d_2d_W_M_free_dokansoto_ncl.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0x12], ROM.Data.Table_FG_NCL));
 
 
-            lvl = new NSMBLevel(new InternalLevelSource(1191, ""));
+            lvl = new NSMBLevel(new InternalLevelSource("J05_1", ""));
             NarcReplace("Dat_Fort.narc", "I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT));
             NarcReplace("Dat_Fort.narc", "I_M_yakata_hd.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_UNT_HD));
             NarcReplace("Dat_Fort.narc", "d_2d_PA_I_M_yakata.bin", ROM.GetFileIDFromTable(lvl.Blocks[0][0xC], ROM.Data.Table_TS_PNL));

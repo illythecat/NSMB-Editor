@@ -265,7 +265,7 @@
             // 
             // BNBL
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(512, 261);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.openImg);

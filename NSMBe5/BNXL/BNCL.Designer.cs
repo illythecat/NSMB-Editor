@@ -382,7 +382,7 @@
             // 
             // BNCL
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(520, 403);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.desc_label);
