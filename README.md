@@ -16,7 +16,7 @@ Necessary NSMBe files and directories:
  - NSMBe5.exe
 
 At first bootup time:
- - You will be prompted to download "spritedata.xml", if there isn't one already present. This is a necessary file for proper operation and it's download requires the file "classIDforSprite.txt".
+ - You will be prompted to download "spritedata.xml", if there isn't one already present. This is a necessary file for proper operation and its download requires the file "classIDforSprite.txt".
 
 Be.Windows.Forms.HexBox:
  - Current version is: 1.6.1
