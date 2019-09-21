@@ -101,7 +101,7 @@ namespace NSMBe5
 
         #region GraphicDefsPresetOperations
         XDocument SizePresetsXML;
-        string XMLDefsFileName = "BNCL_defs.xml";
+        string XMLDefsFileName = AppDomain.CurrentDomain.BaseDirectory + "/BNCL_defs.xml";
         private void CheckForSizePresetsFilePresence()
         {
             try

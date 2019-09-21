@@ -432,8 +432,8 @@ namespace NSMBe5.DSFileSystem
         private void decompressFileButton_Click(object sender, EventArgs e)
         {
             File f = fileTreeView.SelectedNode.Tag as File;
-            try
-            {
+            //try
+            //{
                 try
                 {
                     f.beginEdit(this);
@@ -444,18 +444,18 @@ namespace NSMBe5.DSFileSystem
                     return;
                 }
 
-                CompressedFile RawFile = new CompressedFile(f, CompressedFile.CompressionType.MaybeCompressed);
+                CompressedFile RawFile = new CompressedFile(f, CompressedFile.CompressionType.LZ);
 
                 f.replace(RawFile.getContents(), this);
                 UpdateFileInfo();
                 f.endEdit(this);
-            }
+            /*}
             catch (Exception)
             {
                 MessageBox.Show(LanguageManager.Get("FilesystemBrowser", "DecompressionFail"));
                 if (f.beingEditedBy(this))
                     f.endEdit(this);
-            }
+            }*/
         }
 
         private void compressWithHeaderButton_Click(object sender, EventArgs e)
