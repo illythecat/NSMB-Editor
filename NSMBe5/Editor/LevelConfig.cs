@@ -151,8 +151,9 @@ namespace NSMBe5 {
 
         private Bitmap RenderBackground(File GFXFile, File PalFile, File LayoutFile, int offs, int palOffs)
         {
-            LayoutFile = new CompressedFile(LayoutFile, CompressedFile.CompressionType.LZ);
-            PalFile = new CompressedFile(PalFile, CompressedFile.CompressionType.LZ);
+            GFXFile = new CompressedFile(GFXFile, CompressedFile.CompressionType.MaybeCompressed);
+            LayoutFile = new CompressedFile(LayoutFile, CompressedFile.CompressionType.MaybeCompressed);
+            PalFile = new CompressedFile(PalFile, CompressedFile.CompressionType.MaybeCompressed);
 
             Image2D i = new Image2D(GFXFile, 256, false);
             Palette pal1 = new FilePalette(new InlineFile(PalFile, 0, 512, PalFile.name));

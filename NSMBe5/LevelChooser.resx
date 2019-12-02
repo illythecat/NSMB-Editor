@@ -122,11 +122,11 @@
   </metadata>
   <data name="lblCredits.Text" xml:space="preserve">
     <value>Treeki - Original Developer
-Dirbaio - Current Developer
+Dirbaio - Second Developer
+TheGameratorT - Current Developer
 Piranhaplant - Developer
 MeroMero - Developer
 RicBent - Developer
-TheGameratorT - Developer
 And everyone else who's helped us make the editor and community awesome!</value>
   </data>
   <metadata name="importLevelDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

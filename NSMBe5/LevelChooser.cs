@@ -779,28 +779,27 @@ namespace NSMBe5 {
 
         private void Xdelta_export_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(LanguageManager.Get("Patch", "SelectROM"), LanguageManager.Get("Patch", "XExport"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LanguageManager.Get("Patch", "XSelectROM") + LanguageManager.Get("Patch", "XRestartAfterApplied"), LanguageManager.Get("Patch", "XExport"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             OpenFileDialog cleanROM_openFileDialog = new OpenFileDialog();
-            cleanROM_openFileDialog.Title = "Please select a clean NDS file";
+            cleanROM_openFileDialog.Title = "Please select a clean NSMB ROM file";
             cleanROM_openFileDialog.Filter = "Nintendo DS ROM (*.nds)|*.nds|All files (*.*)|*.*";
 
             if (cleanROM_openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             SaveFileDialog xdelta_saveFileDialog = new SaveFileDialog();
-            xdelta_saveFileDialog.Title = "Please select where to save the XDelta";
+            xdelta_saveFileDialog.Title = "Please select where to save the XDelta patch";
             xdelta_saveFileDialog.Filter = "XDelta Patch (*.xdelta)|*.xdelta|All files (*.*)|*.*";
 
             if (xdelta_saveFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            string tempROMname = "_TEMP_ProcessUnlockedROM.nds";
             try
             {
-                System.IO.File.Copy(Properties.Settings.Default.ROMPath, tempROMname);
+                ROM.close();
 
-                string str = " -f -s \"" + cleanROM_openFileDialog.FileName + "\" \"" + tempROMname + "\" \"" + xdelta_saveFileDialog.FileName + "\"";
+                string str = " -f -s \"" + cleanROM_openFileDialog.FileName + "\" \"" + Properties.Settings.Default.ROMPath + "\" \"" + xdelta_saveFileDialog.FileName + "\"";
                 Process process = new Process();
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.FileName = "xdelta3.exe";
@@ -825,27 +824,32 @@ namespace NSMBe5 {
             }
             finally
             {
-                System.IO.File.Delete(tempROMname);
+                //Restart NSMBe
+                Process process2 = new Process();
+                process2.StartInfo.FileName = Application.ExecutablePath;
+                process2.StartInfo.Arguments = "\"" + Properties.Settings.Default.ROMPath + "\"";
+                process2.Start();
+                Application.Exit();
             }
         }
 
         private void Xdelta_import_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("All of the ROM contents will be replaced with the XDelta patch, unlike the NSMBe patches, this one overwrites the ROM entirely!\n\nDo you still want to contiue?", LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("All of the ROM contents will be replaced with the XDelta patch, unlike the NSMBe patches, this one overwrites the ROM entirely!\n\nNSMBe is going to restart after the import has finished.\n\nDo you still want to contiue?", LanguageManager.Get("General", "Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.No)
                 return;
 
-            MessageBox.Show(LanguageManager.Get("Patch", "SelectROM"), LanguageManager.Get("Patch", "XImport"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(LanguageManager.Get("Patch", "XSelectROM"), LanguageManager.Get("Patch", "XImport"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             OpenFileDialog cleanROM_openFileDialog = new OpenFileDialog();
-            cleanROM_openFileDialog.Title = "Please select a clean NDS file";
+            cleanROM_openFileDialog.Title = "Please select a clean NSMB ROM file";
             cleanROM_openFileDialog.Filter = "Nintendo DS ROM (*.nds)|*.nds|All files (*.*)|*.*";
 
             if (cleanROM_openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             OpenFileDialog xdelta_openFileDialog = new OpenFileDialog();
-            xdelta_openFileDialog.Title = "Please select the XDelta to be patched";
+            xdelta_openFileDialog.Title = "Please select the XDelta patch to import";
             xdelta_openFileDialog.Filter = "XDelta Patch (*.xdelta)|*.xdelta|All files (*.*)|*.*";
 
             if (xdelta_openFileDialog.ShowDialog() != DialogResult.OK)

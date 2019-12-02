@@ -406,6 +406,9 @@ namespace NSMBe5
                         bw.BaseStream.WriteByte(objn_graphicID[i]);
                     }
 
+                    bw.Write((ushort)0); //Padding
+                    bw.Write((byte)0); //Padding
+
                     f.replace(memoryStream.ToArray(), this);
                 }
             }
