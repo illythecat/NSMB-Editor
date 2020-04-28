@@ -137,6 +137,33 @@ namespace NSMBe5
                 }
                 #endregion
 
+                #region Convert fields to bit format
+                XmlNodeList spriteFields = doc.SelectNodes("/database/sprites/sprite/field");
+                foreach (XmlNode spriteField in spriteFields)
+                {
+                    XmlAttribute idAttribute = spriteField.Attributes["id"];
+
+                    string id = idAttribute.Value;
+                    string result;
+                    if (id.Contains('-'))
+                    {
+                        string[] ids = id.Split('-');
+                        result = ((int.Parse(ids[0]) * 4) + 1).ToString();
+                        result += "-";
+                        result += ((int.Parse(ids[1]) * 4) + 4).ToString();
+                    }
+                    else
+                    {
+                        int id_ = int.Parse(id) * 4;
+                        result = (id_ + 1).ToString();
+                        result += "-";
+                        result += (id_ + 4).ToString();
+                    }
+
+                    idAttribute.Value = result;
+                }
+                #endregion
+
                 #region Make sure all of the 325 sprite slots are in use
                 for (int i = 0; i < 325; i++)
                 {
@@ -207,7 +234,12 @@ namespace NSMBe5
             {
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 XmlReader xmlr = XmlReader.Create(fs);
-                
+
+                string rom_spritedata_path = Path.Combine(Properties.Settings.Default.ROMFolder, "spritedata_patch.xml");
+                bool rom_spritedata_path_exists = File.Exists(rom_spritedata_path);
+                string new_spritedata_path = Path.Combine(directory, "new_spritedata.xml");
+                bool new_spritedata_path_exists = File.Exists(new_spritedata_path);
+
                 xmlr.ReadToFollowing("category");
                 do
                 {
@@ -219,20 +251,44 @@ namespace NSMBe5
 
                 while (xmlr.ReadToFollowing("sprite"))
                 {
+                    bool found_rom_data = false;
                     SpriteData d = readFromStream(xmlr);
 
-                    //Check for user spritedata
-                    FileStream fs_user = new FileStream(Path.Combine(directory, "user_spritedata.xml"), FileMode.Open, FileAccess.Read, FileShare.Read);
-                    XmlReader xmlr_user = XmlReader.Create(fs_user);
-                    while (xmlr_user.ReadToFollowing("sprite"))
+                    //Check for custom spritedata
+                    if (rom_spritedata_path_exists)
                     {
-                        if (int.Parse(xmlr_user.GetAttribute("id")) == d.spriteID)
+                        FileStream fs_rom = new FileStream(rom_spritedata_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        XmlReader xmlr_rom = XmlReader.Create(fs_rom);
+                        while (xmlr_rom.ReadToFollowing("sprite"))
                         {
-                            d = readFromStream(xmlr_user);
+                            if (int.Parse(xmlr_rom.GetAttribute("id")) == d.spriteID)
+                            {
+                                d = readFromStream(xmlr_rom);
+                                found_rom_data = true;
+                            }
+                        }
+                        xmlr_rom.Close();
+                        fs_rom.Close();
+                    }
+
+                    //Check for updated spritedata (forced patches)
+                    if (!found_rom_data)
+                    {
+                        if (new_spritedata_path_exists)
+                        {
+                            FileStream fs_new = new FileStream(new_spritedata_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                            XmlReader xmlr_new = XmlReader.Create(fs_new);
+                            while (xmlr_new.ReadToFollowing("sprite"))
+                            {
+                                if (int.Parse(xmlr_new.GetAttribute("id")) == d.spriteID)
+                                {
+                                    d = readFromStream(xmlr_new);
+                                }
+                            }
+                            xmlr_new.Close();
+                            fs_new.Close();
                         }
                     }
-                    xmlr_user.Close();
-                    fs_user.Close();
 
                     spriteNames.Add(d.name);
                     spritesInCategory[d.categoryID].Add(d.spriteID);
@@ -327,12 +383,12 @@ namespace NSMBe5
                         else
                             f.data = Int32.Parse(values);
                         break;
-                    case "bitcheckbox":
+                    /*case "bitcheckbox":
                         if (values.Trim() == "")
                             f.data = 0;
                         else
                             f.data = Int32.Parse(values);
-                        break;
+                        break;*/
                 }
                 sd.fields.Add(f);
             }
@@ -357,8 +413,8 @@ namespace NSMBe5
 
             public int getBitCount()
             {
-                return (endNibble - startNibble + 1) * 4;
-                //return (endNibble - startNibble + 1);
+                //return (endNibble - startNibble + 1) * 4;
+                return (endNibble - startNibble + 1);
             }
 
             public int getMin()
@@ -383,28 +439,28 @@ namespace NSMBe5
 
             public int getValue(byte[] data)
             {
-                byte[] nibbles = new byte[12];
-                //byte[] nibbles = new byte[48];
+                //byte[] nibbles = new byte[12];
+                byte[] nibbles = new byte[48];
                 for (int i = 0; i < 6; i++)
                 {
-                    nibbles[2 * i] = (byte)(data[i] >> 4);
-                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);
-                    /*nibbles[8 * i] = (byte)(data[i] >> 7);
+                    /*nibbles[2 * i] = (byte)(data[i] >> 4);
+                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);*/
+                    nibbles[8 * i] = (byte)(data[i] >> 7);
                     nibbles[8 * i + 1] = (byte)((data[i] >> 6) & 0x1);
                     nibbles[8 * i + 2] = (byte)((data[i] >> 5) & 0x1);
                     nibbles[8 * i + 3] = (byte)((data[i] >> 4) & 0x1);
                     nibbles[8 * i + 4] = (byte)((data[i] >> 3) & 0x1);
                     nibbles[8 * i + 5] = (byte)((data[i] >> 2) & 0x1);
                     nibbles[8 * i + 6] = (byte)((data[i] >> 1) & 0x1);
-                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);*/
+                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);
                 }
 
                 int res = 0;
-                for (int i = startNibble; i <= endNibble; i++)
-                //for (int i = startNibble - 1; i <= endNibble - 1; i++)
+                //for (int i = startNibble; i <= endNibble; i++)
+                for (int i = startNibble - 1; i <= endNibble - 1; i++)
                 {
-                    res = res << 4 | nibbles[i];
-                    //res = res << 1 | nibbles[i];
+                    //res = res << 4 | nibbles[i];
+                    res = res << 1 | nibbles[i];
                 }
 
                 if (display == "signedvalue" && res > getMax())
@@ -418,28 +474,28 @@ namespace NSMBe5
                 if (display == "checkbox")
                     res /= this.data;
 
-                if (display == "bitcheckbox")
-                    res = res >> this.data & 1;
+                /*if (display == "bitcheckbox")
+                    res = res >> this.data & 1;*/
 
                 return res;
             }
 
             public void setValue(int b, byte[] data)
             {
-                byte[] nibbles = new byte[12];
-                //byte[] nibbles = new byte[48];
+                //byte[] nibbles = new byte[12];
+                byte[] nibbles = new byte[48];
                 for (int i = 0; i < 6; i++)
                 {
-                    nibbles[2 * i] = (byte)(data[i] >> 4);
-                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);
-                    /*nibbles[8 * i] = (byte)(data[i] >> 7);
+                    /*nibbles[2 * i] = (byte)(data[i] >> 4);
+                    nibbles[2 * i + 1] = (byte)(data[i] & 0xF);*/
+                    nibbles[8 * i] = (byte)(data[i] >> 7);
                     nibbles[8 * i + 1] = (byte)((data[i] >> 6) & 0x1);
                     nibbles[8 * i + 2] = (byte)((data[i] >> 5) & 0x1);
                     nibbles[8 * i + 3] = (byte)((data[i] >> 4) & 0x1);
                     nibbles[8 * i + 4] = (byte)((data[i] >> 3) & 0x1);
                     nibbles[8 * i + 5] = (byte)((data[i] >> 2) & 0x1);
                     nibbles[8 * i + 6] = (byte)((data[i] >> 1) & 0x1);
-                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);*/
+                    nibbles[8 * i + 7] = (byte)(data[i] & 0x1);
                 }
 
                 if (display == "value" || display == "signedvalue")
@@ -448,28 +504,28 @@ namespace NSMBe5
                 if (display == "checkbox")
                     b *= this.data;
 
-                if (display == "bitcheckbox")
+                /*if (display == "bitcheckbox")
                 {
                     int num1 = 0;
                     for (int startNibble = this.startNibble; startNibble <= this.endNibble; ++startNibble)
                         num1 = num1 << 4 | (int)nibbles[startNibble];
                     int num2 = ~(1 << this.data);
                     b = num1 & num2 | b << this.data;
-                }
+                }*/
 
-                for (int i = endNibble; i >= startNibble; i--)
-                //for (int i = endNibble - 1; i >= startNibble - 1; i--)
+                //for (int i = endNibble; i >= startNibble; i--)
+                for (int i = endNibble - 1; i >= startNibble - 1; i--)
                 {
-                    nibbles[i] = (byte)(b & 0xF);
-                    b = b >> 4;
-                    /*nibbles[i] = (byte)(b & 0x1);
-                    b = b >> 1;*/
+                    /*nibbles[i] = (byte)(b & 0xF);
+                    b = b >> 4;*/
+                    nibbles[i] = (byte)(b & 0x1);
+                    b = b >> 1;
                 }
 
                 for (int i = 0; i < 6; i++)
                 {
-                    data[i] = (byte)(nibbles[2 * i] << 4 | nibbles[2 * i + 1]);
-                    //data[i] = (byte)(nibbles[8 * i] << 7 | nibbles[8 * i + 1] << 6 | nibbles[8 * i + 2] << 5 | nibbles[8 * i + 3] << 4 | nibbles[8 * i + 4] << 3 | nibbles[8 * i + 5] << 2 | nibbles[8 * i + 6] << 1 | nibbles[8 * i + 7]);
+                    //data[i] = (byte)(nibbles[2 * i] << 4 | nibbles[2 * i + 1]);
+                    data[i] = (byte)(nibbles[8 * i] << 7 | nibbles[8 * i + 1] << 6 | nibbles[8 * i + 2] << 5 | nibbles[8 * i + 3] << 4 | nibbles[8 * i + 4] << 3 | nibbles[8 * i + 5] << 2 | nibbles[8 * i + 6] << 1 | nibbles[8 * i + 7]);
                 }
             }
         }

@@ -630,7 +630,7 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="user_spritedata.xml">
+    <None Include="new_spritedata.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="xdelta3.exe">

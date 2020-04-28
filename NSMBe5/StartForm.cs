@@ -60,6 +60,22 @@ namespace NSMBe5
                         ROM.fileBackups.Add(backups[l]);
 
                 run(fs);
+
+                //DEBUG PRINT SHIT
+                /*foreach(File file in fs.allFiles)
+                {
+                    Directory lastDir = file.parentDir;
+                    while (true)
+                    {
+                        if(lastDir != null)
+                        {
+                            Console.Write("/" + lastDir.name);
+                        }
+                        lastDir = lastDir.parentDir;
+                        break;
+                    }
+                    Console.WriteLine("/" + file.name + " = " + (file.id - 131) + ",");
+                }*/
             }
             catch (Exception ex)
             {

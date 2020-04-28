@@ -73,10 +73,58 @@
       <fieldASM id="4" type="checkbox" name="Pipe mode" values="1" notes="" />
       <fieldASM id="5-6" type="value" name="Model type" values="" notes="" />
       <fieldASM id="7" type="checkbox" name="Smaller" values="1" notes="" />
-	  <fieldASM id="8" type="checkbox" name="Shift ½ block left" values="13" notes="" />
-	  <fieldASM id="9" type="checkbox" name="Shift ½ block down" values="14" notes="" />
+      <fieldASM id="8" type="checkbox" name="Shift ½ block left" values="13" notes="" />
+      <fieldASM id="9" type="checkbox" name="Shift ½ block down" values="14" notes="" />
       <!--fieldASM id="8" type="value" name="X Shift" values="" notes="" /-->
       <!--fieldASM id="9" type="value" name="Y Shift" values="" notes="" /-->
+    </sprite>
+    <sprite id="189">
+      <name>Mushroom Platform lift (tilting and bobbing)</name>
+      <flags known="1" complete="1" />
+      <category id="2" />
+      <notes>
+        A basic mushroom platform, where Mario/Luigi can stand. There is unused stuff like moving when stood on (huh? -Hiccup). 7 is the maximum height that works with sprite data.  If you want it to be longer, set it to 7 and then use a mushroom stalk object in the tileset to make the mushroom's stalk height look higher.
+        This mushroom can be either red or green.
+      </notes>
+      <files>
+        /enemy/I_kinoko_ashiba.nsbtx
+        /enemy/I_kinoko_ashiba2.nsbtx
+        /enemy/I_kinoko_kuki.nsbtx
+        /enemy/I_kinoko_kuki_l.nsbtx
+        /enemy/I_kinoko_kuki_s.nsbtx
+        /enemy/I_kinoko_kuki_sl.nsbtx
+      </files>
+      <field id="27" type="checkbox" name="Bobbing" values="1" notes="" />
+      <field id="25" type="list" name="Color" values="0=Red,1=Green" notes="Green is unused." />
+      <field id="30-32" type="value" name="Stalk height" values="" notes="Max 7. Add tiles under it." />
+      <field id="34-36" type="value" name="Length" values="" notes="" />
+      <field id="37-40" type="value" name="Tilt angle" values="" notes="" />
+      <field id="41-48" type="value" name="Speed" values="" notes="" />
+    </sprite>
+    <sprite id="195">
+      <name>Mushroom Platform lift (Moving, tilting &amp; bobbing)</name>
+      <flags known="1" complete="1" />
+      <category id="2" />
+      <notes>
+        Moves to the right until it hits a wall, then goes left, until it hits a wall, ect
+        This mushroom can be either red or green.
+      </notes>
+      <files>
+        /enemy/I_kinoko_ashiba.nsbtx
+        /enemy/I_kinoko_ashiba2.nsbtx
+        /enemy/I_kinoko_kuki.nsbtx
+        /enemy/I_kinoko_kuki_l.nsbtx
+        /enemy/I_kinoko_kuki_s.nsbtx
+        /enemy/I_kinoko_kuki_sl.nsbtx
+      </files>
+      <field id="20" type="checkbox" name="Use tracks" values="1" notes="Unused." />
+      <field id="21-24" type="value" name="Horizontal speed" values="" notes="" />
+      <field id="28" type="list" name="Color" values="0=Red,1=Green" notes="Green is unused." />
+      <field id="29-32" type="value" name="Stalk Height/Shift" values="" notes="" />
+      <field id="34-36" type="value" name="Width" values="" notes="" />
+      <field id="37-40" type="value" name="Tilting angle" values="" notes="" />
+      <field id="41-44" type="value" name="Bop speed" values="" notes="" />
+      <field id="45-48" type="value" name="Tilting speed" values="" notes="" />
     </sprite>
   </sprites>
 </database>
