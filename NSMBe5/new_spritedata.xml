@@ -54,9 +54,10 @@
       <files></files>
       <field id="44-48" type="list" name="Item type"
 	  values="
-		  0=Mushroom,
+		  0=Mushroom/Fireflower,
 		  1=Starman,
 		  2=Coin,
+		  3=Mushroom,
 		  5=Mega Mushroom,
 		  7=1-Up,
 		  9=Fire Flower,
@@ -65,9 +66,19 @@
 		  18=Entrance Vine (grows 7 tiles and then stops),
 		  25=Mini Mushroom"
 	  notes="" />
-      <field id="17" type="list" name="Direction" values="0=Right,1=Left" notes="" />
-      <field id="40-43" type="list" name="Spawn mode" values="0=Coming up,3=Coming down,4=Follows player" notes="" />
-      <field id="18-20" type="list" name="Spawn behavior" values="0=Coming from invisible block,1=Jumping low out of invisible block,2=Stuck in place uncollectable (Only spawns if set to move left!),3=Jumping high out of invisible block,4=Jumping medium out of invisible block,5=Jumping medium and falling fast out of invisible block,6=Falling stairs" notes="" />
+      <field id="17" type="list" name="Move direction" values="0=Right,1=Left" notes="" />
+      <field id="41-43" type="list" name="Spawn direction" values="0=Up,3=Down,4=Top (inventory)" notes="" />
+      <field id="18-20" type="list" name="Spawn behavior" values="0=Default,1=Jumping low out of block,2=Stuck in place uncollectable (Only spawns if set to move left!),3=Jumping high out of block,4=Jumping medium out of block,5=Jumping medium and falling fast out of block,6=Falling stairs" notes="" />
+	  <field id="31-32" type="list" name="Owner Player" values="0=Mario,1=Luigi" notes="" />
+	  
+	  <field id="40" type="checkbox" name="AND 0x100" values="" notes="" />
+	  <field id="39" type="checkbox" name="unk584" values="" notes="" />
+	  <field id="38" type="checkbox" name="unk588" values="" notes="" />
+	  <field id="37" type="checkbox" name="unk58C" values="" notes="" />
+	  
+	  <field id="29-30" type="value" name="unk580" values="" notes="" />
+	  
+	  <field id="21-24" type="checkbox" name="Not coming out of block" values="" notes="" />
       <field id="33-36" type="checkbox" name="Spawn animation occurs above tiles" values="1" notes="" />
     </sprite>
     <sprite id="77">

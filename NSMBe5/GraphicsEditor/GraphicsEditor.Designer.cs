@@ -167,7 +167,7 @@
             this.panel1.Controls.Add(this.drawingBox);
             this.panel1.Location = new System.Drawing.Point(3, 50);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(415, 213);
+            this.panel1.Size = new System.Drawing.Size(410, 213);
             this.panel1.TabIndex = 11;
             // 
             // drawingBox
@@ -239,7 +239,7 @@
             // palettePicker1
             // 
             this.palettePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.palettePicker1.Location = new System.Drawing.Point(424, 50);
+            this.palettePicker1.Location = new System.Drawing.Point(419, 50);
             this.palettePicker1.Name = "palettePicker1";
             this.palettePicker1.Size = new System.Drawing.Size(194, 194);
             this.palettePicker1.TabIndex = 12;

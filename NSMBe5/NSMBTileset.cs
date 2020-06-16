@@ -353,11 +353,12 @@ namespace NSMBe5
                 TileBehaviorFile.endEdit(this);
         }
 
+        private static byte rgb255_to_rgb31(int val) { return (byte)Math.Round((31f * val) / 255f); }
         public static ushort toRGB15(Color c)
         {
-            byte r = (byte)(c.R >> 3);
-            byte g = (byte)(c.G >> 3);
-            byte b = (byte)(c.B >> 3);
+            byte r = rgb255_to_rgb31(c.R);
+            byte g = rgb255_to_rgb31(c.G);
+            byte b = rgb255_to_rgb31(c.B);
 
             ushort val = 0;
 
@@ -367,11 +368,12 @@ namespace NSMBe5
             return val;
         }
 
+        private static byte rgb31_to_rgb255(int val) { return (byte)Math.Round((255f * val) / 31f); }
         public static Color fromRGB15(ushort c)
         {
-            int cR = (c & 31) * 8;
-            int cG = ((c >> 5) & 31) * 8;
-            int cB = ((c >> 10) & 31) * 8;
+            int cR = rgb31_to_rgb255(c & 31);
+            int cG = rgb31_to_rgb255((c >> 5) & 31);
+            int cB = rgb31_to_rgb255((c >> 10) & 31);
             return Color.FromArgb(cR, cG, cB);
         }
 
