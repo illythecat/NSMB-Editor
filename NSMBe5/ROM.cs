@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using NSMBe5.DSFileSystem;
 using System.Runtime.InteropServices;
-
+using System.Linq;
 
 /**
  * This class handles internal NSMB-specific data in the ROM.
@@ -253,7 +253,7 @@ namespace NSMBe5 {
                 ushort fileID = tbl.readUShort();
                 tbl.skip(6); //unused 0's
 
-                ovs2[fileID] = new Overlay(FS.getFileById(fileID), table, (uint)i * 32); //secondary overlay table used for overlay decompression
+                ovs2[ovId] = new Overlay(FS.getFileById(fileID), table, (uint)i * 32); //secondary overlay table used for overlay decompression
 
                 i++;
             }
