@@ -95,7 +95,7 @@ namespace NSMBe5
             int ct = 0;
             foreach (MultiColor c in freqTable.Keys)
                 if (c.someTransparent()) ct++;
-//            Console.Out.WriteLine("Transparent: " + ct);
+            //            Console.Out.WriteLine("Transparent: " + ct);
 
 
             Dictionary<MultiColor, int> newFreqTable = new Dictionary<MultiColor, int>();
