@@ -1,7 +1,7 @@
 # NSMB-Editor
 Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
 
-NSMBe 5.3 Git
+NSMBe 5.3 Git, modified to work with MKDS assembly
 -----------------
 Download NSMBe on NSMBHD: https://nsmbhd.net/download/
 
@@ -32,7 +32,23 @@ Credits:
  - Mero-Mero - Developer
  - RicBent - Developer
  - TheGameratorT - Developer
+ - Szymbar, adopted the structure to work wirh MKDS assembly
  - And all other contributers!
+
+## Notes about MKDS assembly
+In 2012, Gericom wrote [this post right here](https://nsmbhd.net/thread/1025-asm-hacking-project-template/?from=40#20201) that kickstarted the age of custom ASM hacks in Mario Kart DS. For the longest while people were using his old editor, called MKDS Course Modifier (now known as MKDS Utility Belt), but I was missing a few features related to ASM hacking that NSMB-Editor had, but MKDSCM didn't.
+
+This repo aims to bring all of the features of NSMBe back to our MKDS grounds while preserving backwards compatibility with 8 years of history of MKDS hacking until this mod.
+
+Here's a list of available labels and what labels are they equivalent to:
+`ansub` => same as in MKDSCM
+`arepl` => same as in MKDSCM
+`trepl` => same as in MKDSCM
+`btrpl` => 6 bytes, push{lr} and then blx (trepl)
+`ahook` => same as nsmbe's hook
+
+I really didn't want to waste too much time on that xd
+But hey, with this we can finally build on what we already have AND use all the features of NSMBe moving forwards in MKDS ASM hacking too!
 
 # Previews
 <p align="left">
