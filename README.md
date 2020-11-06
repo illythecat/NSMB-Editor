@@ -41,11 +41,11 @@ In 2012, Gericom wrote [this post right here](https://nsmbhd.net/thread/1025-asm
 This repo aims to bring all of the features of NSMBe back to our MKDS grounds while preserving backwards compatibility with 8 years of history of MKDS hacking until this mod.
 
 Here's a list of available labels and what labels are they equivalent to:
-`ansub` => same as in MKDSCM
-`arepl` => same as in MKDSCM
-`trepl` => same as in MKDSCM
-`btrpl` => 6 bytes, push{lr} and then blx (trepl)
-`ahook` => same as nsmbe's hook
+- `ansub` => same as in MKDSCM
+- `arepl` => same as in MKDSCM
+- `trepl` => same as in MKDSCM
+- `btrpl` => 6 bytes, push{lr} and then blx (trepl)
+- `ahook` => same as nsmbe's hook
 
 I really didn't want to waste too much time on that xd
 But hey, with this we can finally build on what we already have AND use all the features of NSMBe moving forwards in MKDS ASM hacking too!
