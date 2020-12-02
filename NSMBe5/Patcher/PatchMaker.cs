@@ -265,7 +265,6 @@ namespace NSMBe5.Patcher
                             continue;
                     }
 
-                    //Console.Out.WriteLine(String.Format("{0:X8}:{1:X8} = {2:X8}", patchCategory, ramAddr, val));
                     Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
 
                     handler.writeToRamAddr(ramAddr, val, ovId);
@@ -591,9 +590,6 @@ namespace NSMBe5.Patcher
                     res2 |= (UInt16)((offs << 1)  & 0x7FF);
 
                     res = (uint)(((uint)res2 << 16) | res1);
-
-                } else if (withLink == 3)
-                {
 
                 }
 
