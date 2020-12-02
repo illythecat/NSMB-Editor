@@ -56,7 +56,7 @@ namespace NSMBe5.Patcher
 
         public void generatePatch(string hookmap = "", string replaces = "")
         {
-        	int codeAddr = (int) getCodeAddr();
+            int codeAddr = (int)getCodeAddr();
             Console.Out.WriteLine(String.Format("New code address: {0:X8}", codeAddr));
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
@@ -186,30 +186,33 @@ namespace NSMBe5.Patcher
                 #endregion
 
                 int ind = -1;
-                if (l.Contains("ansub_"))
-                    ind = l.IndexOf("ansub_");
-                if (l.Contains("ahook_"))
-                    ind = l.IndexOf("ahook_");
-                if (l.Contains("arepl_"))
-                    ind = l.IndexOf("arepl_");
-                if (l.Contains("trepl_"))
-                    ind = l.IndexOf("trepl_");
-                if (l.Contains("btrpl_"))
-                    ind = l.IndexOf("btrpl_");
+                String[,] instructionNames = new String[2,5] {
+                    { "ansub", "ahook", "arepl", "trepl", "btrpl" }, //MKDS instructions
+                    { "nsub", "hook", "repl", "xrpl", "lrpl" } //NSMB equivalents
+                };
+
+
+                foreach(String instructionName in instructionNames)
+                {
+                    if (l.Contains(instructionName + "_"))
+                    {
+                        ind = l.IndexOf(instructionName + "_");
+                        break;
+                    }
+                }
 
                 if (ind != -1)
                 {
                     int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
-                    String ramAddressPossiblyShort = l.Substring(ind + 6);
+                    bool isFiveLetterInstruction = l.IndexOf('_') == ind+5;
+                    String ramAddressPossiblyShort = l.Substring(isFiveLetterInstruction ? ind + 6 : ind + 5);
                     if (ramAddressPossiblyShort.Length == 7) ramAddressPossiblyShort = "0" + ramAddressPossiblyShort;
                     int ramAddr = parseHex(ramAddressPossiblyShort); //Patched addr
                     uint val = 0;
 
                     int ovId = -1;
                     if (l.Contains("_ov_"))
-                        ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 5, 2));
-
-                    int patchCategory = 0;
+                        ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 4, 2));
 
                     string cmd = l.Substring(ind, 4);
                     int thisHookAddr = 0;
@@ -217,21 +220,26 @@ namespace NSMBe5.Patcher
                     switch(cmd)
                     {
                         case "ansub":
+                        case "nsub":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 0);
                             break;
                         case "arepl":
+                        case "repl":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 1);
                             break;
                         case "trepl":
+                        case "xrpl":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 2);
                             break;
                         case "btrpl":
+                        case "lrpl":
                             UInt16 lrvalue = 0xB500; //push {r14}
                             handler.writeToRamAddr(ramAddr, lrvalue, ovId);
                             ramAddr += 2;
                             val = makeBranchOpcode(ramAddr, destRamAddr, 2);
                             break;
                         case "ahook":
+                        case "hook":
                             //Jump to the hook addr
                             thisHookAddr = hookAddr;
                             val = makeBranchOpcode(ramAddr, hookAddr, 0);
