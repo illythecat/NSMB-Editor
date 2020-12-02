@@ -1,9 +1,9 @@
 # NSMB-Editor
 Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
 
-NSMBe 5.3 Git, modified to work with MKDS assembly
+NSMBe 5.3.1 Git, modified to work with MKDS assembly
 -----------------
-Download NSMBe on NSMBHD: https://nsmbhd.net/download/
+Download NSMBe on the GitHub Release page, older versions available at NSMBHD: https://nsmbhd.net/download/
 
 To run NSMBe:
  - **Windows:** .NET Framework 4.7.2
@@ -32,7 +32,7 @@ Credits:
  - Mero-Mero - Developer
  - RicBent - Developer
  - TheGameratorT - Developer
- - Szymbar, adopted the structure to work wirh MKDS assembly
+ - Szymbar - Developer, adopted the structure to work with MKDS assembly
  - And all other contributers!
 
 ## Notes about MKDS assembly
