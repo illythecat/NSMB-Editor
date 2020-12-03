@@ -214,7 +214,7 @@ namespace NSMBe5.Patcher
                     if (l.Contains("_ov_"))
                         ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 4, 2));
 
-                    string cmd = l.Substring(ind, 4);
+                    string cmd = l.Substring(ind, isFiveLetterInstruction ? 5 : 4 );
                     int thisHookAddr = 0;
 
                     switch(cmd)
