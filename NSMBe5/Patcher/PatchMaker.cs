@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
+
 
 namespace NSMBe5.Patcher
 {
@@ -204,10 +206,12 @@ namespace NSMBe5.Patcher
                 if (ind != -1)
                 {
                     int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
-                    bool isFiveLetterInstruction = l.IndexOf('_') == ind+5;
+                    bool isFiveLetterInstruction = l[ind+5]=='_';
+
                     String ramAddressPossiblyShort = l.Substring(isFiveLetterInstruction ? ind + 6 : ind + 5);
                     if (ramAddressPossiblyShort.Length == 7) ramAddressPossiblyShort = "0" + ramAddressPossiblyShort;
-                    int ramAddr = parseHex(ramAddressPossiblyShort); //Patched addr
+                    Regex rgx = new Regex("[^0-9a-fA-F]");
+                    int ramAddr = parseHex(rgx.Replace(ramAddressPossiblyShort, "")); //Patched addr
                     uint val = 0;
 
                     int ovId = -1;
