@@ -1,7 +1,7 @@
 # NSMB-Editor
 Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
 
-NSMBe 5.3.2 Git, modified to work with MKDS assembly
+NSMBe 5.3.2 Git
 -----------------
 Download NSMBe on the GitHub Release page, older versions available at NSMBHD: https://nsmbhd.net/download/
 
@@ -32,7 +32,7 @@ Credits:
  - Mero-Mero - Developer
  - RicBent - Developer
  - TheGameratorT - Developer
- - Szymbar - Developer, adopted the structure to work with MKDS assembly
+ - Szymbar - Developer, added MKDS ASM support
  - And all other contributers!
 
 ## Notes about MKDS assembly
@@ -54,6 +54,8 @@ But hey, with this we can finally build on what we already have AND use all the 
 
 In order to create an ASM hack, use the Dirbaio's [ASM Patch Template](https://github.com/Dirbaio/ASMPatchTemplate), it's a very nice starting point.
 The make file automatizes ASM hacking, but NSMBe can insert labels from built object files into specific spots in the arm9.bin file based on a label instruction that has been specified.
+
+Labels with function names are supported but not encouraged!!!
 
 A few examples of labels that are valid for the editor:
 - trepl_210ABCD
