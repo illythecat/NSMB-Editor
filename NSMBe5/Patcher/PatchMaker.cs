@@ -59,7 +59,7 @@ namespace NSMBe5.Patcher
         public void generatePatch(string hookmap = "", string replaces = "")
         {
             int codeAddr = (int)getCodeAddr();
-            Console.Out.WriteLine(String.Format("New code address: {0:X8}", codeAddr));
+            Console.Out.WriteLine(string.Format("New code address: {0:X8}", codeAddr));
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
             if (!f.Exists) return;
@@ -188,13 +188,13 @@ namespace NSMBe5.Patcher
                 #endregion
 
                 int ind = -1;
-                String[,] instructionNames = new String[2,5] {
-                    { "ansub", "ahook", "arepl", "trepl", "btrpl" }, //MKDS instructions
-                    { "nsub", "hook", "repl", "xrpl", "lrpl" } //NSMB equivalents
+                string[,] instructionNames = new string[2,5] {
+                    { "nsub", "hook", "repl", "xrpl", "lrpl" }, // NSMB instructions
+                    { "ansub", "ahook", "arepl", "trepl", "btrpl" } // MKDS instructions
                 };
 
 
-                foreach(String instructionName in instructionNames)
+                foreach(string instructionName in instructionNames)
                 {
                     if (l.Contains(instructionName + "_"))
                     {
@@ -212,7 +212,7 @@ namespace NSMBe5.Patcher
                     int startingIndex = isFiveLetterInstruction ? ind + 6 : ind + 5;
                     //Determining if the address is 7 or 8 characters long (200... vs 0200...)
                     bool isEightCharactersAddress = l[startingIndex] == '0';
-                    String ramAddress = l.Substring(startingIndex, isEightCharactersAddress ? 8 : 7);
+                    string ramAddress = l.Substring(startingIndex, isEightCharactersAddress ? 8 : 7);
                     if (!isEightCharactersAddress) ramAddress = "0" + ramAddress;
 
                     int ramAddr = parseHex(ramAddress); //Patched addr
@@ -273,7 +273,7 @@ namespace NSMBe5.Patcher
                             continue;
                     }
 
-                    Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
+                    Console.Out.WriteLine(string.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
 
                     handler.writeToRamAddr(ramAddr, val, ovId);
                 }
