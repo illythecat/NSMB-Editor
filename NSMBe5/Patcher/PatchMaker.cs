@@ -206,12 +206,16 @@ namespace NSMBe5.Patcher
                 if (ind != -1)
                 {
                     int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
-                    bool isFiveLetterInstruction = l[ind+5]=='_';
 
-                    String ramAddressPossiblyShort = l.Substring(isFiveLetterInstruction ? ind + 6 : ind + 5);
-                    if (ramAddressPossiblyShort.Length == 7) ramAddressPossiblyShort = "0" + ramAddressPossiblyShort;
-                    Regex rgx = new Regex("[^0-9a-fA-F]");
-                    int ramAddr = parseHex(rgx.Replace(ramAddressPossiblyShort, "")); //Patched addr
+                    //Determining if the instruction is 4 or 5 characters long (repl vs arepl, ...)
+                    bool isFiveLetterInstruction = l[ind+5]=='_';
+                    int startingIndex = isFiveLetterInstruction ? ind + 6 : ind + 5;
+                    //Determining if the address is 7 or 8 characters long (200... vs 0200...)
+                    bool isEightCharactersAddress = l[startingIndex] == '0';
+                    String ramAddress = l.Substring(startingIndex, isEightCharactersAddress ? 8 : 7);
+                    if (!isEightCharactersAddress) ramAddress = "0" + ramAddress;
+
+                    int ramAddr = parseHex(ramAddress); //Patched addr
                     uint val = 0;
 
                     int ovId = -1;
