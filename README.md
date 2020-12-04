@@ -50,6 +50,31 @@ Here's a list of available labels and what labels are they equivalent to:
 I really didn't want to waste too much time on that xd
 But hey, with this we can finally build on what we already have AND use all the features of NSMBe moving forwards in MKDS ASM hacking too!
 
+## Notes about Assembly in general
+
+In order to create an ASM hack, use the Dirbaio's [ASM Patch Template](https://github.com/Dirbaio/ASMPatchTemplate), it's a very nice starting point.
+The make file automatizes ASM hacking, but NSMBe can insert labels from built object files into specific spots in the arm9.bin file based on a label instruction that has been specified.
+
+A few examples of labels that are valid for the editor:
+- trepl_210ABCD
+- nsub_0213928F
+- xrpl_2355672NameOfTheActualFunction
+- ahook_02345678_Name
+
+A few invalid examples of labels:
+- thumbreplace_210ABCD
+- nsub-0213928F
+- xrpl_1355672NameOfTheActualFunction
+- ahook_Name_02345678
+
+A good, albeit scarce example of how the template works and how ASM hacks should be structured within those labels can be found on NSMBHD [here](https://nsmbhd.net/thread/1281-how-asm-hacks-are-setup-tutorial/). This thread serves as gospel in regards to how you should proceed making ASM hacks.
+
+## Examples of projects built using NSMBe 
+
+(version 5.3.2 onwards)
+- [Mario Kart DS: Gamecube Grand Prix](https://gbatemp.net/threads/mario-kart-ds-gamecube-grand-prix.485283), a MKDS hack by a team of hackers led by SGC
+- [Ermii Kart DS](https://gbatemp.net/threads/ermii-kart-ds-demo-available.428962/), a MKDS hack built to work on MKDSCM's assembler, is 100% forwards compatible with this assembler.
+
 # Previews
 <p align="left">
   <img src="https://raw.githubusercontent.com/TheGameratorT/NSMB-Editor/master/NSMBe5/Git_Prevs/filebrowser.png" width="385" title="File Browser">
