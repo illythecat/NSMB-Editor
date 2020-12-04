@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
+
 
 namespace NSMBe5.Patcher
 {
@@ -56,7 +58,7 @@ namespace NSMBe5.Patcher
 
         public void generatePatch(string hookmap = "", string replaces = "")
         {
-        	int codeAddr = (int) getCodeAddr();
+            int codeAddr = (int)getCodeAddr();
             Console.Out.WriteLine(String.Format("New code address: {0:X8}", codeAddr));
 
             FileInfo f = new FileInfo(romdir.FullName + "/newcode.bin");
@@ -186,49 +188,65 @@ namespace NSMBe5.Patcher
                 #endregion
 
                 int ind = -1;
-                if (l.Contains("nsub_"))
-                    ind = l.IndexOf("nsub_");
-                if (l.Contains("hook_"))
-                    ind = l.IndexOf("hook_");
-                if (l.Contains("repl_"))
-                    ind = l.IndexOf("repl_");
-                if (l.Contains("xrpl_"))
-                    ind = l.IndexOf("xrpl_");
-                if (l.Contains("lrpl_"))
-                    ind = l.IndexOf("lrpl_");
+                String[,] instructionNames = new String[2,5] {
+                    { "ansub", "ahook", "arepl", "trepl", "btrpl" }, //MKDS instructions
+                    { "nsub", "hook", "repl", "xrpl", "lrpl" } //NSMB equivalents
+                };
+
+
+                foreach(String instructionName in instructionNames)
+                {
+                    if (l.Contains(instructionName + "_"))
+                    {
+                        ind = l.IndexOf(instructionName + "_");
+                        break;
+                    }
+                }
 
                 if (ind != -1)
                 {
                     int destRamAddr= parseHex(l.Substring(0, 8));    //Redirect dest addr
-                    int ramAddr = parseHex(l.Substring(ind + 5, 8)); //Patched addr
+
+                    //Determining if the instruction is 4 or 5 characters long (repl vs arepl, ...)
+                    bool isFiveLetterInstruction = l[ind+5]=='_';
+                    int startingIndex = isFiveLetterInstruction ? ind + 6 : ind + 5;
+                    //Determining if the address is 7 or 8 characters long (200... vs 0200...)
+                    bool isEightCharactersAddress = l[startingIndex] == '0';
+                    String ramAddress = l.Substring(startingIndex, isEightCharactersAddress ? 8 : 7);
+                    if (!isEightCharactersAddress) ramAddress = "0" + ramAddress;
+
+                    int ramAddr = parseHex(ramAddress); //Patched addr
                     uint val = 0;
 
                     int ovId = -1;
                     if (l.Contains("_ov_"))
                         ovId = parseHex(l.Substring(l.IndexOf("_ov_") + 4, 2));
 
-                    int patchCategory = 0;
-
-                    string cmd = l.Substring(ind, 4);
+                    string cmd = l.Substring(ind, isFiveLetterInstruction ? 5 : 4 );
                     int thisHookAddr = 0;
 
                     switch(cmd)
                     {
+                        case "ansub":
                         case "nsub":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 0);
                             break;
+                        case "arepl":
                         case "repl":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 1);
                             break;
+                        case "trepl":
                         case "xrpl":
                             val = makeBranchOpcode(ramAddr, destRamAddr, 2);
                             break;
+                        case "btrpl":
                         case "lrpl":
                             UInt16 lrvalue = 0xB500; //push {r14}
                             handler.writeToRamAddr(ramAddr, lrvalue, ovId);
                             ramAddr += 2;
                             val = makeBranchOpcode(ramAddr, destRamAddr, 2);
                             break;
+                        case "ahook":
                         case "hook":
                             //Jump to the hook addr
                             thisHookAddr = hookAddr;
@@ -255,7 +273,6 @@ namespace NSMBe5.Patcher
                             continue;
                     }
 
-                    //Console.Out.WriteLine(String.Format("{0:X8}:{1:X8} = {2:X8}", patchCategory, ramAddr, val));
                     Console.Out.WriteLine(String.Format("              {0:X8} {1:X8}", destRamAddr, thisHookAddr));
 
                     handler.writeToRamAddr(ramAddr, val, ovId);
