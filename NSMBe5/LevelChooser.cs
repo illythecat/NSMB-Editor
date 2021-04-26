@@ -18,19 +18,11 @@
 using System;
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Threading;
 using NSMBe5.DSFileSystem;
-using NSMBe5.NSBMD;
 using NSMBe5.Patcher;
-using System.Net;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace NSMBe5 {
     public partial class LevelChooser : Form
@@ -104,8 +96,8 @@ namespace NSMBe5 {
             }
 
 
-            this.Text = "NSMB Editor 5.3.2 - " + ROM.filename;
-            label3.Text = "NSMB Editor 5.3.2 " + Properties.Resources.version.Trim();
+            this.Text = "NSMB Editor 5.3.3 - " + ROM.filename;
+            label3.Text = "NSMB Editor 5.3.3 " + Properties.Resources.version.Trim();
             this.Icon = Properties.Resources.nsmbe;
 
             if (!ROM.isNSMBRom)
@@ -117,7 +109,13 @@ namespace NSMBe5 {
                 musicSlotsGrp.Enabled = false;
             }
 
-//            new LevelEditor("A01_1", "LOL").Show();
+            // new LevelEditor("A01_1", "LOL").Show();
+
+            if (Properties.Settings.Default.UseFireflower)
+            {
+                makeinsert.Text = "Run 'fireflower' and insert";
+                makeclean.Text = "Clean build";
+            }
         }
 
 
@@ -658,13 +656,22 @@ namespace NSMBe5 {
 
         private void makeinsert_Click(object sender, EventArgs e)
         {
-            PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-            string hookmap;
-            string replaces;
-            pm.insertCode(ROM.romfile.Directory, out hookmap, out replaces);
-            pm.restore();
-            pm.compilePatch();
-            pm.generatePatch(hookmap, replaces);
+            if (Properties.Settings.Default.UseFireflower)
+            {
+                PatchMakerFF pmff = new PatchMakerFF(ROM.romfile.Directory);
+                pmff.compilePatch();
+                pmff.importPatch();
+            }
+            else
+            {
+                PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
+                string hookmap;
+                string replaces;
+                pm.insertCode(ROM.romfile.Directory, out hookmap, out replaces);
+                pm.restore();
+                pm.compilePatch();
+                pm.generatePatch(hookmap, replaces);
+            }
         }
 
         private void makeclean_Click(object sender, EventArgs e)

@@ -16,10 +16,9 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace NSMBe5.Patcher
 {
@@ -31,9 +30,34 @@ namespace NSMBe5.Patcher
             return runProcess("make CODEADDR=0x" + destAddr.ToString("X8"), romDir.FullName);
         }
 
+        public static int compilePatchFF(DirectoryInfo romDir)
+        {
+            return runProcess("fireflower", romDir.FullName);
+        }
+
         public static int cleanPatch(DirectoryInfo romDir)
         {
-            return runProcess("make clean", romDir.FullName);
+            if (Properties.Settings.Default.UseFireflower)
+            {
+                string path = Path.Combine(romDir.FullName, "build");
+                if (Directory.Exists(path))
+                {
+                    try
+                    {
+                        Directory.Delete(path, true);
+                        MessageBox.Show("Done!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                return 0;
+            }
+            else
+            {
+                return runProcess("make clean", romDir.FullName);
+            }
         }
 
         public static int runProcess(string proc, string cwd)

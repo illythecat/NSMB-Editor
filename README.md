@@ -1,7 +1,7 @@
 # NSMB-Editor
 Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
 
-NSMBe 5.3.2 Git
+NSMBe 5.3.3 Git
 -----------------
 Download NSMBe on the GitHub Release page, older versions available at NSMBHD: https://nsmbhd.net/download/
 
