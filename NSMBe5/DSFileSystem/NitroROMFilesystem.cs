@@ -52,6 +52,8 @@ namespace NSMBe5.DSFileSystem
 
             arm9ovFile = new PhysicalFile(this, mainDir, -3, "arm9ovt.bin", headerFile, 0x50, 0x54, true);
             arm7ovFile = new PhysicalFile(this, mainDir, -4, "arm7ovt.bin", headerFile, 0x58, 0x5C, true);
+            //            arm9binFile = new Arm9BinFile(this, mainDir, headerFile);
+            //            File arm9binFile2 = new PhysicalFile(this, mainDir, true, -2, "arm9.bin", headerFile, 0x20, 0xC, true);
             arm9binFile = new PhysicalFile(this, mainDir, -5, "arm9.bin", headerFile, 0x20, 0x2C, true);
             arm9binFile.alignment = 0x1000;
             arm9binFile.canChangeOffset = false;

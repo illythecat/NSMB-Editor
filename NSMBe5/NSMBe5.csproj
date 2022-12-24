@@ -270,9 +270,9 @@
     <Compile Include="ObjectPickerControlNew.Designer.cs">
       <DependentUpon>ObjectPickerControlNew.cs</DependentUpon>
     </Compile>
-    <Compile Include="Patcher\PatchCompiler.cs" />
-    <Compile Include="Patcher\PatchMakerFF.cs" />
-    <Compile Include="Patcher\PatchMaker.cs" />
+    <Compile Include="Patcher\CodePatcher.cs" />
+    <Compile Include="Patcher\CodePatcherModern.cs" />
+    <Compile Include="Patcher\CodePatcherNSMBe.cs" />
     <Compile Include="PickerTest.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -61,8 +61,10 @@ namespace NSMBe5 {
             this.mpPatch2 = new System.Windows.Forms.Button();
             this.dataFinderButton = new System.Windows.Forms.Button();
             this.asmToolsGroupbox = new System.Windows.Forms.GroupBox();
-            this.makeclean = new System.Windows.Forms.Button();
-            this.makeinsert = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.codePatchingComboBox = new System.Windows.Forms.ComboBox();
+            this.cleanBuild = new System.Windows.Forms.Button();
+            this.compileInsert = new System.Windows.Forms.Button();
             this.decompArm9Bin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.using_sb_asm_checkBox = new System.Windows.Forms.CheckBox();
@@ -78,6 +80,7 @@ namespace NSMBe5 {
             this.changeLanguageButton = new System.Windows.Forms.Button();
             this.dumpMapButton = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lnkNSMBHD = new System.Windows.Forms.LinkLabel();
             this.lnkGitHub = new System.Windows.Forms.LinkLabel();
             this.lblLinksHeader = new System.Windows.Forms.Label();
@@ -93,7 +96,6 @@ namespace NSMBe5 {
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -502,8 +504,10 @@ namespace NSMBe5 {
             // 
             this.asmToolsGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.asmToolsGroupbox.Controls.Add(this.makeclean);
-            this.asmToolsGroupbox.Controls.Add(this.makeinsert);
+            this.asmToolsGroupbox.Controls.Add(this.label4);
+            this.asmToolsGroupbox.Controls.Add(this.codePatchingComboBox);
+            this.asmToolsGroupbox.Controls.Add(this.cleanBuild);
+            this.asmToolsGroupbox.Controls.Add(this.compileInsert);
             this.asmToolsGroupbox.Controls.Add(this.decompArm9Bin);
             this.asmToolsGroupbox.Location = new System.Drawing.Point(258, 92);
             this.asmToolsGroupbox.Name = "asmToolsGroupbox";
@@ -512,29 +516,47 @@ namespace NSMBe5 {
             this.asmToolsGroupbox.TabStop = false;
             this.asmToolsGroupbox.Text = "<ASM Tools>";
             // 
-            // makeclean
+            // label4
             // 
-            this.makeclean.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 80);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(117, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Code patching method:";
+            // 
+            // codePatchingComboBox
+            // 
+            this.codePatchingComboBox.FormattingEnabled = true;
+            this.codePatchingComboBox.Location = new System.Drawing.Point(140, 77);
+            this.codePatchingComboBox.Name = "codePatchingComboBox";
+            this.codePatchingComboBox.Size = new System.Drawing.Size(132, 21);
+            this.codePatchingComboBox.TabIndex = 14;
+            this.codePatchingComboBox.SelectedIndexChanged += new System.EventHandler(this.patchMethodComboBox_SelectedIndexChanged);
+            // 
+            // cleanBuild
+            // 
+            this.cleanBuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.makeclean.Location = new System.Drawing.Point(6, 77);
-            this.makeclean.Name = "makeclean";
-            this.makeclean.Size = new System.Drawing.Size(266, 23);
-            this.makeclean.TabIndex = 3;
-            this.makeclean.Text = "<Run \'make clean\'>";
-            this.makeclean.UseVisualStyleBackColor = true;
-            this.makeclean.Click += new System.EventHandler(this.makeclean_Click);
+            this.cleanBuild.Location = new System.Drawing.Point(140, 48);
+            this.cleanBuild.Name = "cleanBuild";
+            this.cleanBuild.Size = new System.Drawing.Size(133, 23);
+            this.cleanBuild.TabIndex = 3;
+            this.cleanBuild.Text = "<Clean build>";
+            this.cleanBuild.UseVisualStyleBackColor = true;
+            this.cleanBuild.Click += new System.EventHandler(this.cleanBuild_Click);
             // 
-            // makeinsert
+            // compileInsert
             // 
-            this.makeinsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.compileInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.makeinsert.Location = new System.Drawing.Point(6, 48);
-            this.makeinsert.Name = "makeinsert";
-            this.makeinsert.Size = new System.Drawing.Size(266, 23);
-            this.makeinsert.TabIndex = 3;
-            this.makeinsert.Text = "<Run \'make\' and insert>";
-            this.makeinsert.UseVisualStyleBackColor = true;
-            this.makeinsert.Click += new System.EventHandler(this.makeinsert_Click);
+            this.compileInsert.Location = new System.Drawing.Point(6, 48);
+            this.compileInsert.Name = "compileInsert";
+            this.compileInsert.Size = new System.Drawing.Size(133, 23);
+            this.compileInsert.TabIndex = 3;
+            this.compileInsert.Text = "<Compile and insert>";
+            this.compileInsert.UseVisualStyleBackColor = true;
+            this.compileInsert.Click += new System.EventHandler(this.compileInsert_Click);
             // 
             // decompArm9Bin
             // 
@@ -725,6 +747,18 @@ namespace NSMBe5 {
             this.tabPage4.Text = "<About>";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(182, 274);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(183, 13);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "NSMBe on GitHub [The original repo]";
+            this.toolTip1.SetToolTip(this.linkLabel1, "https://github.com/Dirbaio/NSMB-Editor");
+            // 
             // lnkNSMBHD
             // 
             this.lnkNSMBHD.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -806,18 +840,6 @@ namespace NSMBe5 {
             this.label1.TabIndex = 0;
             this.label1.Text = "New Super Mario Bros. Editor";
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(182, 274);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(183, 13);
-            this.linkLabel1.TabIndex = 10;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "NSMBe on GitHub [The original repo]";
-            this.toolTip1.SetToolTip(this.linkLabel1, "https://github.com/Dirbaio/NSMB-Editor");
-            // 
             // LevelChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -841,6 +863,7 @@ namespace NSMBe5 {
             this.patchesGroupbox.ResumeLayout(false);
             this.nsmbToolsGroupbox.ResumeLayout(false);
             this.asmToolsGroupbox.ResumeLayout(false);
+            this.asmToolsGroupbox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.autoBackupTime)).EndInit();
@@ -876,10 +899,10 @@ namespace NSMBe5 {
         private System.Windows.Forms.Button decompArm9Bin;
         private System.Windows.Forms.Button mpPatch2;
         private System.Windows.Forms.GroupBox asmToolsGroupbox;
-        private System.Windows.Forms.Button makeinsert;
+        private System.Windows.Forms.Button compileInsert;
         private System.Windows.Forms.OpenFileDialog openTextFileDialog;
         private System.Windows.Forms.Button dumpMapButton;
-        private System.Windows.Forms.Button makeclean;
+        private System.Windows.Forms.Button cleanBuild;
         private System.Windows.Forms.SaveFileDialog saveTextFileDialog;
         private System.Windows.Forms.CheckBox useMDI;
         private System.Windows.Forms.Button updateSpriteDataButton;
@@ -919,5 +942,7 @@ namespace NSMBe5 {
         private System.Windows.Forms.Button xdelta_export;
         private System.Windows.Forms.CheckBox using_sb_asm_checkBox;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.ComboBox codePatchingComboBox;
+        private System.Windows.Forms.Label label4;
     }
 }
