@@ -30,8 +30,6 @@ namespace NSMBe5
         public ProgressWindow(string title)
         {
             InitializeComponent();
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
             this.Text = title;
             this.Icon = Properties.Resources.nsmbe;
         }

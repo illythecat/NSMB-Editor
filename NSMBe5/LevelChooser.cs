@@ -48,9 +48,8 @@ namespace NSMBe5 {
 
         private void LevelChooser_Load(object sender, EventArgs e)
         {
-            useMDI.Checked = Properties.Settings.Default.mdi;
             dlpCheckBox.Checked = Properties.Settings.Default.dlpMode;
-            using_sb_asm_checkBox.Checked = Properties.Settings.Default.using_signboard_asm;
+            usingSBCodeHackCheckBox.Checked = Properties.Settings.Default.using_signboard_asm;
             chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
             if (chkAutoBackup.Checked)
                 autoBackupTime.Value = Properties.Settings.Default.AutoBackup;
@@ -70,7 +69,7 @@ namespace NSMBe5 {
             savePatchDialog.Filter = LanguageManager.Get("Filters", "patch");
             openTextFileDialog.Filter = LanguageManager.Get("Filters", "text");
             saveTextFileDialog.Filter = LanguageManager.Get("Filters", "text");
-            this.Activate();
+            Activate();
             //Get Language Files
 			string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
             if (System.IO.Directory.Exists(langDir)) {
@@ -78,10 +77,14 @@ namespace NSMBe5 {
                 for (int l = 0; l < files.Length; l++) {
                     if (files[l].EndsWith(".ini")) {
                         int startPos = files[l].LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1;
-                        languageListBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
+                        languagesComboBox.Items.Add(files[l].Substring(startPos, files[l].LastIndexOf('.') - startPos));
                     }
                 }
             }
+            languagesComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            languagesComboBox.SelectedIndexChanged -= new EventHandler(languagesComboBox_SelectedIndexChanged);
+            languagesComboBox.SelectedItem = Properties.Settings.Default.LanguageFile;
+            languagesComboBox.SelectedIndexChanged += new EventHandler(languagesComboBox_SelectedIndexChanged);
 
             // Load file backups from crash
             string backupPath = Path.Combine(Application.StartupPath, "Backup");
@@ -96,9 +99,9 @@ namespace NSMBe5 {
             }
 
 
-            this.Text = "NSMB Editor 5.3.3 - " + ROM.filename;
-            label3.Text = "NSMB Editor 5.3.3 " + Properties.Resources.version.Trim();
-            this.Icon = Properties.Resources.nsmbe;
+            Text = "NSMB Editor 5.3.3 - " + ROM.filename;
+            versionLabel.Text = "NSMB Editor 5.3.3 " + Properties.Resources.version.Trim();
+            Icon = Properties.Resources.nsmbe;
 
             if (!ROM.isNSMBRom)
             {
@@ -109,13 +112,19 @@ namespace NSMBe5 {
                 musicSlotsGrp.Enabled = false;
             }
 
-            // new LevelEditor("A01_1", "LOL").Show();
-
-            if (Properties.Settings.Default.UseFireflower)
+            string[] codePatchingMethods =
             {
-                makeinsert.Text = "Run 'fireflower' and insert";
-                makeclean.Text = "Clean build";
-            }
+                "NSMBe",
+                "Fireflower",
+                "NCPatcher"
+            };
+
+            patchMethodComboBox.Items.AddRange(codePatchingMethods);
+            patchMethodComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            patchMethodComboBox.SelectedIndexChanged -= new EventHandler(patchMethodComboBox_SelectedIndexChanged);
+            patchMethodComboBox.SelectedIndex = Properties.Settings.Default.CodePatchingMethod;
+            patchMethodComboBox.SelectedIndexChanged += new EventHandler(patchMethodComboBox_SelectedIndexChanged);
+
         }
 
 
@@ -647,90 +656,72 @@ namespace NSMBe5 {
             fs.close();
         }
 
-		//ASM Tools
+		// Code hacking tools
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
-            Arm9BinaryHandler bh = new Arm9BinaryHandler();
-            bh.decompress();
+            Arm9BinaryHandler handler = new Arm9BinaryHandler();
+            handler.decompress();
+            MessageBox.Show("Arm9 binary successfully decompressed", "Arm9 binary decompressing", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void makeinsert_Click(object sender, EventArgs e)
+        private CodePatcher GetCodePatcher(DirectoryInfo path)
         {
-            if (Properties.Settings.Default.UseFireflower)
+            switch (Properties.Settings.Default.CodePatchingMethod)
             {
-                PatchMakerFF pmff = new PatchMakerFF(ROM.romfile.Directory);
-                pmff.compilePatch();
-                pmff.importPatch();
-            }
-            else
-            {
-                PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-                string hookmap;
-                string replaces;
-                pm.insertCode(ROM.romfile.Directory, out hookmap, out replaces);
-                pm.restore();
-                pm.compilePatch();
-                pm.generatePatch(hookmap, replaces);
+                case CodePatcher.Method.NSMBe:
+                    return new CodePatcherNSMBe(path);
+                case CodePatcher.Method.Fireflower:
+                    return new CodePatcherModern(path, "fireflower");
+                case CodePatcher.Method.NCPatcher:
+                    return new CodePatcherModern(path, "ncpatcher");
+                default:
+                    throw new Exception("Illegal code patching method specified");
             }
         }
 
-        private void makeclean_Click(object sender, EventArgs e)
+        private void compileInsert_Click(object sender, EventArgs e)
         {
-            PatchCompiler.cleanPatch(ROM.romfile.Directory);
+            CodePatcher patcher = GetCodePatcher(ROM.romfile.Directory);
+
+            try
+            {
+                patcher.Execute();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong during code patching:\n" + ex.Message, "Code patching", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cleanBuild_Click(object sender, EventArgs e)
+        {
+            CodePatcher patcher = GetCodePatcher(ROM.romfile.Directory);
+
+            try
+            {
+                patcher.CleanBuild();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong during build cleaning:\n" + ex.Message, "Build cleaning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         
         //Settings
-        private void useMDI_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.mdi = useMDI.Checked;
-            Properties.Settings.Default.Save();
-        }
 
         private void updateSpriteDataButton_Click(object sender, EventArgs e)
         {
             SpriteData.Update();
         }
-
-        private void changeLanguageButton_Click(object sender, EventArgs e) {
-            if (languageListBox.SelectedItem != null) {
-                Properties.Settings.Default.LanguageFile = languageListBox.SelectedItem.ToString();
-                Properties.Settings.Default.Save();
-
-                    MessageBox.Show(
-                        LanguageManager.Get("LevelChooser", "LangChanged"),
-                        LanguageManager.Get("LevelChooser", "LangChangedTitle"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
         
         //Other crap
-        private void dumpMapButton_Click(object sender, EventArgs e)
-        {
-/*            if (saveTextFileDialog.ShowDialog() != DialogResult.OK) return;
-
-            TextWriter tw = new StreamWriter(new FileStream(saveTextFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite));
-            ROM.FS.dumpFilesOrdered(tw);
-            tw.Close();*/
-        }
         
         private void LevelChooser_FormClosing(object sender, FormClosingEventArgs e)
         {
             ROM.close();
             Console.Out.WriteLine(e.CloseReason.ToString());
-            if (MdiParentForm.instance != null && e.CloseReason != CloseReason.MdiFormClosing)
-                MdiParentForm.instance.Close();
             Properties.Settings.Default.BackupFiles = "";
             Properties.Settings.Default.Save();
-        }
-        
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://github.com/Dirbaio/NSMB-Editor");
-        }
-
-        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://nsmbhd.net/");
         }
 
         private void renameBtn_Click(object sender, EventArgs e)
@@ -907,10 +898,48 @@ namespace NSMBe5 {
 
         private void Using_sb_asm_checkBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.using_signboard_asm = using_sb_asm_checkBox.Checked;
+            Properties.Settings.Default.using_signboard_asm = usingSBCodeHackCheckBox.Checked;
             Properties.Settings.Default.Save();
 
             SpriteData.Load();
+        }
+
+        private void patchMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.CodePatchingMethod = patchMethodComboBox.SelectedIndex;
+            Properties.Settings.Default.Save();
+        }
+
+        private void languagesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = languagesComboBox.SelectedItem.ToString();
+
+            if (selected == Properties.Settings.Default.LanguageFile)
+            {
+                return;
+            }
+
+            Properties.Settings.Default.LanguageFile = selected;
+            Properties.Settings.Default.Save();
+
+            string text = LanguageManager.Get("LevelChooser", "LangChanged");
+            string caption = LanguageManager.Get("LevelChooser", "LangChangedTitle");
+            MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void linkRepo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/TheGameratorT/NSMB-Editor");
+        }
+
+        private void linkOgRepo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/Dirbaio/NSMB-Editor");
+        }
+
+        private void linkNSMBHD_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://nsmbhd.net");
         }
     }
 }

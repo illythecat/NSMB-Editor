@@ -36,8 +36,6 @@ namespace NSMBe5 {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "LevelMinimap");
 
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
             this.Level = Level;
             this.EdControl = EdControl;
             UnViewableBlocksBrush = new SolidBrush(Color.FromArgb(120, Color.DarkSlateGray.R, Color.DarkSlateGray.G, Color.DarkSlateGray.B));

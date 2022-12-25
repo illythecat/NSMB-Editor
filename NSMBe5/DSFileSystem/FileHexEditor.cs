@@ -35,8 +35,6 @@ namespace NSMBe5.DSFileSystem
         {
             InitializeComponent();
 
-            this.MdiParent = MdiParentForm.instance;
-
             this.f = f;
             f.beginEdit(this);
 

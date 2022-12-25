@@ -49,8 +49,6 @@ namespace NSMBe5 {
               ControlStyles.UserPaint |
               ControlStyles.DoubleBuffer, true); 
             
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
             if (Properties.Settings.Default.LevelMaximized)
                 this.WindowState = FormWindowState.Maximized;
 

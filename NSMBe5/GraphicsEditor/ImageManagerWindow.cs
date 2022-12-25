@@ -30,7 +30,6 @@ namespace NSMBe5
         public ImageManagerWindow()
         {
             InitializeComponent();
-            this.MdiParent = MdiParentForm.instance;
             this.Icon = Properties.Resources.nsmbe;
             m.standalone = true;
         }

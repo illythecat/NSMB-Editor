@@ -35,7 +35,6 @@ namespace NSMBe5
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "PaletteViewer");
-            this.MdiParent = MdiParentForm.instance;
             this.f = f;
             this.pal = FilePalette.arrayToPalette(f.getContents());
             if (pal.Length < 256)

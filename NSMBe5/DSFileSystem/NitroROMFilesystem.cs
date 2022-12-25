@@ -62,13 +62,16 @@ namespace NSMBe5.DSFileSystem
             bannerFile = new BannerFile(this, mainDir, headerFile);
             bannerFile.alignment = 0x200; //Not sure what should be used here...
 
-            uint rsaOffs = headerFile.getUintAt(0x1000);
+            uint rsaOffs = headerFile.getUintAt(0x80);
+
+            // This motherfucker has no purpose at all and caused all file overlaps issues
+            /*uint rsaOffs = headerFile.getUintAt(0x1000);
 
             if (rsaOffs == 0)
             {
                 rsaOffs = headerFile.getUintAt(0x80);
                 headerFile.setUintAt(0x1000, rsaOffs);
-            }
+            }*/
 
             rsaSigFile = new PhysicalFile(this, mainDir, -7, "rsasig.bin", (int)rsaOffs, 136);
             rsaSigFile.canChangeOffset = false;
