@@ -553,7 +553,7 @@ namespace NSMBe5.DSFileSystem
                         break;
                     case "BNCD":
                         {
-                            DialogResult result = MessageBox.Show("Is this a 256 colors BNCD?\n(No by default, Yes if using the 256 worldmap icons ASM hack)", LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNoCancel);
+                            DialogResult result = MessageBox.Show("Is this a 256 colors BNCD?\n(No by default, Yes if using the 256 worldmap icons code hack)", LanguageManager.Get("General", "Question"), MessageBoxButtons.YesNoCancel);
                             if (result == DialogResult.Yes)
                                 new Bncd256(f);
                             else if (result == DialogResult.No)

@@ -469,10 +469,6 @@
       <DependentUpon>LevelMinimap.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MdiParentForm.resx">
-      <DependentUpon>MdiParentForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="NotesCtrl.resx">
       <DependentUpon>NotesCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1177,12 +1173,6 @@
       <DependentUpon>GraphicsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="LanguageManager.cs" />
-    <Compile Include="MdiParentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MdiParentForm.Designer.cs">
-      <DependentUpon>MdiParentForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="NSBMD\ImageTexeler.cs" />
     <Compile Include="NSBMD\NSBTX.cs" />
     <Compile Include="TilesetEditor\Map16Picker.cs">

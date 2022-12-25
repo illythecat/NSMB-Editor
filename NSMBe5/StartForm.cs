@@ -94,10 +94,7 @@ namespace NSMBe5
             ROM.load(fs);
 
             SpriteData.Load();
-            if (Properties.Settings.Default.mdi)
-                new MdiParentForm().Show();
-            else
-                new LevelChooser().Show();
+            new LevelChooser().Show();
 
             close = false;
             Close();

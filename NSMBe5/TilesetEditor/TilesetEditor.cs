@@ -37,8 +37,6 @@ namespace NSMBe5
         
         public TilesetEditor(ushort TilesetID, string tilesetName) {
             InitializeComponent();
-            if (Properties.Settings.Default.mdi)
-                this.MdiParent = MdiParentForm.instance;
             LanguageManager.ApplyToContainer(this, "TilesetEditor");
             savePNG.Filter = LanguageManager.Get("Filters", "png");
             openPNG.Filter = LanguageManager.Get("Filters", "png");

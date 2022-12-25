@@ -37,30 +37,6 @@ namespace NSMBe5.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Language {
-            get {
-                return ((int)(this["Language"]));
-            }
-            set {
-                this["Language"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool mdi {
-            get {
-                return ((bool)(this["mdi"]));
-            }
-            set {
-                this["mdi"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("English")]
         public string LanguageFile {
             get {
@@ -68,54 +44,6 @@ namespace NSMBe5.Properties {
             }
             set {
                 this["LanguageFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point MDIWindowPos {
-            get {
-                return ((global::System.Drawing.Point)(this["MDIWindowPos"]));
-            }
-            set {
-                this["MDIWindowPos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size MDIWindowSize {
-            get {
-                return ((global::System.Drawing.Size)(this["MDIWindowSize"]));
-            }
-            set {
-                this["MDIWindowSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MDIWindowMax {
-            get {
-                return ((bool)(this["MDIWindowMax"]));
-            }
-            set {
-                this["MDIWindowMax"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MDIWindowInit {
-            get {
-                return ((bool)(this["MDIWindowInit"]));
-            }
-            set {
-                this["MDIWindowInit"] = value;
             }
         }
         

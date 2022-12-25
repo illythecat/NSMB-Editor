@@ -1296,7 +1296,7 @@ namespace NSMBe5
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(386, 17);
             this.label13.TabIndex = 9;
-            this.label13.Text = "The Extra Settings will only work with the related ASM hacks!";
+            this.label13.Text = "The Extra Settings will only work with the related code hacks!";
             // 
             // tabControl
             // 
