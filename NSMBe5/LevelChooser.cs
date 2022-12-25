@@ -656,7 +656,7 @@ namespace NSMBe5 {
             fs.close();
         }
 
-		// Code patching tools
+		// Code hacking tools
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
             Arm9BinaryHandler handler = new Arm9BinaryHandler();

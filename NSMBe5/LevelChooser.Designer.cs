@@ -88,10 +88,10 @@ namespace NSMBe5 {
             this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
             this.tilesetList1 = new NSMBe5.TilesetList();
             this.backgroundList1 = new NSMBe5.BackgroundList();
             this.filesystemBrowser1 = new NSMBe5.DSFileSystem.FilesystemBrowser();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -480,7 +480,7 @@ namespace NSMBe5 {
             this.asmToolsGroupbox.Size = new System.Drawing.Size(278, 79);
             this.asmToolsGroupbox.TabIndex = 4;
             this.asmToolsGroupbox.TabStop = false;
-            this.asmToolsGroupbox.Text = "<Code patching tools>";
+            this.asmToolsGroupbox.Text = "<Code hacking tools>";
             // 
             // cleanBuild
             // 
@@ -751,6 +751,17 @@ namespace NSMBe5 {
             this.label1.Text = "New Super Mario Bros. Editor";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(0, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(542, 133);
+            this.label2.TabIndex = 8;
+            this.label2.Text = resources.GetString("label2.Text");
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tilesetList1
             // 
             this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -777,17 +788,6 @@ namespace NSMBe5 {
             this.filesystemBrowser1.Name = "filesystemBrowser1";
             this.filesystemBrowser1.Size = new System.Drawing.Size(536, 451);
             this.filesystemBrowser1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(0, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(542, 133);
-            this.label2.TabIndex = 8;
-            this.label2.Text = resources.GetString("label2.Text");
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LevelChooser
             // 
