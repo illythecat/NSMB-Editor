@@ -96,7 +96,8 @@ namespace NSMBe5
                 tilesetObjectEditor1.descBox.Text = descriptions[0]; //Fill the description box with that of the first object
             }
             this.Icon = Properties.Resources.nsmbe;
-        }
+			Program.ApplyFontToControls(Controls);
+		}
 
         private void objectPickerControl1_ObjectSelected()
         {

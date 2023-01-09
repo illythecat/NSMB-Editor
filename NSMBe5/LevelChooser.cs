@@ -23,6 +23,7 @@ using System.IO;
 using NSMBe5.DSFileSystem;
 using NSMBe5.Patcher;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace NSMBe5 {
     public partial class LevelChooser : Form
@@ -125,10 +126,11 @@ namespace NSMBe5 {
             patchMethodComboBox.SelectedIndex = Properties.Settings.Default.CodePatchingMethod;
             patchMethodComboBox.SelectedIndexChanged += new EventHandler(patchMethodComboBox_SelectedIndexChanged);
 
-        }
+            fontTextBox.Text = Properties.Settings.Default.UIFont;
+			Program.ApplyFontToControls(Controls);
+		}
 
-
-        private void LoadLevelNames()
+		private void LoadLevelNames()
         {
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
@@ -941,5 +943,27 @@ namespace NSMBe5 {
         {
             Process.Start("https://nsmbhd.net");
         }
+
+		private bool IsFontInstalled(string fontName)
+		{
+			using (var testFont = new Font(fontName, 8))
+			{
+				return fontName == testFont.Name;
+			}
+		}
+
+		private void setFontBtn_Click(object sender, EventArgs e)
+        {
+            string fontName = fontTextBox.Text;
+            if (IsFontInstalled(fontName))
+			{
+				Properties.Settings.Default.UIFont = fontTextBox.Text;
+				Program.ApplyFontToControls(Controls);
+			}
+            else
+            {
+                MessageBox.Show("Could not find the font \"" + fontName + "\"", "Font not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+		}
     }
 }

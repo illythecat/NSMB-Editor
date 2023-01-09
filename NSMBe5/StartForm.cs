@@ -20,6 +20,8 @@ namespace NSMBe5
             LanguageManager.ApplyToContainer(this, "StartForm");
 
             this.Icon = Properties.Resources.nsmbe;
+
+            Program.ApplyFontToControls(Controls);
         }
 
         private void openRomButton_Click(object sender, EventArgs e)

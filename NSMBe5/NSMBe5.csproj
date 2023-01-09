@@ -20,7 +20,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -139,7 +139,7 @@
     <Compile Include="BNXL\BNCL.designer.cs">
       <DependentUpon>BNCL.cs</DependentUpon>
     </Compile>
-    <Compile Include="BNXL\Button2.cs">
+    <Compile Include="BNXL\BNXLButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ByteArrayInputStream.cs" />
@@ -678,8 +678,6 @@
     <None Include="classIDforSprite.dict">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Git_Prevs\filebrowser.png" />
-    <None Include="Git_Prevs\leveleditor.png" />
     <Content Include="Resources\Icons\FileIcons\file_bnbl.png" />
     <Content Include="Resources\Icons\FileIcons\file_bncl.png" />
     <Content Include="Resources\Icons\FileIcons\file_config.ico" />
@@ -834,7 +832,6 @@
     <Content Include="Resources\MsgBoxIcons\imageres_question.ico" />
     <Content Include="Resources\Sprite Images\luigi_small.png" />
     <Content Include="Resources\Sprite Images\mario_small.png" />
-    <Content Include="TilesetEditor\nsmbe.ico" />
     <Content Include="Editor\nsmbe.ico" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />

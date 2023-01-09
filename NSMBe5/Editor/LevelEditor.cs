@@ -89,8 +89,10 @@ namespace NSMBe5 {
             {
                 backupTimer.Interval = Properties.Settings.Default.AutoBackup * 60000;
                 backupTimer.Start();
-            }
-        }
+			}
+
+			Program.ApplyFontToControls(Controls);
+		}
 
         private void reloadTilesets_Click(object sender, EventArgs e) {
             byte TilesetID = Level.Blocks[0][0x0C];

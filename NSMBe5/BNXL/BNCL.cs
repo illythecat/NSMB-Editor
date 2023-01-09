@@ -1,5 +1,4 @@
-﻿using NSMBe5.DSFileSystem;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,9 +11,6 @@ using System.Xml.Linq;
 
 namespace NSMBe5
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class BNCL : Form
     {
         DSFileSystem.File f;
@@ -29,10 +25,11 @@ namespace NSMBe5
             Text += " - " + f.name;
 
             LoadBNCL();
-            Show();
+			Program.ApplyFontToControls(Controls);
+			Show();
         }
 
-        Button2[] objn_button = new Button2[256];
+        BNXLButton[] objn_button = new BNXLButton[256];
         bool UpdaterCanCreateButtons = true;
         ushort[] objn_xPos = new ushort[256];
         ushort[] objn_yPos = new ushort[256];
@@ -68,7 +65,7 @@ namespace NSMBe5
 
             for (int i = 1; i <= numberOfObjs_UpDown.Value; i++)
             {
-                objn_button[i] = new Button2()
+                objn_button[i] = new BNXLButton()
                 {
                     Opacity = 192,
                     Text = string.Format("Object {0}", i),
@@ -106,7 +103,7 @@ namespace NSMBe5
         {
             try
             {
-                if (!System.IO.File.Exists(XMLDefsFileName) || new FileInfo(XMLDefsFileName).Length == 0)
+                if (!File.Exists(XMLDefsFileName) || new FileInfo(XMLDefsFileName).Length == 0)
                 {
                     DialogResult downloadPresetsPrompt = MessageBox.Show(XMLDefsFileName + " wasn't found or is empty, would you like to download that file?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (downloadPresetsPrompt == DialogResult.Yes)
@@ -192,7 +189,7 @@ namespace NSMBe5
         {
             try
             {
-                System.IO.File.Delete(XMLDefsFileName);
+                File.Delete(XMLDefsFileName);
                 using (var client = new WebClient())
                 {
                     client.DownloadFile("https://raw.githubusercontent.com/TheGameratorT/NDS_BNCL_Editor/master/NDS_BNCL_Editor/SizePresets.xml", XMLDefsFileName);
@@ -208,7 +205,7 @@ namespace NSMBe5
 
         void objn_Click(object sender, EventArgs e)
         {
-            currentObj_UpDown.Value = (int)(sender as Button2).Tag;
+            currentObj_UpDown.Value = (int)(sender as BNXLButton).Tag;
         }
 
         private void OnSelectedObjectChange(object sender, EventArgs e)
@@ -260,7 +257,7 @@ namespace NSMBe5
                 {
                     if (UpdaterCanCreateButtons == true)
                     {
-                        objn_button[i] = new Button2()
+                        objn_button[i] = new BNXLButton()
                         {
                             Opacity = 192,
                             Text = string.Format("Object {0}", i),

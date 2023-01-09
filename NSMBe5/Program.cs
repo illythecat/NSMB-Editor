@@ -16,33 +16,27 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Diagnostics;
 using System.IO;
 
 using NSMBe5.DSFileSystem;
-using NSMBe5.NSBMD;
-using NSMBe5.Patcher;
-
+using System.Drawing;
 
 namespace NSMBe5
 {
     public static class Program
-    {
-
-        [STAThread]
+	{
+		[STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+			Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
-            string langFileName = System.IO.Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
+            string langDir = Path.Combine(Application.StartupPath, "Languages");
+            string langFileName = Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
             if (System.IO.File.Exists(langFileName))
             {
-                System.IO.StreamReader rdr = new StreamReader(langFileName);
+                StreamReader rdr = new StreamReader(langFileName);
                 LanguageManager.Load(rdr.ReadToEnd().Split('\n'));
                 rdr.Close();
             }
@@ -70,24 +64,17 @@ namespace NSMBe5
             }
 
             Application.Run();
-
-            //string[] args = Environment.GetCommandLineArgs();
-
-
-            /*
-              
-            if(args.Length > 2 && args[2] == "asmpatch")
-            {
-				PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-				pm.restore();
-				pm.generatePatch();
-            }
-            else if(args.Length > 2 && args[2] == "getcodeaddr")
-            {
-				PatchMaker pm = new PatchMaker(ROM.romfile.Directory);
-				pm.restore();
-                Console.Out.WriteLine(String.Format("{0:X8}", pm.getCodeAddr()));
-            }*/
         }
-    }
+
+		public static void ApplyFontToControls(Control.ControlCollection ctrls)
+		{
+			string fontName = Properties.Settings.Default.UIFont;
+			foreach (Control ctrl in ctrls)
+			{
+				if (ctrl.Controls != null)
+					ApplyFontToControls(ctrl.Controls);
+				ctrl.Font = new Font(fontName, ctrl.Font.Size);
+			}
+		}
+	}
 }

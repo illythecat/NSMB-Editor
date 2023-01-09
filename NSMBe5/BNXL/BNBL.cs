@@ -1,5 +1,4 @@
-﻿using NSMBe5.DSFileSystem;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -9,9 +8,6 @@ using System.Windows.Forms;
 
 namespace NSMBe5
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class BNBL : Form
     {
         DSFileSystem.File f;
@@ -26,10 +22,11 @@ namespace NSMBe5
             Text += " - " + f.name;
 
             LoadBNBL();
-            Show();
+			Program.ApplyFontToControls(Controls);
+			Show();
         }
 
-        Button2[] objn_button = new Button2[256];
+        BNXLButton[] objn_button = new BNXLButton[256];
         bool allowedToCreateButtons = true;
         byte[] objn_xPos = new byte[256];
         byte[] objn_yPos = new byte[256];
@@ -44,7 +41,7 @@ namespace NSMBe5
 
             for (int i = 1; i <= numberOfTouchObjs_UpDown.Value; i++)
             {
-                objn_button[i] = new Button2()
+                objn_button[i] = new BNXLButton()
                 {
                     Opacity = 192, //0.75
                     Text = string.Format("Object {0}", i),
@@ -106,7 +103,7 @@ namespace NSMBe5
 
         void objn_Click(object sender, EventArgs e)
         {
-            currentTouchObj_UpDown.Value = (int)(sender as Button2).Tag;
+            currentTouchObj_UpDown.Value = (int)(sender as BNXLButton).Tag;
         }
 
         private void ObjectClicked(object sender, EventArgs e)
@@ -150,7 +147,7 @@ namespace NSMBe5
                     {
                         if(allowedToCreateButtons == true)
                         {
-                            objn_button[i] = new Button2()
+                            objn_button[i] = new BNXLButton()
                             {
                                 Width = 75,
                                 Height = 50,
@@ -223,11 +220,6 @@ namespace NSMBe5
                 }
             }
         }
-
-        /*private void About_Click(object sender, RoutedEventArgs e)
-        {
-            new About().ShowDialog();
-        }*/
 
         private void BNBL_ClosedEvent(object sender, EventArgs e)
         {

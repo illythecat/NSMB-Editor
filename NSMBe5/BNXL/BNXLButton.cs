@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace NSMBe5
 {
-    class Button2 : Control
+    class BNXLButton : Control
     {
         public int Opacity = 192;
 
-        public Button2()
+        public BNXLButton()
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             SetStyle(ControlStyles.Opaque, true);

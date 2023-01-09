@@ -30,8 +30,9 @@ namespace NSMBe5
         public ImageManagerWindow()
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.nsmbe;
+            Icon = Properties.Resources.nsmbe;
             m.standalone = true;
+            Program.ApplyFontToControls(Controls);
         }
 
         private void ImageManagerWindow_FormClosing(object sender, FormClosingEventArgs e)

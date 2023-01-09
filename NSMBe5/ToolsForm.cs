@@ -37,7 +37,8 @@ namespace NSMBe5
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "ToolsForm");
             this.EdControl = edc;
-        }
+			Program.ApplyFontToControls(Controls);
+		}
 
         private void spriteFindNext_Click(object sender, EventArgs e)
         {

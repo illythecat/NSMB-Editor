@@ -87,8 +87,10 @@ namespace NSMBe5
     public ExtraDataEditor(LevelEditorControl ed)
     {
       this.dataList = ed.Level.ExtraData;
+      this.Icon = Properties.Resources.nsmbe;
       this.InitializeComponent();
       this.CenterToParent();
+      Program.ApplyFontToControls(Controls);
     }
 
     private void ExtDataEditor_Load(object sender, EventArgs e)

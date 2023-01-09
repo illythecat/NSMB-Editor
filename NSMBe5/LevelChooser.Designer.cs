@@ -89,6 +89,9 @@ namespace NSMBe5 {
 			this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
+			this.fontTextBox = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.setFontBtn = new System.Windows.Forms.Button();
 			this.tilesetList1 = new NSMBe5.TilesetList();
 			this.backgroundList1 = new NSMBe5.BackgroundList();
 			this.filesystemBrowser1 = new NSMBe5.DSFileSystem.FilesystemBrowser();
@@ -120,7 +123,7 @@ namespace NSMBe5 {
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Location = new System.Drawing.Point(17, 15);
-			this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(733, 594);
@@ -138,9 +141,9 @@ namespace NSMBe5 {
 			this.tabPage2.Controls.Add(this.editLevelButton);
 			this.tabPage2.Controls.Add(this.levelTreeView);
 			this.tabPage2.Location = new System.Drawing.Point(4, 25);
-			this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
 			this.tabPage2.Size = new System.Drawing.Size(725, 565);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "<Level Listing>";
@@ -150,7 +153,7 @@ namespace NSMBe5 {
 			// 
 			this.openClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.openClipboard.Location = new System.Drawing.Point(293, 526);
-			this.openClipboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.openClipboard.Margin = new System.Windows.Forms.Padding(4);
 			this.openClipboard.Name = "openClipboard";
 			this.openClipboard.Size = new System.Drawing.Size(157, 28);
 			this.openClipboard.TabIndex = 8;
@@ -163,7 +166,7 @@ namespace NSMBe5 {
 			this.exportClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.exportClipboard.Enabled = false;
 			this.exportClipboard.Location = new System.Drawing.Point(143, 526);
-			this.exportClipboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.exportClipboard.Margin = new System.Windows.Forms.Padding(4);
 			this.exportClipboard.Name = "exportClipboard";
 			this.exportClipboard.Size = new System.Drawing.Size(141, 28);
 			this.exportClipboard.TabIndex = 7;
@@ -176,7 +179,7 @@ namespace NSMBe5 {
 			this.importClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.importClipboard.Enabled = false;
 			this.importClipboard.Location = new System.Drawing.Point(8, 526);
-			this.importClipboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.importClipboard.Margin = new System.Windows.Forms.Padding(4);
 			this.importClipboard.Name = "importClipboard";
 			this.importClipboard.Size = new System.Drawing.Size(125, 28);
 			this.importClipboard.TabIndex = 6;
@@ -188,7 +191,7 @@ namespace NSMBe5 {
 			// 
 			this.openLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.openLevel.Location = new System.Drawing.Point(292, 489);
-			this.openLevel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.openLevel.Margin = new System.Windows.Forms.Padding(4);
 			this.openLevel.Name = "openLevel";
 			this.openLevel.Size = new System.Drawing.Size(159, 28);
 			this.openLevel.TabIndex = 5;
@@ -201,7 +204,7 @@ namespace NSMBe5 {
 			this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.hexEditLevelButton.Enabled = false;
 			this.hexEditLevelButton.Location = new System.Drawing.Point(603, 526);
-			this.hexEditLevelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.hexEditLevelButton.Margin = new System.Windows.Forms.Padding(4);
 			this.hexEditLevelButton.Name = "hexEditLevelButton";
 			this.hexEditLevelButton.Size = new System.Drawing.Size(100, 28);
 			this.hexEditLevelButton.TabIndex = 4;
@@ -214,7 +217,7 @@ namespace NSMBe5 {
 			this.exportLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.exportLevelButton.Enabled = false;
 			this.exportLevelButton.Location = new System.Drawing.Point(141, 489);
-			this.exportLevelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.exportLevelButton.Margin = new System.Windows.Forms.Padding(4);
 			this.exportLevelButton.Name = "exportLevelButton";
 			this.exportLevelButton.Size = new System.Drawing.Size(143, 28);
 			this.exportLevelButton.TabIndex = 3;
@@ -227,7 +230,7 @@ namespace NSMBe5 {
 			this.importLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.importLevelButton.Enabled = false;
 			this.importLevelButton.Location = new System.Drawing.Point(7, 489);
-			this.importLevelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.importLevelButton.Margin = new System.Windows.Forms.Padding(4);
 			this.importLevelButton.Name = "importLevelButton";
 			this.importLevelButton.Size = new System.Drawing.Size(127, 28);
 			this.importLevelButton.TabIndex = 2;
@@ -240,7 +243,7 @@ namespace NSMBe5 {
 			this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.editLevelButton.Enabled = false;
 			this.editLevelButton.Location = new System.Drawing.Point(603, 489);
-			this.editLevelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.editLevelButton.Margin = new System.Windows.Forms.Padding(4);
 			this.editLevelButton.Name = "editLevelButton";
 			this.editLevelButton.Size = new System.Drawing.Size(100, 28);
 			this.editLevelButton.TabIndex = 1;
@@ -254,7 +257,7 @@ namespace NSMBe5 {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.levelTreeView.Location = new System.Drawing.Point(8, 7);
-			this.levelTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.levelTreeView.Margin = new System.Windows.Forms.Padding(4);
 			this.levelTreeView.Name = "levelTreeView";
 			this.levelTreeView.Size = new System.Drawing.Size(695, 473);
 			this.levelTreeView.TabIndex = 0;
@@ -265,9 +268,9 @@ namespace NSMBe5 {
 			// 
 			this.tabPage5.Controls.Add(this.tilesetList1);
 			this.tabPage5.Location = new System.Drawing.Point(4, 25);
-			this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(4);
 			this.tabPage5.Size = new System.Drawing.Size(725, 565);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "<Tilesets>";
@@ -277,7 +280,7 @@ namespace NSMBe5 {
 			// 
 			this.tabPage6.Controls.Add(this.backgroundList1);
 			this.tabPage6.Location = new System.Drawing.Point(4, 25);
-			this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage6.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Size = new System.Drawing.Size(725, 565);
 			this.tabPage6.TabIndex = 5;
@@ -288,9 +291,9 @@ namespace NSMBe5 {
 			// 
 			this.tabPage1.Controls.Add(this.filesystemBrowser1);
 			this.tabPage1.Location = new System.Drawing.Point(4, 25);
-			this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
 			this.tabPage1.Size = new System.Drawing.Size(725, 565);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "<File Browser>";
@@ -305,9 +308,9 @@ namespace NSMBe5 {
 			this.tabPage3.Controls.Add(this.asmToolsGroupbox);
 			this.tabPage3.Controls.Add(this.groupBox1);
 			this.tabPage3.Location = new System.Drawing.Point(4, 25);
-			this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
 			this.tabPage3.Size = new System.Drawing.Size(725, 565);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "<Tools/Options>";
@@ -319,9 +322,9 @@ namespace NSMBe5 {
 			this.grpDLPMode.Controls.Add(this.lblDLPMode1);
 			this.grpDLPMode.Controls.Add(this.dlpCheckBox);
 			this.grpDLPMode.Location = new System.Drawing.Point(8, 414);
-			this.grpDLPMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.grpDLPMode.Margin = new System.Windows.Forms.Padding(4);
 			this.grpDLPMode.Name = "grpDLPMode";
-			this.grpDLPMode.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.grpDLPMode.Padding = new System.Windows.Forms.Padding(4);
 			this.grpDLPMode.Size = new System.Drawing.Size(328, 144);
 			this.grpDLPMode.TabIndex = 11;
 			this.grpDLPMode.TabStop = false;
@@ -350,7 +353,7 @@ namespace NSMBe5 {
 			// 
 			this.dlpCheckBox.AutoSize = true;
 			this.dlpCheckBox.Location = new System.Drawing.Point(8, 23);
-			this.dlpCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dlpCheckBox.Margin = new System.Windows.Forms.Padding(4);
 			this.dlpCheckBox.Name = "dlpCheckBox";
 			this.dlpCheckBox.Size = new System.Drawing.Size(265, 20);
 			this.dlpCheckBox.TabIndex = 10;
@@ -366,9 +369,9 @@ namespace NSMBe5 {
 			this.musicSlotsGrp.Controls.Add(this.renameBtn);
 			this.musicSlotsGrp.Controls.Add(this.musicList);
 			this.musicSlotsGrp.Location = new System.Drawing.Point(344, 218);
-			this.musicSlotsGrp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.musicSlotsGrp.Margin = new System.Windows.Forms.Padding(4);
 			this.musicSlotsGrp.Name = "musicSlotsGrp";
-			this.musicSlotsGrp.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.musicSlotsGrp.Padding = new System.Windows.Forms.Padding(4);
 			this.musicSlotsGrp.Size = new System.Drawing.Size(371, 341);
 			this.musicSlotsGrp.TabIndex = 8;
 			this.musicSlotsGrp.TabStop = false;
@@ -378,7 +381,7 @@ namespace NSMBe5 {
 			// 
 			this.renameBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.renameBtn.Location = new System.Drawing.Point(263, 309);
-			this.renameBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.renameBtn.Margin = new System.Windows.Forms.Padding(4);
 			this.renameBtn.Name = "renameBtn";
 			this.renameBtn.Size = new System.Drawing.Size(100, 28);
 			this.renameBtn.TabIndex = 10;
@@ -394,7 +397,7 @@ namespace NSMBe5 {
 			this.musicList.FormattingEnabled = true;
 			this.musicList.ItemHeight = 16;
 			this.musicList.Location = new System.Drawing.Point(8, 25);
-			this.musicList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.musicList.Margin = new System.Windows.Forms.Padding(4);
 			this.musicList.Name = "musicList";
 			this.musicList.Size = new System.Drawing.Size(353, 276);
 			this.musicList.TabIndex = 9;
@@ -406,9 +409,9 @@ namespace NSMBe5 {
 			this.patchesGroupbox.Controls.Add(this.patchExport);
 			this.patchesGroupbox.Controls.Add(this.patchImport);
 			this.patchesGroupbox.Location = new System.Drawing.Point(344, 7);
-			this.patchesGroupbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.patchesGroupbox.Margin = new System.Windows.Forms.Padding(4);
 			this.patchesGroupbox.Name = "patchesGroupbox";
-			this.patchesGroupbox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.patchesGroupbox.Padding = new System.Windows.Forms.Padding(4);
 			this.patchesGroupbox.Size = new System.Drawing.Size(371, 98);
 			this.patchesGroupbox.TabIndex = 7;
 			this.patchesGroupbox.TabStop = false;
@@ -419,7 +422,7 @@ namespace NSMBe5 {
 			this.xdelta_import.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.xdelta_import.Location = new System.Drawing.Point(187, 59);
-			this.xdelta_import.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.xdelta_import.Margin = new System.Windows.Forms.Padding(4);
 			this.xdelta_import.Name = "xdelta_import";
 			this.xdelta_import.Size = new System.Drawing.Size(176, 28);
 			this.xdelta_import.TabIndex = 5;
@@ -432,7 +435,7 @@ namespace NSMBe5 {
 			this.xdelta_export.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.xdelta_export.Location = new System.Drawing.Point(187, 23);
-			this.xdelta_export.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.xdelta_export.Margin = new System.Windows.Forms.Padding(4);
 			this.xdelta_export.Name = "xdelta_export";
 			this.xdelta_export.Size = new System.Drawing.Size(176, 28);
 			this.xdelta_export.TabIndex = 4;
@@ -443,7 +446,7 @@ namespace NSMBe5 {
 			// patchExport
 			// 
 			this.patchExport.Location = new System.Drawing.Point(8, 23);
-			this.patchExport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.patchExport.Margin = new System.Windows.Forms.Padding(4);
 			this.patchExport.Name = "patchExport";
 			this.patchExport.Size = new System.Drawing.Size(177, 28);
 			this.patchExport.TabIndex = 3;
@@ -454,7 +457,7 @@ namespace NSMBe5 {
 			// patchImport
 			// 
 			this.patchImport.Location = new System.Drawing.Point(8, 59);
-			this.patchImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.patchImport.Margin = new System.Windows.Forms.Padding(4);
 			this.patchImport.Name = "patchImport";
 			this.patchImport.Size = new System.Drawing.Size(177, 28);
 			this.patchImport.TabIndex = 3;
@@ -467,9 +470,9 @@ namespace NSMBe5 {
 			this.nsmbToolsGroupbox.Controls.Add(this.mpPatch2);
 			this.nsmbToolsGroupbox.Controls.Add(this.dataFinderButton);
 			this.nsmbToolsGroupbox.Location = new System.Drawing.Point(8, 7);
-			this.nsmbToolsGroupbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.nsmbToolsGroupbox.Margin = new System.Windows.Forms.Padding(4);
 			this.nsmbToolsGroupbox.Name = "nsmbToolsGroupbox";
-			this.nsmbToolsGroupbox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.nsmbToolsGroupbox.Padding = new System.Windows.Forms.Padding(4);
 			this.nsmbToolsGroupbox.Size = new System.Drawing.Size(328, 98);
 			this.nsmbToolsGroupbox.TabIndex = 6;
 			this.nsmbToolsGroupbox.TabStop = false;
@@ -480,7 +483,7 @@ namespace NSMBe5 {
 			this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.mpPatch2.Location = new System.Drawing.Point(8, 23);
-			this.mpPatch2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.mpPatch2.Margin = new System.Windows.Forms.Padding(4);
 			this.mpPatch2.Name = "mpPatch2";
 			this.mpPatch2.Size = new System.Drawing.Size(312, 28);
 			this.mpPatch2.TabIndex = 5;
@@ -493,7 +496,7 @@ namespace NSMBe5 {
 			this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataFinderButton.Location = new System.Drawing.Point(8, 59);
-			this.dataFinderButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dataFinderButton.Margin = new System.Windows.Forms.Padding(4);
 			this.dataFinderButton.Name = "dataFinderButton";
 			this.dataFinderButton.Size = new System.Drawing.Size(312, 28);
 			this.dataFinderButton.TabIndex = 3;
@@ -507,9 +510,9 @@ namespace NSMBe5 {
 			this.asmToolsGroupbox.Controls.Add(this.compileInsert);
 			this.asmToolsGroupbox.Controls.Add(this.decompArm9Bin);
 			this.asmToolsGroupbox.Location = new System.Drawing.Point(344, 113);
-			this.asmToolsGroupbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.asmToolsGroupbox.Margin = new System.Windows.Forms.Padding(4);
 			this.asmToolsGroupbox.Name = "asmToolsGroupbox";
-			this.asmToolsGroupbox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.asmToolsGroupbox.Padding = new System.Windows.Forms.Padding(4);
 			this.asmToolsGroupbox.Size = new System.Drawing.Size(371, 97);
 			this.asmToolsGroupbox.TabIndex = 4;
 			this.asmToolsGroupbox.TabStop = false;
@@ -520,7 +523,7 @@ namespace NSMBe5 {
 			this.cleanBuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cleanBuild.Location = new System.Drawing.Point(187, 59);
-			this.cleanBuild.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.cleanBuild.Margin = new System.Windows.Forms.Padding(4);
 			this.cleanBuild.Name = "cleanBuild";
 			this.cleanBuild.Size = new System.Drawing.Size(176, 28);
 			this.cleanBuild.TabIndex = 3;
@@ -533,7 +536,7 @@ namespace NSMBe5 {
 			this.compileInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.compileInsert.Location = new System.Drawing.Point(8, 59);
-			this.compileInsert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.compileInsert.Margin = new System.Windows.Forms.Padding(4);
 			this.compileInsert.Name = "compileInsert";
 			this.compileInsert.Size = new System.Drawing.Size(177, 28);
 			this.compileInsert.TabIndex = 3;
@@ -546,7 +549,7 @@ namespace NSMBe5 {
 			this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.decompArm9Bin.Location = new System.Drawing.Point(8, 23);
-			this.decompArm9Bin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.decompArm9Bin.Margin = new System.Windows.Forms.Padding(4);
 			this.decompArm9Bin.Name = "decompArm9Bin";
 			this.decompArm9Bin.Size = new System.Drawing.Size(355, 28);
 			this.decompArm9Bin.TabIndex = 3;
@@ -556,6 +559,9 @@ namespace NSMBe5 {
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.setFontBtn);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.fontTextBox);
 			this.groupBox1.Controls.Add(this.patchMethodComboBox);
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.languagesComboBox);
@@ -567,9 +573,9 @@ namespace NSMBe5 {
 			this.groupBox1.Controls.Add(this.updateSpriteDataButton);
 			this.groupBox1.Controls.Add(this.chkAutoBackup);
 			this.groupBox1.Location = new System.Drawing.Point(8, 113);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Size = new System.Drawing.Size(328, 293);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
@@ -579,7 +585,7 @@ namespace NSMBe5 {
 			// 
 			this.patchMethodComboBox.FormattingEnabled = true;
 			this.patchMethodComboBox.Location = new System.Drawing.Point(8, 62);
-			this.patchMethodComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.patchMethodComboBox.Margin = new System.Windows.Forms.Padding(4);
 			this.patchMethodComboBox.Name = "patchMethodComboBox";
 			this.patchMethodComboBox.Size = new System.Drawing.Size(143, 24);
 			this.patchMethodComboBox.TabIndex = 14;
@@ -599,7 +605,7 @@ namespace NSMBe5 {
 			// 
 			this.languagesComboBox.FormattingEnabled = true;
 			this.languagesComboBox.Location = new System.Drawing.Point(8, 26);
-			this.languagesComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.languagesComboBox.Margin = new System.Windows.Forms.Padding(4);
 			this.languagesComboBox.Name = "languagesComboBox";
 			this.languagesComboBox.Size = new System.Drawing.Size(143, 24);
 			this.languagesComboBox.TabIndex = 14;
@@ -630,7 +636,7 @@ namespace NSMBe5 {
 			// deleteBackups
 			// 
 			this.deleteBackups.Location = new System.Drawing.Point(8, 222);
-			this.deleteBackups.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.deleteBackups.Margin = new System.Windows.Forms.Padding(4);
 			this.deleteBackups.Name = "deleteBackups";
 			this.deleteBackups.Size = new System.Drawing.Size(312, 28);
 			this.deleteBackups.TabIndex = 13;
@@ -651,7 +657,7 @@ namespace NSMBe5 {
 			// autoBackupTime
 			// 
 			this.autoBackupTime.Location = new System.Drawing.Point(8, 123);
-			this.autoBackupTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.autoBackupTime.Margin = new System.Windows.Forms.Padding(4);
 			this.autoBackupTime.Maximum = new decimal(new int[] {
             120,
             0,
@@ -677,7 +683,7 @@ namespace NSMBe5 {
 			this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.updateSpriteDataButton.Location = new System.Drawing.Point(8, 257);
-			this.updateSpriteDataButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.updateSpriteDataButton.Margin = new System.Windows.Forms.Padding(4);
 			this.updateSpriteDataButton.Name = "updateSpriteDataButton";
 			this.updateSpriteDataButton.Size = new System.Drawing.Size(312, 28);
 			this.updateSpriteDataButton.TabIndex = 3;
@@ -689,7 +695,7 @@ namespace NSMBe5 {
 			// 
 			this.chkAutoBackup.AutoSize = true;
 			this.chkAutoBackup.Location = new System.Drawing.Point(8, 95);
-			this.chkAutoBackup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.chkAutoBackup.Margin = new System.Windows.Forms.Padding(4);
 			this.chkAutoBackup.Name = "chkAutoBackup";
 			this.chkAutoBackup.Size = new System.Drawing.Size(128, 20);
 			this.chkAutoBackup.TabIndex = 9;
@@ -708,9 +714,9 @@ namespace NSMBe5 {
 			this.tabPage4.Controls.Add(this.versionLabel);
 			this.tabPage4.Controls.Add(this.label1);
 			this.tabPage4.Location = new System.Drawing.Point(4, 25);
-			this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
 			this.tabPage4.Size = new System.Drawing.Size(725, 565);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "<About>";
@@ -818,6 +824,33 @@ namespace NSMBe5 {
 			this.label1.Text = "New Super Mario Bros. Editor";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// fontTextBox
+			// 
+			this.fontTextBox.Location = new System.Drawing.Point(8, 181);
+			this.fontTextBox.Name = "fontTextBox";
+			this.fontTextBox.Size = new System.Drawing.Size(143, 22);
+			this.fontTextBox.TabIndex = 15;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(160, 184);
+			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(73, 16);
+			this.label3.TabIndex = 16;
+			this.label3.Text = "Current font";
+			// 
+			// setFontBtn
+			// 
+			this.setFontBtn.Location = new System.Drawing.Point(251, 180);
+			this.setFontBtn.Name = "setFontBtn";
+			this.setFontBtn.Size = new System.Drawing.Size(69, 25);
+			this.setFontBtn.TabIndex = 17;
+			this.setFontBtn.Text = "Set";
+			this.setFontBtn.UseVisualStyleBackColor = true;
+			this.setFontBtn.Click += new System.EventHandler(this.setFontBtn_Click);
+			// 
 			// tilesetList1
 			// 
 			this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -851,7 +884,7 @@ namespace NSMBe5 {
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(767, 623);
 			this.Controls.Add(this.tabControl1);
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "LevelChooser";
 			this.Text = "<_TITLE>";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelChooser_FormClosing);
@@ -944,5 +977,8 @@ namespace NSMBe5 {
         private System.Windows.Forms.LinkLabel linkNSMBHD;
         private System.Windows.Forms.LinkLabel linkOgRepo;
         private System.Windows.Forms.Label label2;
-    }
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox fontTextBox;
+		private System.Windows.Forms.Button setFontBtn;
+	}
 }
