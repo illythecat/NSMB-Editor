@@ -3292,7 +3292,7 @@ namespace NSMBe5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/main/NSMBe5/Resources/stageobjsettings.xml.
+        ///   Looks up a localized string similar to https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/main/NSMBe5/stageobjsettings.xml.
         /// </summary>
         internal static string StageObjSettingsProviderURL {
             get {
