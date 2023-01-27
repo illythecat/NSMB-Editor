@@ -163,7 +163,7 @@ Needs to be placed on top of a [solid?]tile to work.</notes>
 			<field id="45-48" type="checkbox" name="Avoids Mario" values="1" notes="Also swims faster. Unused." />
 		</class>
 		<class id="31">
-			<name>Powerup Spawner</name>
+			<name>Item</name>
 			<flags known="1" complete="1" />
 			<category id="12" />
 			<notes>Outdated!!!</notes>
