@@ -30,8 +30,8 @@ namespace NSMBe5
         public LevelSource source;
         public string name;
         public byte[][] Blocks;
-        public List<NSMBObject> Objects;
-        public List<NSMBSprite> Sprites;
+        public List<NSMBTile> Objects;
+        public List<NSMBStageObj> Sprites;
         public List<NSMBEntrance> Entrances;
         public List<NSMBView> Views, Zones;
         public List<NSMBPath> Paths, ProgressPaths;
@@ -76,7 +76,7 @@ namespace NSMBe5
             // Now objects.
 
             int ObjectCount = eBGFile.Length / 10;
-            Objects = new List<NSMBObject>(ObjectCount);
+            Objects = new List<NSMBTile>(ObjectCount);
             FilePos = 0;
             
             for (int ObjectIdx = 0; ObjectIdx < ObjectCount; ObjectIdx++) {
@@ -87,7 +87,7 @@ namespace NSMBe5
                 int ObjY = BitConverter.ToInt16(eBGFile, FilePos + 4);
                 int ObjWidth = eBGFile[FilePos + 6] | (eBGFile[FilePos + 7] << 8);
                 int ObjHeight = eBGFile[FilePos + 8] | (eBGFile[FilePos + 9] << 8);
-                Objects.Add(new NSMBObject(ObjID & 4095, (ObjID & 61440) >> 12, ObjX, ObjY, ObjWidth, ObjHeight, GFX));
+                Objects.Add(new NSMBTile(ObjID & 4095, (ObjID & 61440) >> 12, ObjX, ObjY, ObjWidth, ObjHeight, GFX));
                 FilePos += 10;
             }
 
@@ -104,10 +104,10 @@ namespace NSMBe5
             // Sprites
             byte[] SpriteBlock = Blocks[6];
             int SpriteCount = (SpriteBlock.Length - 2) / 12;
-            Sprites = new List<NSMBSprite>(SpriteCount);
+            Sprites = new List<NSMBStageObj>(SpriteCount);
             FilePos = 0;
             for (int SpriteIdx = 0; SpriteIdx < SpriteCount; SpriteIdx++) {
-                NSMBSprite Sprite = new NSMBSprite(this);
+                NSMBStageObj Sprite = new NSMBStageObj(this);
                 Sprite.Type = SpriteBlock[FilePos] | (SpriteBlock[FilePos + 1] << 8);
                 Sprite.X = SpriteBlock[FilePos + 2] | (SpriteBlock[FilePos + 3] << 8);
                 Sprite.Y = SpriteBlock[FilePos + 4] | (SpriteBlock[FilePos + 5] << 8);
@@ -236,10 +236,10 @@ namespace NSMBe5
 
         public void Remove(LevelItem obj)
         {
-            if (obj is NSMBObject)
-                Objects.Remove(obj as NSMBObject);
-            if (obj is NSMBSprite)
-                Sprites.Remove(obj as NSMBSprite);
+            if (obj is NSMBTile)
+                Objects.Remove(obj as NSMBTile);
+            if (obj is NSMBStageObj)
+                Sprites.Remove(obj as NSMBStageObj);
             if (obj is NSMBEntrance)
                 Entrances.Remove(obj as NSMBEntrance);
             if (obj is NSMBView) {
@@ -272,13 +272,13 @@ namespace NSMBe5
         public int RemoveZIndex(LevelItem obj)
         {
             int idx = -1;
-            if (obj is NSMBObject) {
-                idx = Objects.IndexOf(obj as NSMBObject);
-                Objects.Remove(obj as NSMBObject);
+            if (obj is NSMBTile) {
+                idx = Objects.IndexOf(obj as NSMBTile);
+                Objects.Remove(obj as NSMBTile);
             }
-            if (obj is NSMBSprite) {
-                idx = Sprites.IndexOf(obj as NSMBSprite);
-                Sprites.Remove(obj as NSMBSprite);
+            if (obj is NSMBStageObj) {
+                idx = Sprites.IndexOf(obj as NSMBStageObj);
+                Sprites.Remove(obj as NSMBStageObj);
             }
             if (obj is NSMBEntrance) {
                 idx = Entrances.IndexOf(obj as NSMBEntrance);
@@ -317,10 +317,10 @@ namespace NSMBe5
 
         public void Add(LevelItem obj)
         {
-            if (obj is NSMBObject)
-                Objects.Add(obj as NSMBObject);
-            if (obj is NSMBSprite)
-                Sprites.Add(obj as NSMBSprite);
+            if (obj is NSMBTile)
+                Objects.Add(obj as NSMBTile);
+            if (obj is NSMBStageObj)
+                Sprites.Add(obj as NSMBStageObj);
             if (obj is NSMBEntrance)
                 Entrances.Add(obj as NSMBEntrance);
             if (obj is NSMBView)  {
@@ -352,10 +352,10 @@ namespace NSMBe5
 
         public void Add(LevelItem obj, int zIndex)
         {
-            if (obj is NSMBObject)
-                Objects.Insert(zIndex, obj as NSMBObject);
-            if (obj is NSMBSprite)
-                Sprites.Insert(zIndex, obj as NSMBSprite);
+            if (obj is NSMBTile)
+                Objects.Insert(zIndex, obj as NSMBTile);
+            if (obj is NSMBStageObj)
+                Sprites.Insert(zIndex, obj as NSMBStageObj);
             if (obj is NSMBEntrance)
                 Entrances.Insert(zIndex, obj as NSMBEntrance);
             if (obj is NSMBView)
@@ -541,7 +541,7 @@ namespace NSMBe5
 
             for (int ObjIdx = 0; ObjIdx < Objects.Count; ObjIdx++)
             {
-                int ObjType = Objects[ObjIdx].ObjNum | (Objects[ObjIdx].Tileset << 12);
+                int ObjType = Objects[ObjIdx].TileID | (Objects[ObjIdx].Tileset << 12);
                 BGDatFileData[FilePos] = (byte)(ObjType & 0xFF);
                 BGDatFileData[FilePos + 1] = (byte)((ObjType >> 8) & 0xFF);
                 BGDatFileData[FilePos + 2] = (byte)(Objects[ObjIdx].X & 0xFF);
@@ -561,16 +561,16 @@ namespace NSMBe5
         }
 
         public void ReRenderAll() {
-            foreach (NSMBObject o in Objects)
-                o.UpdateObjCache();
+            foreach (NSMBTile o in Objects)
+                o.UpdateTileCache();
         }
 
 
         public void CalculateSpriteModifiers() {
-            ValidSprites = new bool[ROM.SpriteCount];
+            ValidSprites = new bool[ROM.NativeStageObjCount];
             byte[] ModifierTable = ROM.GetInlineFile(ROM.Data.File_Modifiers);
 
-            for (int idx = 0; idx < ROM.SpriteCount; idx++) {
+            for (int idx = 0; idx < ROM.NativeStageObjCount; idx++) {
                 int ModifierOffset = ModifierTable[idx << 1];
                 int ModifierValue = ModifierTable[(idx << 1) + 1];
                 if (ModifierValue == 0) {

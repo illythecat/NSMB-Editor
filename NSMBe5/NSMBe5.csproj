@@ -262,10 +262,10 @@
     <Compile Include="NSMBEntrance.cs" />
     <Compile Include="NSMBGraphics.cs" />
     <Compile Include="NSMBLevel.cs" />
-    <Compile Include="NSMBObject.cs" />
+    <Compile Include="NSMBTile.cs" />
     <Compile Include="NSMBPath.cs" />
     <Compile Include="NSMBPathPoint.cs" />
-    <Compile Include="NSMBSprite.cs" />
+    <Compile Include="NSMBStageObj.cs" />
     <Compile Include="NSMBTileset.cs" />
     <Compile Include="NSMBView.cs" />
     <Compile Include="Editor\ObjectEditor.cs">
@@ -307,11 +307,11 @@
     <Compile Include="SectionFileLoader.cs" />
     <Compile Include="SortableBindingList\PropertyComparer.cs" />
     <Compile Include="SortableBindingList\SortableBindingList.cs" />
-    <Compile Include="SpriteEvents.cs">
+    <Compile Include="StageObjEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SpriteEvents.Designer.cs">
-      <DependentUpon>SpriteEvents.cs</DependentUpon>
+    <Compile Include="StageObjEvents.Designer.cs">
+      <DependentUpon>StageObjEvents.cs</DependentUpon>
     </Compile>
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
@@ -374,6 +374,7 @@
     <Compile Include="TilesetEditor\TilesetList.Designer.cs">
       <DependentUpon>TilesetList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Version.cs" />
     <Compile Include="XButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -499,8 +500,8 @@
       <DependentUpon>PickerTest.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpriteEvents.resx">
-      <DependentUpon>SpriteEvents.cs</DependentUpon>
+    <EmbeddedResource Include="StageObjEvents.resx">
+      <DependentUpon>StageObjEvents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
@@ -556,8 +557,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\SpriteEditor.resx">
-      <DependentUpon>SpriteEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Editor\StageObjEditor.resx">
+      <DependentUpon>StageObjEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TilemapEditor\TilePicker.resx">
@@ -605,11 +606,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Editor\SpriteEditor.cs">
+    <Compile Include="Editor\StageObjEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\SpriteEditor.Designer.cs">
-      <DependentUpon>SpriteEditor.cs</DependentUpon>
+    <Compile Include="Editor\StageObjEditor.Designer.cs">
+      <DependentUpon>StageObjEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="DataFinder.Designer.cs">
       <DependentUpon>DataFinder.cs</DependentUpon>
@@ -643,7 +644,7 @@
     <None Include="Resources\tileoverrides.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="new_spritedata.xml">
+    <None Include="Resources\new_stageobjsettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="xdelta3.exe">
@@ -675,9 +676,6 @@
     <None Include="Resources\Icons\layer-flip-vertical.png" />
     <None Include="Resources\Icons\note-bright.png" />
     <None Include="Resources\Icons\application-resize-full.png" />
-    <None Include="classIDforSprite.dict">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="Resources\Icons\FileIcons\file_bnbl.png" />
     <Content Include="Resources\Icons\FileIcons\file_bncl.png" />
     <Content Include="Resources\Icons\FileIcons\file_config.ico" />
@@ -830,9 +828,17 @@
     <None Include="Resources\Sprite Images\Zoom1.png" />
     <None Include="Resources\Sprite Images\Zoom2.png" />
     <Content Include="Resources\MsgBoxIcons\imageres_question.ico" />
+    <None Include="Resources\ndsoverlay.png" />
+    <None Include="Resources\Sprite Images\liquid_lava_0.png" />
+    <None Include="Resources\Sprite Images\liquid_poison_0.png" />
+    <None Include="Resources\Sprite Images\liquid_water_0.png" />
+    <None Include="Resources\Sprite Images\BigGrinder.png" />
+    <None Include="Resources\Sprite Images\Grinder.png" />
+    <None Include="Resources\Sprite Images\CastleGearS.png" />
     <Content Include="Resources\Sprite Images\luigi_small.png" />
     <Content Include="Resources\Sprite Images\mario_small.png" />
     <Content Include="Editor\nsmbe.ico" />
+    <Content Include="Resources\stageobjsettings.xml" />
     <Content Include="Resources\version.txt" />
     <None Include="Resources\Sprite Images\Brick.PNG" />
     <None Include="Resources\Sprite Images\JumpingQBlock.PNG" />
@@ -1213,7 +1219,7 @@
     <Compile Include="ProgressWindow.Designer.cs">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="SpriteData.cs" />
+    <Compile Include="StageObjSettings.cs" />
     <Compile Include="TilemapEditor\TilePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>

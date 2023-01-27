@@ -1,7 +1,7 @@
 # NSMB Editor
 Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
 
-NSMBe 5.3.3 Git
+NSMBe 5.4.0 Git
 -----------------
 Download NSMBe on the GitHub Release page, older versions available at NSMBHD: https://nsmbhd.net/download/
 
@@ -16,7 +16,7 @@ Necessary NSMBe files and directories:
  - NSMBe5.exe
 
 At first bootup time:
- - You will be prompted to download "spritedata.xml", if there isn't one already present. This is a necessary file for proper operation and its download requires the file "classIDforSprite.txt".
+ - You will be prompted to download "stageobjsettings.xml", if there isn't one already present.
 
 Be.Windows.Forms.HexBox:
  - Current version is: 1.6.1
@@ -25,19 +25,17 @@ Websites:
  - http://nsmbhd.net/ - The NSMB Hacking Domain, a.k.a NSMBe Forum
 
 Credits:
- - Treeki - Initial developer and maintainer
- - Dirbaio - Current developer and maintainer
+ - Treeki - Original Developer
+ - Dirbaio - Second Developer
  - Piranhaplant - Developer
- - Eloston (ELMario on The NSMB Hacking Domain) - New docs and Be.Windows.Forms.HexBox.dll source code
- - Mero-Mero - Developer
+ - MeroMero - Developer
  - RicBent - Developer
- - TheGameratorT - Developer
- - Szymbar - Developer, added MKDS ASM support
- - ItzTacos - Developer
- - And all other contributers!
+ - Mamma Mia Team - Developers and current maintainers
+ - Szymbar - Developer, adopted the structure to work with MKDS assembly
+ - And all other contributors!
 
 # Previews
 <p align="left">
-<img src="https://raw.githubusercontent.com/TheGameratorT/NSMB-Editor/master/screenshots/filebrowser.png" width="385" title="File Browser">
-<img src="https://raw.githubusercontent.com/TheGameratorT/NSMB-Editor/master/screenshots/leveleditor.png" width="400" title="Level Editor">
+<img src="https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/master/screenshots/filebrowser.png" width="385" title="File Browser">
+<img src="https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/master/screenshots/leveleditor.png" width="400" title="Level Editor">
 </p>

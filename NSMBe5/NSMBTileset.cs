@@ -617,26 +617,26 @@ namespace NSMBe5
             }
         }
 
-        public int[,] RenderObject(int ObjNum, int Width, int Height)
+        public int[,] RenderTile(int TileID, int Width, int Height)
         {
             // First allocate an array
             int[,] Dest = new int[Width, Height];
 
             // Non-existent objects can just be made out of 0s
-            if (ObjNum >= Objects.Length || ObjNum < 0 || Objects[ObjNum] == null)
+            if (TileID >= Objects.Length || TileID < 0 || Objects[TileID] == null)
                 return Dest;
             
-            ObjectDef obj = Objects[ObjNum];
+            ObjectDef obj = Objects[TileID];
 
-            if (Objects[ObjNum].tiles.Count == 0)
+            if (Objects[TileID].tiles.Count == 0)
                 throw new ObjectRenderingException("Objects can't be empty.");
             
-            for(int i = 0; i < Objects[ObjNum].tiles.Count; i++)
-                if (Objects[ObjNum].tiles[i].Count == 0)
+            for(int i = 0; i < Objects[TileID].tiles.Count; i++)
+                if (Objects[TileID].tiles[i].Count == 0)
                     throw new ObjectRenderingException("Objects can't have empty rows.");
 
             // Diagonal objects are rendered differently
-            if ((Objects[ObjNum].tiles[0][0].controlByte & 0x80) != 0)
+            if ((Objects[TileID].tiles[0][0].controlByte & 0x80) != 0)
                 RenderDiagonalObject(Dest, obj, Width, Height);
             else
             {

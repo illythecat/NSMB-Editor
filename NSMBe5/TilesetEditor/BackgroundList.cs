@@ -219,7 +219,7 @@ namespace NSMBe5
 
             if (bg.empty)
             {
-                MessageBox.Show("This background is empty, please set it up first.", "NSMBe 5.3", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("This background is empty, please set it up first.", "NSMBe " + Version.GetString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

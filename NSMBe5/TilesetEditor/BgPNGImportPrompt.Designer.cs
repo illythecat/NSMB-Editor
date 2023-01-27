@@ -136,7 +136,7 @@
             this.Controls.Add(this.proceed_btn);
             this.Icon = global::NSMBe5.Properties.Resources.nsmbe;
             this.Name = "BgPNGImportPrompt";
-            this.Text = "NSMBe 5.3";
+            this.Text = "NSMBe " + Version.GetString();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);

@@ -117,15 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label2.Text" xml:space="preserve">
+  <data name="creditsLabel.Text" xml:space="preserve">
     <value>Treeki - Original Developer
 Dirbaio - Second Developer
 Piranhaplant - Developer
 MeroMero - Developer
 RicBent - Developer
-TheGameratorT - Developer, maintainer
+Mamma Mia Team - Developers and current maintainers
 Szymbar - Developer, adopted the structure to work with MKDS assembly
-ItzTacos - Developer, fixed file overlaps and misc improvements
 And everyone else who's helped us make the editor and community awesome!</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

@@ -97,7 +97,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CompressFilePrompt";
-            this.Text = "NSMBe 5.3";
+            this.Text = "NSMBe " + Version.GetString();
             this.Icon = Properties.Resources.nsmbe;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

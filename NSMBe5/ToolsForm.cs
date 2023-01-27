@@ -29,16 +29,15 @@ namespace NSMBe5
     {
 
         private LevelEditorControl EdControl;
-        private NSMBSprite foundSprite;
-        private NSMBObject foundObj;
+        private NSMBStageObj foundSprite;
+        private NSMBTile foundObj;
 
         public ToolsForm(LevelEditorControl edc)
         {
             InitializeComponent();
             LanguageManager.ApplyToContainer(this, "ToolsForm");
             this.EdControl = edc;
-			Program.ApplyFontToControls(Controls);
-		}
+        }
 
         private void spriteFindNext_Click(object sender, EventArgs e)
         {
@@ -81,7 +80,7 @@ namespace NSMBe5
         private void sprSelectAll_Click(object sender, EventArgs e)
         {
             List<LevelItem> sprites = new List<LevelItem>();
-            foreach (NSMBSprite s in EdControl.Level.Sprites)
+            foreach (NSMBStageObj s in EdControl.Level.Sprites)
                 if (s.Type == SpriteNumber.Value)
                     sprites.Add(s);
             EdControl.SelectObject(sprites);
@@ -100,7 +99,7 @@ namespace NSMBe5
                 bool found = false;
                 while (ind != startInd && !found) {
                     if (EdControl.Level.Objects[ind].Tileset == nudFindTileset.Value &&
-                        EdControl.Level.Objects[ind].ObjNum == nudFindObjNum.Value) {
+                        EdControl.Level.Objects[ind].TileID == nudFindObjNum.Value) {
                         foundObj = EdControl.Level.Objects[ind];
                         found = true;
                     }
@@ -119,8 +118,8 @@ namespace NSMBe5
         private void objSelectAll_Click(object sender, EventArgs e)
         {
             List<LevelItem> objs = new List<LevelItem>();
-            foreach (NSMBObject o in EdControl.Level.Objects)
-                if (o.Tileset == nudFindTileset.Value && o.ObjNum == nudFindObjNum.Value)
+            foreach (NSMBTile o in EdControl.Level.Objects)
+                if (o.Tileset == nudFindTileset.Value && o.TileID == nudFindObjNum.Value)
                     objs.Add(o);
             EdControl.SelectObject(objs);
             EdControl.ScrollToObjects(objs);

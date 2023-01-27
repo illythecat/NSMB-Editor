@@ -16,27 +16,33 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Diagnostics;
 using System.IO;
 
 using NSMBe5.DSFileSystem;
-using System.Drawing;
+using NSMBe5.NSBMD;
+using NSMBe5.Patcher;
+
 
 namespace NSMBe5
 {
     public static class Program
-	{
-		[STAThread]
+    {
+
+        [STAThread]
         static void Main()
         {
-			Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string langDir = Path.Combine(Application.StartupPath, "Languages");
-            string langFileName = Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
+            string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
+            string langFileName = System.IO.Path.Combine(langDir, Properties.Settings.Default.LanguageFile + ".ini");
             if (System.IO.File.Exists(langFileName))
             {
-                StreamReader rdr = new StreamReader(langFileName);
+                System.IO.StreamReader rdr = new StreamReader(langFileName);
                 LanguageManager.Load(rdr.ReadToEnd().Split('\n'));
                 rdr.Close();
             }
@@ -55,8 +61,8 @@ namespace NSMBe5
                 NitroROMFilesystem fs = new NitroROMFilesystem(args[1]);
                 ROM.load(fs);
 
-                SpriteData.Load();
                 new LevelChooser().Show();
+                StageObjSettings.Load();
             }
             else
             {

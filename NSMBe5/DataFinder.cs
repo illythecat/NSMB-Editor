@@ -128,9 +128,9 @@ namespace NSMBe5 {
                 else
                 {
                     bool printSpace = false;
-                    foreach (NSMBSprite s in l.Sprites)
+                    foreach (NSMBStageObj so in l.Sprites)
                     {
-                        if (s.Type == spriteUpDown.Value)
+                        if (so.Type == spriteUpDown.Value)
                         {
                             if (printSpace)
                                 for (int k = 0; k < n.Length; k++)
@@ -139,7 +139,7 @@ namespace NSMBe5 {
                                 output.Append(n);
 
                             printSpace = true;
-                            PrintByteArray(output, s.Data, 0, 6, n);
+                            PrintByteArray(output, so.Data, 0, 6, n);
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 ﻿namespace NSMBe5
 {
-    partial class SpriteEventsViewer
+    partial class StageObjEventsViewer
     {
         /// <summary>
         /// Required designer variable.

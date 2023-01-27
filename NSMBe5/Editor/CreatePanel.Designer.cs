@@ -41,7 +41,7 @@
             this.CreateObject.TabIndex = 0;
             this.CreateObject.Text = "<CreateObject>";
             this.CreateObject.UseVisualStyleBackColor = true;
-            this.CreateObject.Click += new System.EventHandler(this.CreateObject_Click);
+            this.CreateObject.Click += new System.EventHandler(this.CreateTile_Click);
             // 
             // CreateSprite
             // 
@@ -52,7 +52,7 @@
             this.CreateSprite.TabIndex = 0;
             this.CreateSprite.Text = "<CreateSprite>";
             this.CreateSprite.UseVisualStyleBackColor = true;
-            this.CreateSprite.Click += new System.EventHandler(this.CreateSprite_Click);
+            this.CreateSprite.Click += new System.EventHandler(this.CreateStageObj_Click);
             // 
             // CreatePanel
             // 

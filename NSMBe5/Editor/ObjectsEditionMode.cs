@@ -33,7 +33,7 @@ namespace NSMBe5
         int lx, ly; //last position
         
         bool CreateObj;
-        NSMBObject newObj;
+        NSMBTile newObj;
 
         MouseAction mouseAct = new MouseAction();
 
@@ -44,7 +44,7 @@ namespace NSMBe5
 
         Rectangle SelectionRectangle;
 
-        List<LevelItem> SelectedObjects = new List<LevelItem>();
+        public List<LevelItem> SelectedObjects = new List<LevelItem>();
         List<LevelItem> CurSelectedObjs = new List<LevelItem>();
         bool removing = false;
         public GoodTabsPanel tabs;
@@ -75,8 +75,8 @@ namespace NSMBe5
         {
             SelectedObjects.Clear();
             CurSelectedObjs.Clear();
-            foreach (NSMBObject o in EdControl.Level.Objects) SelectedObjects.Add(o);
-            foreach (NSMBSprite s in EdControl.Level.Sprites) SelectedObjects.Add(s);
+            foreach (NSMBTile o in EdControl.Level.Objects) SelectedObjects.Add(o);
+            foreach (NSMBStageObj s in EdControl.Level.Sprites) SelectedObjects.Add(s);
             foreach (NSMBEntrance e in EdControl.Level.Entrances) SelectedObjects.Add(e);
             foreach (NSMBView v in EdControl.Level.Views) SelectedObjects.Add(v);
             foreach (NSMBView z in EdControl.Level.Zones) SelectedObjects.Add(z);
@@ -133,9 +133,9 @@ namespace NSMBe5
             if (o is NSMBPathPoint)
             {
                 Bitmap img = Properties.Resources.pathpoint_add;
-                g.DrawImage(img, o.x + 16, o.y);
+                g.DrawImage(img, new Rectangle(o.x + 16, o.y, 16, 16));
                 img.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                g.DrawImage(img, o.x - 16, o.y);
+                g.DrawImage(img, new Rectangle(o.x - 16, o.y, 16, 16));
             }
 
             g.DrawRectangle(Pens.White, o.x, o.y, o.width, o.height);
@@ -225,8 +225,8 @@ namespace NSMBe5
             
             Rectangle r = new Rectangle(x1, y1, x2-x1, y2-y1);
             SelectionRectangle = r;
-            foreach (NSMBObject o in Level.Objects) selectIfInside(o, r);
-            foreach (NSMBSprite o in Level.Sprites) selectIfInside(o, r);
+            foreach (NSMBTile o in Level.Objects) selectIfInside(o, r);
+            foreach (NSMBStageObj o in Level.Sprites) selectIfInside(o, r);
             foreach (NSMBEntrance o in Level.Entrances) selectIfInside(o, r);
             foreach (NSMBView v in Level.Views) selectIfInside(v, r);
             foreach (NSMBView z in Level.Zones) selectIfInside(z, r);
@@ -271,7 +271,7 @@ namespace NSMBe5
                 CreateObj = true;
                 if (tabs.SelectedTab == 2) //The sprite tab
                 {
-                    NSMBSprite newSprite = new NSMBSprite(Level);
+                    NSMBStageObj newSprite = new NSMBStageObj(Level);
                     newSprite.Type = tabs.sprites.getSelectedType();
                     if (newSprite.Type == -1)
                         return;
@@ -282,7 +282,7 @@ namespace NSMBe5
                     SelectObject(newSprite);
                     return;
                 }
-                newObj = new NSMBObject(tabs.objects.getObjectType(), tabs.objects.getTilesetNum(), dx, dy, 1, 1, Level.GFX);
+                newObj = new NSMBTile(tabs.objects.getObjectType(), tabs.objects.getTilesetNum(), dx, dy, 1, 1, Level.GFX);
                 EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(newObj)));
                 SelectObject(newObj);
                 return;
@@ -373,7 +373,7 @@ namespace NSMBe5
                 newObj.Y = Math.Min(ly, dy);
                 newObj.Width = Math.Abs(lx - dx) + 1;
                 newObj.Height = Math.Abs(ly - dy) + 1;
-                newObj.UpdateObjCache();
+                newObj.UpdateTileCache();
                 r = Rectangle.Union(r, newObj.getRectangle());
                 Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
                 EdControl.repaint();
@@ -678,9 +678,9 @@ namespace NSMBe5
             switch (strs[idx])
             {
                 case "OBJ":
-                    return NSMBObject.FromString(strs, ref idx, EdControl.Level.GFX);
+                    return NSMBTile.FromString(strs, ref idx, EdControl.Level.GFX);
                 case "SPR":
-                    return NSMBSprite.FromString(strs, ref idx, EdControl.Level);
+                    return NSMBStageObj.FromString(strs, ref idx, EdControl.Level);
                 case "ENT":
                     return NSMBEntrance.FromString(strs, ref idx, EdControl.Level);
                 case "VIW":
@@ -724,8 +724,8 @@ namespace NSMBe5
             List<LevelItem> newObjects = new List<LevelItem>();
             foreach (LevelItem SelectedObject in Objects)
             {
-                if (SelectedObject is NSMBObject) newObjects.Add(new NSMBObject(SelectedObject as NSMBObject));
-                if (SelectedObject is NSMBSprite) newObjects.Add(new NSMBSprite(SelectedObject as NSMBSprite));
+                if (SelectedObject is NSMBTile) newObjects.Add(new NSMBTile(SelectedObject as NSMBTile));
+                if (SelectedObject is NSMBStageObj) newObjects.Add(new NSMBStageObj(SelectedObject as NSMBStageObj));
                 if (SelectedObject is NSMBEntrance) newObjects.Add(new NSMBEntrance(SelectedObject as NSMBEntrance));
                 if (SelectedObject is NSMBView) newObjects.Add(new NSMBView(SelectedObject as NSMBView));
                 if (SelectedObject is NSMBPathPoint) newObjects.Add(new NSMBPathPoint(SelectedObject as NSMBPathPoint));

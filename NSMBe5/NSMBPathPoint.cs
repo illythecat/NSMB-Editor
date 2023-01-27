@@ -76,7 +76,7 @@ namespace NSMBe5
             if (num == parent.points.Count - 1)
                 p = Pens.Red;
 
-            g.DrawImage(Properties.Resources.pathpoint, X + NSMBPath.XOffs, Y+NSMBPath.YOffs);
+            g.DrawImage(Properties.Resources.pathpoint, new Rectangle(X + NSMBPath.XOffs, Y+NSMBPath.YOffs, 16, 16));
             if (p != null)
             {
                 g.DrawRectangle(p, X, Y, 16, 16);

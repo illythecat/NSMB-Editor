@@ -32,7 +32,7 @@ namespace NSMBe5
         public List<LevelItem> SelectedObjs;
 
         public ObjectEditor objects;
-        public SpriteEditor sprites;
+        public StageObjEditor sprites;
         public EntranceEditor entrances;
         public ViewEditor views;
         public ViewEditor zones;
@@ -83,7 +83,7 @@ namespace NSMBe5
             tabControl1.ImageList = images;
 
             objects = new ObjectEditor(EdControl);
-            sprites = new SpriteEditor(EdControl);
+            sprites = new StageObjEditor(EdControl);
             entrances = new EntranceEditor(EdControl);
             views = new ViewEditor(EdControl, EdControl.Level.Views, true);
             zones = new ViewEditor(EdControl, EdControl.Level.Zones, false);
@@ -147,8 +147,8 @@ namespace NSMBe5
 
         private ItemType typeOfItem(LevelItem it)
         {
-            if (it is NSMBObject) return ItemType.Object;
-            if (it is NSMBSprite) return ItemType.Sprite;
+            if (it is NSMBTile) return ItemType.Object;
+            if (it is NSMBStageObj) return ItemType.Sprite;
             if (it is NSMBEntrance) return ItemType.Entrance;
             if (it is NSMBView && !(it as NSMBView).isZone) return ItemType.View;
             if (it is NSMBView && (it as NSMBView).isZone) return ItemType.Zone;

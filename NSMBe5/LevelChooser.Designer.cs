@@ -39,8 +39,11 @@ namespace NSMBe5 {
 			this.editLevelButton = new System.Windows.Forms.Button();
 			this.levelTreeView = new System.Windows.Forms.TreeView();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.tilesetList1 = new NSMBe5.TilesetList();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.backgroundList1 = new NSMBe5.BackgroundList();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.filesystemBrowser1 = new NSMBe5.DSFileSystem.FilesystemBrowser();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.grpDLPMode = new System.Windows.Forms.GroupBox();
 			this.lblDLPMode2 = new System.Windows.Forms.Label();
@@ -62,6 +65,9 @@ namespace NSMBe5 {
 			this.compileInsert = new System.Windows.Forms.Button();
 			this.decompArm9Bin = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.setFontBtn = new System.Windows.Forms.Button();
+			this.label3 = new System.Windows.Forms.Label();
+			this.fontTextBox = new System.Windows.Forms.TextBox();
 			this.patchMethodComboBox = new System.Windows.Forms.ComboBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.languagesComboBox = new System.Windows.Forms.ComboBox();
@@ -73,14 +79,14 @@ namespace NSMBe5 {
 			this.updateSpriteDataButton = new System.Windows.Forms.Button();
 			this.chkAutoBackup = new System.Windows.Forms.CheckBox();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.label2 = new System.Windows.Forms.Label();
+			this.creditsLabel = new System.Windows.Forms.Label();
 			this.linkNSMBHD = new System.Windows.Forms.LinkLabel();
 			this.linkOgRepo = new System.Windows.Forms.LinkLabel();
 			this.linkRepo = new System.Windows.Forms.LinkLabel();
 			this.lblLinksHeader = new System.Windows.Forms.Label();
 			this.lblCreditsHeader = new System.Windows.Forms.Label();
 			this.versionLabel = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.appNameLabel = new System.Windows.Forms.Label();
 			this.importLevelDialog = new System.Windows.Forms.OpenFileDialog();
 			this.exportLevelDialog = new System.Windows.Forms.SaveFileDialog();
 			this.savePatchDialog = new System.Windows.Forms.SaveFileDialog();
@@ -89,12 +95,6 @@ namespace NSMBe5 {
 			this.saveTextFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.openROMDialog = new System.Windows.Forms.OpenFileDialog();
-			this.fontTextBox = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.setFontBtn = new System.Windows.Forms.Button();
-			this.tilesetList1 = new NSMBe5.TilesetList();
-			this.backgroundList1 = new NSMBe5.BackgroundList();
-			this.filesystemBrowser1 = new NSMBe5.DSFileSystem.FilesystemBrowser();
 			this.tabControl1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage5.SuspendLayout();
@@ -122,11 +122,10 @@ namespace NSMBe5 {
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
-			this.tabControl1.Location = new System.Drawing.Point(17, 15);
-			this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabControl1.Location = new System.Drawing.Point(13, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(733, 594);
+			this.tabControl1.Size = new System.Drawing.Size(550, 483);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPage2
@@ -140,11 +139,10 @@ namespace NSMBe5 {
 			this.tabPage2.Controls.Add(this.importLevelButton);
 			this.tabPage2.Controls.Add(this.editLevelButton);
 			this.tabPage2.Controls.Add(this.levelTreeView);
-			this.tabPage2.Location = new System.Drawing.Point(4, 25);
-			this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage2.Size = new System.Drawing.Size(725, 565);
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(542, 457);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "<Level Listing>";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -152,10 +150,9 @@ namespace NSMBe5 {
 			// openClipboard
 			// 
 			this.openClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.openClipboard.Location = new System.Drawing.Point(293, 526);
-			this.openClipboard.Margin = new System.Windows.Forms.Padding(4);
+			this.openClipboard.Location = new System.Drawing.Point(220, 427);
 			this.openClipboard.Name = "openClipboard";
-			this.openClipboard.Size = new System.Drawing.Size(157, 28);
+			this.openClipboard.Size = new System.Drawing.Size(118, 23);
 			this.openClipboard.TabIndex = 8;
 			this.openClipboard.Text = "<OpenClipboard>";
 			this.openClipboard.UseVisualStyleBackColor = true;
@@ -165,10 +162,9 @@ namespace NSMBe5 {
 			// 
 			this.exportClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.exportClipboard.Enabled = false;
-			this.exportClipboard.Location = new System.Drawing.Point(143, 526);
-			this.exportClipboard.Margin = new System.Windows.Forms.Padding(4);
+			this.exportClipboard.Location = new System.Drawing.Point(107, 427);
 			this.exportClipboard.Name = "exportClipboard";
-			this.exportClipboard.Size = new System.Drawing.Size(141, 28);
+			this.exportClipboard.Size = new System.Drawing.Size(106, 23);
 			this.exportClipboard.TabIndex = 7;
 			this.exportClipboard.Text = "<ExportToClipboard>";
 			this.exportClipboard.UseVisualStyleBackColor = true;
@@ -178,10 +174,9 @@ namespace NSMBe5 {
 			// 
 			this.importClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.importClipboard.Enabled = false;
-			this.importClipboard.Location = new System.Drawing.Point(8, 526);
-			this.importClipboard.Margin = new System.Windows.Forms.Padding(4);
+			this.importClipboard.Location = new System.Drawing.Point(6, 427);
 			this.importClipboard.Name = "importClipboard";
-			this.importClipboard.Size = new System.Drawing.Size(125, 28);
+			this.importClipboard.Size = new System.Drawing.Size(94, 23);
 			this.importClipboard.TabIndex = 6;
 			this.importClipboard.Text = "<ImportClipboard>";
 			this.importClipboard.UseVisualStyleBackColor = true;
@@ -190,10 +185,9 @@ namespace NSMBe5 {
 			// openLevel
 			// 
 			this.openLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.openLevel.Location = new System.Drawing.Point(292, 489);
-			this.openLevel.Margin = new System.Windows.Forms.Padding(4);
+			this.openLevel.Location = new System.Drawing.Point(219, 397);
 			this.openLevel.Name = "openLevel";
-			this.openLevel.Size = new System.Drawing.Size(159, 28);
+			this.openLevel.Size = new System.Drawing.Size(119, 23);
 			this.openLevel.TabIndex = 5;
 			this.openLevel.Text = "<OpenExportedLevel>";
 			this.openLevel.UseVisualStyleBackColor = true;
@@ -203,10 +197,9 @@ namespace NSMBe5 {
 			// 
 			this.hexEditLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.hexEditLevelButton.Enabled = false;
-			this.hexEditLevelButton.Location = new System.Drawing.Point(603, 526);
-			this.hexEditLevelButton.Margin = new System.Windows.Forms.Padding(4);
+			this.hexEditLevelButton.Location = new System.Drawing.Point(452, 427);
 			this.hexEditLevelButton.Name = "hexEditLevelButton";
-			this.hexEditLevelButton.Size = new System.Drawing.Size(100, 28);
+			this.hexEditLevelButton.Size = new System.Drawing.Size(75, 23);
 			this.hexEditLevelButton.TabIndex = 4;
 			this.hexEditLevelButton.Text = "<hexEditLevelButton>";
 			this.hexEditLevelButton.UseVisualStyleBackColor = true;
@@ -216,10 +209,9 @@ namespace NSMBe5 {
 			// 
 			this.exportLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.exportLevelButton.Enabled = false;
-			this.exportLevelButton.Location = new System.Drawing.Point(141, 489);
-			this.exportLevelButton.Margin = new System.Windows.Forms.Padding(4);
+			this.exportLevelButton.Location = new System.Drawing.Point(106, 397);
 			this.exportLevelButton.Name = "exportLevelButton";
-			this.exportLevelButton.Size = new System.Drawing.Size(143, 28);
+			this.exportLevelButton.Size = new System.Drawing.Size(107, 23);
 			this.exportLevelButton.TabIndex = 3;
 			this.exportLevelButton.Text = "<exportLevelButton>";
 			this.exportLevelButton.UseVisualStyleBackColor = true;
@@ -229,10 +221,9 @@ namespace NSMBe5 {
 			// 
 			this.importLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.importLevelButton.Enabled = false;
-			this.importLevelButton.Location = new System.Drawing.Point(7, 489);
-			this.importLevelButton.Margin = new System.Windows.Forms.Padding(4);
+			this.importLevelButton.Location = new System.Drawing.Point(5, 397);
 			this.importLevelButton.Name = "importLevelButton";
-			this.importLevelButton.Size = new System.Drawing.Size(127, 28);
+			this.importLevelButton.Size = new System.Drawing.Size(95, 23);
 			this.importLevelButton.TabIndex = 2;
 			this.importLevelButton.Text = "<importLevelButton>";
 			this.importLevelButton.UseVisualStyleBackColor = true;
@@ -242,10 +233,9 @@ namespace NSMBe5 {
 			// 
 			this.editLevelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.editLevelButton.Enabled = false;
-			this.editLevelButton.Location = new System.Drawing.Point(603, 489);
-			this.editLevelButton.Margin = new System.Windows.Forms.Padding(4);
+			this.editLevelButton.Location = new System.Drawing.Point(452, 397);
 			this.editLevelButton.Name = "editLevelButton";
-			this.editLevelButton.Size = new System.Drawing.Size(100, 28);
+			this.editLevelButton.Size = new System.Drawing.Size(75, 23);
 			this.editLevelButton.TabIndex = 1;
 			this.editLevelButton.Text = "<editLevelButton>";
 			this.editLevelButton.UseVisualStyleBackColor = true;
@@ -256,10 +246,9 @@ namespace NSMBe5 {
 			this.levelTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.levelTreeView.Location = new System.Drawing.Point(8, 7);
-			this.levelTreeView.Margin = new System.Windows.Forms.Padding(4);
+			this.levelTreeView.Location = new System.Drawing.Point(6, 6);
 			this.levelTreeView.Name = "levelTreeView";
-			this.levelTreeView.Size = new System.Drawing.Size(695, 473);
+			this.levelTreeView.Size = new System.Drawing.Size(522, 385);
 			this.levelTreeView.TabIndex = 0;
 			this.levelTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.levelTreeView_AfterSelect);
 			this.levelTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.levelTreeView_NodeMouseDoubleClick);
@@ -267,37 +256,61 @@ namespace NSMBe5 {
 			// tabPage5
 			// 
 			this.tabPage5.Controls.Add(this.tilesetList1);
-			this.tabPage5.Location = new System.Drawing.Point(4, 25);
-			this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage5.Size = new System.Drawing.Size(725, 565);
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage5.Size = new System.Drawing.Size(542, 457);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "<Tilesets>";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// tilesetList1
+			// 
+			this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tilesetList1.Location = new System.Drawing.Point(3, 3);
+			this.tilesetList1.Margin = new System.Windows.Forms.Padding(4);
+			this.tilesetList1.Name = "tilesetList1";
+			this.tilesetList1.Size = new System.Drawing.Size(536, 451);
+			this.tilesetList1.TabIndex = 0;
+			// 
 			// tabPage6
 			// 
 			this.tabPage6.Controls.Add(this.backgroundList1);
-			this.tabPage6.Location = new System.Drawing.Point(4, 25);
-			this.tabPage6.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(725, 565);
+			this.tabPage6.Size = new System.Drawing.Size(542, 457);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "<Backgrounds>";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// backgroundList1
+			// 
+			this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.backgroundList1.Location = new System.Drawing.Point(0, 0);
+			this.backgroundList1.Margin = new System.Windows.Forms.Padding(4);
+			this.backgroundList1.Name = "backgroundList1";
+			this.backgroundList1.Size = new System.Drawing.Size(542, 457);
+			this.backgroundList1.TabIndex = 0;
+			// 
 			// tabPage1
 			// 
 			this.tabPage1.Controls.Add(this.filesystemBrowser1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 25);
-			this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage1.Size = new System.Drawing.Size(725, 565);
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(542, 457);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "<File Browser>";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// filesystemBrowser1
+			// 
+			this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.filesystemBrowser1.Location = new System.Drawing.Point(3, 3);
+			this.filesystemBrowser1.Margin = new System.Windows.Forms.Padding(4);
+			this.filesystemBrowser1.Name = "filesystemBrowser1";
+			this.filesystemBrowser1.Size = new System.Drawing.Size(536, 451);
+			this.filesystemBrowser1.TabIndex = 0;
 			// 
 			// tabPage3
 			// 
@@ -307,11 +320,10 @@ namespace NSMBe5 {
 			this.tabPage3.Controls.Add(this.nsmbToolsGroupbox);
 			this.tabPage3.Controls.Add(this.asmToolsGroupbox);
 			this.tabPage3.Controls.Add(this.groupBox1);
-			this.tabPage3.Location = new System.Drawing.Point(4, 25);
-			this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage3.Size = new System.Drawing.Size(725, 565);
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(542, 457);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "<Tools/Options>";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -321,30 +333,26 @@ namespace NSMBe5 {
 			this.grpDLPMode.Controls.Add(this.lblDLPMode2);
 			this.grpDLPMode.Controls.Add(this.lblDLPMode1);
 			this.grpDLPMode.Controls.Add(this.dlpCheckBox);
-			this.grpDLPMode.Location = new System.Drawing.Point(8, 414);
-			this.grpDLPMode.Margin = new System.Windows.Forms.Padding(4);
+			this.grpDLPMode.Location = new System.Drawing.Point(6, 336);
 			this.grpDLPMode.Name = "grpDLPMode";
-			this.grpDLPMode.Padding = new System.Windows.Forms.Padding(4);
-			this.grpDLPMode.Size = new System.Drawing.Size(328, 144);
+			this.grpDLPMode.Size = new System.Drawing.Size(246, 117);
 			this.grpDLPMode.TabIndex = 11;
 			this.grpDLPMode.TabStop = false;
 			this.grpDLPMode.Text = "<DLP mode>";
 			// 
 			// lblDLPMode2
 			// 
-			this.lblDLPMode2.Location = new System.Drawing.Point(8, 101);
-			this.lblDLPMode2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lblDLPMode2.Location = new System.Drawing.Point(6, 82);
 			this.lblDLPMode2.Name = "lblDLPMode2";
-			this.lblDLPMode2.Size = new System.Drawing.Size(308, 38);
+			this.lblDLPMode2.Size = new System.Drawing.Size(231, 31);
 			this.lblDLPMode2.TabIndex = 11;
 			this.lblDLPMode2.Text = "<You do NOT need to enable this if you\'re using firmware.nds or FlashMe.>";
 			// 
 			// lblDLPMode1
 			// 
-			this.lblDLPMode1.Location = new System.Drawing.Point(8, 48);
-			this.lblDLPMode1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lblDLPMode1.Location = new System.Drawing.Point(6, 39);
 			this.lblDLPMode1.Name = "lblDLPMode1";
-			this.lblDLPMode1.Size = new System.Drawing.Size(312, 53);
+			this.lblDLPMode1.Size = new System.Drawing.Size(234, 43);
 			this.lblDLPMode1.TabIndex = 11;
 			this.lblDLPMode1.Text = "<This will prevent some values in the header from being updated. The ROM will wor" +
     "k over DLP but may not work on some flashcards.>";
@@ -352,10 +360,9 @@ namespace NSMBe5 {
 			// dlpCheckBox
 			// 
 			this.dlpCheckBox.AutoSize = true;
-			this.dlpCheckBox.Location = new System.Drawing.Point(8, 23);
-			this.dlpCheckBox.Margin = new System.Windows.Forms.Padding(4);
+			this.dlpCheckBox.Location = new System.Drawing.Point(6, 19);
 			this.dlpCheckBox.Name = "dlpCheckBox";
-			this.dlpCheckBox.Size = new System.Drawing.Size(265, 20);
+			this.dlpCheckBox.Size = new System.Drawing.Size(210, 17);
 			this.dlpCheckBox.TabIndex = 10;
 			this.dlpCheckBox.Text = "<Enable Download Play-friendly mode>";
 			this.dlpCheckBox.UseVisualStyleBackColor = true;
@@ -368,11 +375,9 @@ namespace NSMBe5 {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.musicSlotsGrp.Controls.Add(this.renameBtn);
 			this.musicSlotsGrp.Controls.Add(this.musicList);
-			this.musicSlotsGrp.Location = new System.Drawing.Point(344, 218);
-			this.musicSlotsGrp.Margin = new System.Windows.Forms.Padding(4);
+			this.musicSlotsGrp.Location = new System.Drawing.Point(258, 177);
 			this.musicSlotsGrp.Name = "musicSlotsGrp";
-			this.musicSlotsGrp.Padding = new System.Windows.Forms.Padding(4);
-			this.musicSlotsGrp.Size = new System.Drawing.Size(371, 341);
+			this.musicSlotsGrp.Size = new System.Drawing.Size(278, 277);
 			this.musicSlotsGrp.TabIndex = 8;
 			this.musicSlotsGrp.TabStop = false;
 			this.musicSlotsGrp.Text = "<Music Slots>";
@@ -380,10 +385,9 @@ namespace NSMBe5 {
 			// renameBtn
 			// 
 			this.renameBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.renameBtn.Location = new System.Drawing.Point(263, 309);
-			this.renameBtn.Margin = new System.Windows.Forms.Padding(4);
+			this.renameBtn.Location = new System.Drawing.Point(197, 251);
 			this.renameBtn.Name = "renameBtn";
-			this.renameBtn.Size = new System.Drawing.Size(100, 28);
+			this.renameBtn.Size = new System.Drawing.Size(75, 23);
 			this.renameBtn.TabIndex = 10;
 			this.renameBtn.Text = "<Rename>";
 			this.renameBtn.UseVisualStyleBackColor = true;
@@ -395,11 +399,9 @@ namespace NSMBe5 {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.musicList.FormattingEnabled = true;
-			this.musicList.ItemHeight = 16;
-			this.musicList.Location = new System.Drawing.Point(8, 25);
-			this.musicList.Margin = new System.Windows.Forms.Padding(4);
+			this.musicList.Location = new System.Drawing.Point(6, 20);
 			this.musicList.Name = "musicList";
-			this.musicList.Size = new System.Drawing.Size(353, 276);
+			this.musicList.Size = new System.Drawing.Size(266, 225);
 			this.musicList.TabIndex = 9;
 			// 
 			// patchesGroupbox
@@ -408,11 +410,9 @@ namespace NSMBe5 {
 			this.patchesGroupbox.Controls.Add(this.xdelta_export);
 			this.patchesGroupbox.Controls.Add(this.patchExport);
 			this.patchesGroupbox.Controls.Add(this.patchImport);
-			this.patchesGroupbox.Location = new System.Drawing.Point(344, 7);
-			this.patchesGroupbox.Margin = new System.Windows.Forms.Padding(4);
+			this.patchesGroupbox.Location = new System.Drawing.Point(258, 6);
 			this.patchesGroupbox.Name = "patchesGroupbox";
-			this.patchesGroupbox.Padding = new System.Windows.Forms.Padding(4);
-			this.patchesGroupbox.Size = new System.Drawing.Size(371, 98);
+			this.patchesGroupbox.Size = new System.Drawing.Size(278, 80);
 			this.patchesGroupbox.TabIndex = 7;
 			this.patchesGroupbox.TabStop = false;
 			this.patchesGroupbox.Text = "<Patches>";
@@ -421,10 +421,9 @@ namespace NSMBe5 {
 			// 
 			this.xdelta_import.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.xdelta_import.Location = new System.Drawing.Point(187, 59);
-			this.xdelta_import.Margin = new System.Windows.Forms.Padding(4);
+			this.xdelta_import.Location = new System.Drawing.Point(140, 48);
 			this.xdelta_import.Name = "xdelta_import";
-			this.xdelta_import.Size = new System.Drawing.Size(176, 28);
+			this.xdelta_import.Size = new System.Drawing.Size(132, 23);
 			this.xdelta_import.TabIndex = 5;
 			this.xdelta_import.Text = "XDelta Patch Import";
 			this.xdelta_import.UseVisualStyleBackColor = true;
@@ -434,10 +433,9 @@ namespace NSMBe5 {
 			// 
 			this.xdelta_export.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.xdelta_export.Location = new System.Drawing.Point(187, 23);
-			this.xdelta_export.Margin = new System.Windows.Forms.Padding(4);
+			this.xdelta_export.Location = new System.Drawing.Point(140, 19);
 			this.xdelta_export.Name = "xdelta_export";
-			this.xdelta_export.Size = new System.Drawing.Size(176, 28);
+			this.xdelta_export.Size = new System.Drawing.Size(132, 23);
 			this.xdelta_export.TabIndex = 4;
 			this.xdelta_export.Text = "XDelta Patch Export";
 			this.xdelta_export.UseVisualStyleBackColor = true;
@@ -445,10 +443,9 @@ namespace NSMBe5 {
 			// 
 			// patchExport
 			// 
-			this.patchExport.Location = new System.Drawing.Point(8, 23);
-			this.patchExport.Margin = new System.Windows.Forms.Padding(4);
+			this.patchExport.Location = new System.Drawing.Point(6, 19);
 			this.patchExport.Name = "patchExport";
-			this.patchExport.Size = new System.Drawing.Size(177, 28);
+			this.patchExport.Size = new System.Drawing.Size(133, 23);
 			this.patchExport.TabIndex = 3;
 			this.patchExport.Text = "<patchExport>";
 			this.patchExport.UseVisualStyleBackColor = true;
@@ -456,10 +453,9 @@ namespace NSMBe5 {
 			// 
 			// patchImport
 			// 
-			this.patchImport.Location = new System.Drawing.Point(8, 59);
-			this.patchImport.Margin = new System.Windows.Forms.Padding(4);
+			this.patchImport.Location = new System.Drawing.Point(6, 48);
 			this.patchImport.Name = "patchImport";
-			this.patchImport.Size = new System.Drawing.Size(177, 28);
+			this.patchImport.Size = new System.Drawing.Size(133, 23);
 			this.patchImport.TabIndex = 3;
 			this.patchImport.Text = "<patchImport>";
 			this.patchImport.UseVisualStyleBackColor = true;
@@ -469,11 +465,9 @@ namespace NSMBe5 {
 			// 
 			this.nsmbToolsGroupbox.Controls.Add(this.mpPatch2);
 			this.nsmbToolsGroupbox.Controls.Add(this.dataFinderButton);
-			this.nsmbToolsGroupbox.Location = new System.Drawing.Point(8, 7);
-			this.nsmbToolsGroupbox.Margin = new System.Windows.Forms.Padding(4);
+			this.nsmbToolsGroupbox.Location = new System.Drawing.Point(6, 6);
 			this.nsmbToolsGroupbox.Name = "nsmbToolsGroupbox";
-			this.nsmbToolsGroupbox.Padding = new System.Windows.Forms.Padding(4);
-			this.nsmbToolsGroupbox.Size = new System.Drawing.Size(328, 98);
+			this.nsmbToolsGroupbox.Size = new System.Drawing.Size(246, 80);
 			this.nsmbToolsGroupbox.TabIndex = 6;
 			this.nsmbToolsGroupbox.TabStop = false;
 			this.nsmbToolsGroupbox.Text = "<NSMB Tools>";
@@ -482,10 +476,9 @@ namespace NSMBe5 {
 			// 
 			this.mpPatch2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.mpPatch2.Location = new System.Drawing.Point(8, 23);
-			this.mpPatch2.Margin = new System.Windows.Forms.Padding(4);
+			this.mpPatch2.Location = new System.Drawing.Point(6, 19);
 			this.mpPatch2.Name = "mpPatch2";
-			this.mpPatch2.Size = new System.Drawing.Size(312, 28);
+			this.mpPatch2.Size = new System.Drawing.Size(234, 23);
 			this.mpPatch2.TabIndex = 5;
 			this.mpPatch2.Text = "<mpPatch2>";
 			this.mpPatch2.UseVisualStyleBackColor = true;
@@ -495,10 +488,9 @@ namespace NSMBe5 {
 			// 
 			this.dataFinderButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataFinderButton.Location = new System.Drawing.Point(8, 59);
-			this.dataFinderButton.Margin = new System.Windows.Forms.Padding(4);
+			this.dataFinderButton.Location = new System.Drawing.Point(6, 48);
 			this.dataFinderButton.Name = "dataFinderButton";
-			this.dataFinderButton.Size = new System.Drawing.Size(312, 28);
+			this.dataFinderButton.Size = new System.Drawing.Size(234, 23);
 			this.dataFinderButton.TabIndex = 3;
 			this.dataFinderButton.Text = "<dataFinderButton>";
 			this.dataFinderButton.UseVisualStyleBackColor = true;
@@ -509,11 +501,9 @@ namespace NSMBe5 {
 			this.asmToolsGroupbox.Controls.Add(this.cleanBuild);
 			this.asmToolsGroupbox.Controls.Add(this.compileInsert);
 			this.asmToolsGroupbox.Controls.Add(this.decompArm9Bin);
-			this.asmToolsGroupbox.Location = new System.Drawing.Point(344, 113);
-			this.asmToolsGroupbox.Margin = new System.Windows.Forms.Padding(4);
+			this.asmToolsGroupbox.Location = new System.Drawing.Point(258, 92);
 			this.asmToolsGroupbox.Name = "asmToolsGroupbox";
-			this.asmToolsGroupbox.Padding = new System.Windows.Forms.Padding(4);
-			this.asmToolsGroupbox.Size = new System.Drawing.Size(371, 97);
+			this.asmToolsGroupbox.Size = new System.Drawing.Size(278, 79);
 			this.asmToolsGroupbox.TabIndex = 4;
 			this.asmToolsGroupbox.TabStop = false;
 			this.asmToolsGroupbox.Text = "<Code hacking tools>";
@@ -522,10 +512,9 @@ namespace NSMBe5 {
 			// 
 			this.cleanBuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.cleanBuild.Location = new System.Drawing.Point(187, 59);
-			this.cleanBuild.Margin = new System.Windows.Forms.Padding(4);
+			this.cleanBuild.Location = new System.Drawing.Point(140, 48);
 			this.cleanBuild.Name = "cleanBuild";
-			this.cleanBuild.Size = new System.Drawing.Size(176, 28);
+			this.cleanBuild.Size = new System.Drawing.Size(132, 23);
 			this.cleanBuild.TabIndex = 3;
 			this.cleanBuild.Text = "<Clean build>";
 			this.cleanBuild.UseVisualStyleBackColor = true;
@@ -535,10 +524,9 @@ namespace NSMBe5 {
 			// 
 			this.compileInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.compileInsert.Location = new System.Drawing.Point(8, 59);
-			this.compileInsert.Margin = new System.Windows.Forms.Padding(4);
+			this.compileInsert.Location = new System.Drawing.Point(6, 48);
 			this.compileInsert.Name = "compileInsert";
-			this.compileInsert.Size = new System.Drawing.Size(177, 28);
+			this.compileInsert.Size = new System.Drawing.Size(133, 23);
 			this.compileInsert.TabIndex = 3;
 			this.compileInsert.Text = "<Compile and insert>";
 			this.compileInsert.UseVisualStyleBackColor = true;
@@ -548,10 +536,9 @@ namespace NSMBe5 {
 			// 
 			this.decompArm9Bin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.decompArm9Bin.Location = new System.Drawing.Point(8, 23);
-			this.decompArm9Bin.Margin = new System.Windows.Forms.Padding(4);
+			this.decompArm9Bin.Location = new System.Drawing.Point(6, 19);
 			this.decompArm9Bin.Name = "decompArm9Bin";
-			this.decompArm9Bin.Size = new System.Drawing.Size(355, 28);
+			this.decompArm9Bin.Size = new System.Drawing.Size(266, 23);
 			this.decompArm9Bin.TabIndex = 3;
 			this.decompArm9Bin.Text = "<Decompress ARM9 binary>";
 			this.decompArm9Bin.UseVisualStyleBackColor = true;
@@ -572,62 +559,84 @@ namespace NSMBe5 {
 			this.groupBox1.Controls.Add(this.autoBackupTime);
 			this.groupBox1.Controls.Add(this.updateSpriteDataButton);
 			this.groupBox1.Controls.Add(this.chkAutoBackup);
-			this.groupBox1.Location = new System.Drawing.Point(8, 113);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+			this.groupBox1.Location = new System.Drawing.Point(6, 92);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-			this.groupBox1.Size = new System.Drawing.Size(328, 293);
+			this.groupBox1.Size = new System.Drawing.Size(246, 238);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "<Settings>";
 			// 
+			// setFontBtn
+			// 
+			this.setFontBtn.Location = new System.Drawing.Point(188, 146);
+			this.setFontBtn.Margin = new System.Windows.Forms.Padding(2);
+			this.setFontBtn.Name = "setFontBtn";
+			this.setFontBtn.Size = new System.Drawing.Size(52, 20);
+			this.setFontBtn.TabIndex = 17;
+			this.setFontBtn.Text = "Set";
+			this.setFontBtn.UseVisualStyleBackColor = true;
+			this.setFontBtn.Click += new System.EventHandler(this.setFontBtn_Click);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(120, 150);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(62, 13);
+			this.label3.TabIndex = 16;
+			this.label3.Text = "Current font";
+			// 
+			// fontTextBox
+			// 
+			this.fontTextBox.Location = new System.Drawing.Point(6, 147);
+			this.fontTextBox.Margin = new System.Windows.Forms.Padding(2);
+			this.fontTextBox.Name = "fontTextBox";
+			this.fontTextBox.Size = new System.Drawing.Size(108, 20);
+			this.fontTextBox.TabIndex = 15;
+			// 
 			// patchMethodComboBox
 			// 
 			this.patchMethodComboBox.FormattingEnabled = true;
-			this.patchMethodComboBox.Location = new System.Drawing.Point(8, 62);
-			this.patchMethodComboBox.Margin = new System.Windows.Forms.Padding(4);
+			this.patchMethodComboBox.Location = new System.Drawing.Point(6, 50);
 			this.patchMethodComboBox.Name = "patchMethodComboBox";
-			this.patchMethodComboBox.Size = new System.Drawing.Size(143, 24);
+			this.patchMethodComboBox.Size = new System.Drawing.Size(108, 21);
 			this.patchMethodComboBox.TabIndex = 14;
 			this.patchMethodComboBox.SelectedIndexChanged += new System.EventHandler(this.patchMethodComboBox_SelectedIndexChanged);
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(160, 65);
-			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label4.Location = new System.Drawing.Point(120, 53);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(142, 16);
+			this.label4.Size = new System.Drawing.Size(114, 13);
 			this.label4.TabIndex = 14;
 			this.label4.Text = "Code patching method";
 			// 
 			// languagesComboBox
 			// 
 			this.languagesComboBox.FormattingEnabled = true;
-			this.languagesComboBox.Location = new System.Drawing.Point(8, 26);
-			this.languagesComboBox.Margin = new System.Windows.Forms.Padding(4);
+			this.languagesComboBox.Location = new System.Drawing.Point(6, 21);
 			this.languagesComboBox.Name = "languagesComboBox";
-			this.languagesComboBox.Size = new System.Drawing.Size(143, 24);
+			this.languagesComboBox.Size = new System.Drawing.Size(108, 21);
 			this.languagesComboBox.TabIndex = 14;
 			this.languagesComboBox.SelectedIndexChanged += new System.EventHandler(this.languagesComboBox_SelectedIndexChanged);
 			// 
 			// languageLabel
 			// 
 			this.languageLabel.AutoSize = true;
-			this.languageLabel.Location = new System.Drawing.Point(160, 30);
-			this.languageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.languageLabel.Location = new System.Drawing.Point(120, 24);
 			this.languageLabel.Name = "languageLabel";
-			this.languageLabel.Size = new System.Drawing.Size(82, 16);
+			this.languageLabel.Size = new System.Drawing.Size(67, 13);
 			this.languageLabel.TabIndex = 0;
 			this.languageLabel.Text = "<Language>";
 			// 
 			// usingSBCodeHackCheckBox
 			// 
 			this.usingSBCodeHackCheckBox.AutoSize = true;
-			this.usingSBCodeHackCheckBox.Location = new System.Drawing.Point(8, 154);
-			this.usingSBCodeHackCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.usingSBCodeHackCheckBox.Location = new System.Drawing.Point(6, 125);
+			this.usingSBCodeHackCheckBox.Margin = new System.Windows.Forms.Padding(2);
 			this.usingSBCodeHackCheckBox.Name = "usingSBCodeHackCheckBox";
-			this.usingSBCodeHackCheckBox.Size = new System.Drawing.Size(194, 20);
+			this.usingSBCodeHackCheckBox.Size = new System.Drawing.Size(156, 17);
 			this.usingSBCodeHackCheckBox.TabIndex = 12;
 			this.usingSBCodeHackCheckBox.Text = "Using signboard code hack";
 			this.usingSBCodeHackCheckBox.UseVisualStyleBackColor = true;
@@ -635,10 +644,9 @@ namespace NSMBe5 {
 			// 
 			// deleteBackups
 			// 
-			this.deleteBackups.Location = new System.Drawing.Point(8, 222);
-			this.deleteBackups.Margin = new System.Windows.Forms.Padding(4);
+			this.deleteBackups.Location = new System.Drawing.Point(6, 180);
 			this.deleteBackups.Name = "deleteBackups";
-			this.deleteBackups.Size = new System.Drawing.Size(312, 28);
+			this.deleteBackups.Size = new System.Drawing.Size(234, 23);
 			this.deleteBackups.TabIndex = 13;
 			this.deleteBackups.Text = "<Delete all backups>";
 			this.deleteBackups.UseVisualStyleBackColor = true;
@@ -647,17 +655,15 @@ namespace NSMBe5 {
 			// minutesLabel
 			// 
 			this.minutesLabel.AutoSize = true;
-			this.minutesLabel.Location = new System.Drawing.Point(88, 126);
-			this.minutesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.minutesLabel.Location = new System.Drawing.Point(66, 102);
 			this.minutesLabel.Name = "minutesLabel";
-			this.minutesLabel.Size = new System.Drawing.Size(104, 16);
+			this.minutesLabel.Size = new System.Drawing.Size(84, 13);
 			this.minutesLabel.TabIndex = 12;
 			this.minutesLabel.Text = "<Minutes delay>";
 			// 
 			// autoBackupTime
 			// 
-			this.autoBackupTime.Location = new System.Drawing.Point(8, 123);
-			this.autoBackupTime.Margin = new System.Windows.Forms.Padding(4);
+			this.autoBackupTime.Location = new System.Drawing.Point(6, 100);
 			this.autoBackupTime.Maximum = new decimal(new int[] {
             120,
             0,
@@ -669,7 +675,7 @@ namespace NSMBe5 {
             0,
             0});
 			this.autoBackupTime.Name = "autoBackupTime";
-			this.autoBackupTime.Size = new System.Drawing.Size(72, 22);
+			this.autoBackupTime.Size = new System.Drawing.Size(54, 20);
 			this.autoBackupTime.TabIndex = 11;
 			this.autoBackupTime.Value = new decimal(new int[] {
             1,
@@ -682,10 +688,9 @@ namespace NSMBe5 {
 			// 
 			this.updateSpriteDataButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.updateSpriteDataButton.Location = new System.Drawing.Point(8, 257);
-			this.updateSpriteDataButton.Margin = new System.Windows.Forms.Padding(4);
+			this.updateSpriteDataButton.Location = new System.Drawing.Point(6, 209);
 			this.updateSpriteDataButton.Name = "updateSpriteDataButton";
-			this.updateSpriteDataButton.Size = new System.Drawing.Size(312, 28);
+			this.updateSpriteDataButton.Size = new System.Drawing.Size(234, 23);
 			this.updateSpriteDataButton.TabIndex = 3;
 			this.updateSpriteDataButton.Text = "<UpdateSpriteData>";
 			this.updateSpriteDataButton.UseVisualStyleBackColor = true;
@@ -694,10 +699,9 @@ namespace NSMBe5 {
 			// chkAutoBackup
 			// 
 			this.chkAutoBackup.AutoSize = true;
-			this.chkAutoBackup.Location = new System.Drawing.Point(8, 95);
-			this.chkAutoBackup.Margin = new System.Windows.Forms.Padding(4);
+			this.chkAutoBackup.Location = new System.Drawing.Point(6, 77);
 			this.chkAutoBackup.Name = "chkAutoBackup";
-			this.chkAutoBackup.Size = new System.Drawing.Size(128, 20);
+			this.chkAutoBackup.Size = new System.Drawing.Size(105, 17);
 			this.chkAutoBackup.TabIndex = 9;
 			this.chkAutoBackup.Text = "<Backup levels>";
 			this.chkAutoBackup.UseVisualStyleBackColor = true;
@@ -705,42 +709,39 @@ namespace NSMBe5 {
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.Add(this.label2);
+			this.tabPage4.Controls.Add(this.creditsLabel);
 			this.tabPage4.Controls.Add(this.linkNSMBHD);
 			this.tabPage4.Controls.Add(this.linkOgRepo);
 			this.tabPage4.Controls.Add(this.linkRepo);
 			this.tabPage4.Controls.Add(this.lblLinksHeader);
 			this.tabPage4.Controls.Add(this.lblCreditsHeader);
 			this.tabPage4.Controls.Add(this.versionLabel);
-			this.tabPage4.Controls.Add(this.label1);
-			this.tabPage4.Location = new System.Drawing.Point(4, 25);
-			this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage4.Controls.Add(this.appNameLabel);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
-			this.tabPage4.Size = new System.Drawing.Size(725, 565);
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage4.Size = new System.Drawing.Size(542, 457);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "<About>";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
-			// label2
+			// creditsLabel
 			// 
-			this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(0, 124);
-			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(723, 202);
-			this.label2.TabIndex = 8;
-			this.label2.Text = resources.GetString("label2.Text");
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.creditsLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.creditsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.creditsLabel.Location = new System.Drawing.Point(0, 101);
+			this.creditsLabel.Name = "creditsLabel";
+			this.creditsLabel.Size = new System.Drawing.Size(542, 164);
+			this.creditsLabel.TabIndex = 8;
+			this.creditsLabel.Text = resources.GetString("creditsLabel.Text");
+			this.creditsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// linkNSMBHD
 			// 
 			this.linkNSMBHD.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.linkNSMBHD.Location = new System.Drawing.Point(0, 419);
-			this.linkNSMBHD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.linkNSMBHD.Location = new System.Drawing.Point(0, 340);
 			this.linkNSMBHD.Name = "linkNSMBHD";
-			this.linkNSMBHD.Size = new System.Drawing.Size(723, 28);
+			this.linkNSMBHD.Size = new System.Drawing.Size(542, 23);
 			this.linkNSMBHD.TabIndex = 7;
 			this.linkNSMBHD.TabStop = true;
 			this.linkNSMBHD.Text = "NSMB Hacking Domain";
@@ -751,10 +752,9 @@ namespace NSMBe5 {
 			// linkOgRepo
 			// 
 			this.linkOgRepo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.linkOgRepo.Location = new System.Drawing.Point(0, 391);
-			this.linkOgRepo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.linkOgRepo.Location = new System.Drawing.Point(0, 318);
 			this.linkOgRepo.Name = "linkOgRepo";
-			this.linkOgRepo.Size = new System.Drawing.Size(723, 28);
+			this.linkOgRepo.Size = new System.Drawing.Size(542, 23);
 			this.linkOgRepo.TabIndex = 6;
 			this.linkOgRepo.TabStop = true;
 			this.linkOgRepo.Text = "NSMBe on GitHub [The original repo]";
@@ -765,10 +765,9 @@ namespace NSMBe5 {
 			// linkRepo
 			// 
 			this.linkRepo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.linkRepo.Location = new System.Drawing.Point(0, 363);
-			this.linkRepo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.linkRepo.Location = new System.Drawing.Point(0, 295);
 			this.linkRepo.Name = "linkRepo";
-			this.linkRepo.Size = new System.Drawing.Size(723, 28);
+			this.linkRepo.Size = new System.Drawing.Size(542, 23);
 			this.linkRepo.TabIndex = 5;
 			this.linkRepo.TabStop = true;
 			this.linkRepo.Text = "NSMBe on GitHub [The maintained repo]";
@@ -780,10 +779,9 @@ namespace NSMBe5 {
 			// 
 			this.lblLinksHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.lblLinksHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblLinksHeader.Location = new System.Drawing.Point(0, 338);
-			this.lblLinksHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lblLinksHeader.Location = new System.Drawing.Point(0, 275);
 			this.lblLinksHeader.Name = "lblLinksHeader";
-			this.lblLinksHeader.Size = new System.Drawing.Size(723, 25);
+			this.lblLinksHeader.Size = new System.Drawing.Size(542, 20);
 			this.lblLinksHeader.TabIndex = 4;
 			this.lblLinksHeader.Text = "Links";
 			this.lblLinksHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -792,10 +790,9 @@ namespace NSMBe5 {
 			// 
 			this.lblCreditsHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.lblCreditsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCreditsHeader.Location = new System.Drawing.Point(0, 100);
-			this.lblCreditsHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lblCreditsHeader.Location = new System.Drawing.Point(0, 81);
 			this.lblCreditsHeader.Name = "lblCreditsHeader";
-			this.lblCreditsHeader.Size = new System.Drawing.Size(723, 25);
+			this.lblCreditsHeader.Size = new System.Drawing.Size(542, 20);
 			this.lblCreditsHeader.TabIndex = 2;
 			this.lblCreditsHeader.Text = "Credits";
 			this.lblCreditsHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -804,87 +801,30 @@ namespace NSMBe5 {
 			// 
 			this.versionLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.versionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.versionLabel.Location = new System.Drawing.Point(0, 65);
-			this.versionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.versionLabel.Location = new System.Drawing.Point(0, 53);
 			this.versionLabel.Name = "versionLabel";
-			this.versionLabel.Size = new System.Drawing.Size(723, 34);
+			this.versionLabel.Size = new System.Drawing.Size(542, 28);
 			this.versionLabel.TabIndex = 1;
 			this.versionLabel.Text = "Version X";
 			this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// label1
+			// appNameLabel
 			// 
-			this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(0, 20);
-			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(723, 46);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "New Super Mario Bros. Editor";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// fontTextBox
-			// 
-			this.fontTextBox.Location = new System.Drawing.Point(8, 181);
-			this.fontTextBox.Name = "fontTextBox";
-			this.fontTextBox.Size = new System.Drawing.Size(143, 22);
-			this.fontTextBox.TabIndex = 15;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(160, 184);
-			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(73, 16);
-			this.label3.TabIndex = 16;
-			this.label3.Text = "Current font";
-			// 
-			// setFontBtn
-			// 
-			this.setFontBtn.Location = new System.Drawing.Point(251, 180);
-			this.setFontBtn.Name = "setFontBtn";
-			this.setFontBtn.Size = new System.Drawing.Size(69, 25);
-			this.setFontBtn.TabIndex = 17;
-			this.setFontBtn.Text = "Set";
-			this.setFontBtn.UseVisualStyleBackColor = true;
-			this.setFontBtn.Click += new System.EventHandler(this.setFontBtn_Click);
-			// 
-			// tilesetList1
-			// 
-			this.tilesetList1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tilesetList1.Location = new System.Drawing.Point(4, 4);
-			this.tilesetList1.Margin = new System.Windows.Forms.Padding(5);
-			this.tilesetList1.Name = "tilesetList1";
-			this.tilesetList1.Size = new System.Drawing.Size(717, 557);
-			this.tilesetList1.TabIndex = 0;
-			// 
-			// backgroundList1
-			// 
-			this.backgroundList1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.backgroundList1.Location = new System.Drawing.Point(0, 0);
-			this.backgroundList1.Margin = new System.Windows.Forms.Padding(5);
-			this.backgroundList1.Name = "backgroundList1";
-			this.backgroundList1.Size = new System.Drawing.Size(725, 565);
-			this.backgroundList1.TabIndex = 0;
-			// 
-			// filesystemBrowser1
-			// 
-			this.filesystemBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.filesystemBrowser1.Location = new System.Drawing.Point(4, 4);
-			this.filesystemBrowser1.Margin = new System.Windows.Forms.Padding(5);
-			this.filesystemBrowser1.Name = "filesystemBrowser1";
-			this.filesystemBrowser1.Size = new System.Drawing.Size(717, 557);
-			this.filesystemBrowser1.TabIndex = 0;
+			this.appNameLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.appNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.appNameLabel.Location = new System.Drawing.Point(0, 16);
+			this.appNameLabel.Name = "appNameLabel";
+			this.appNameLabel.Size = new System.Drawing.Size(542, 37);
+			this.appNameLabel.TabIndex = 0;
+			this.appNameLabel.Text = "New Super Mario Bros. Editor";
+			this.appNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// LevelChooser
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(767, 623);
+			this.ClientSize = new System.Drawing.Size(575, 506);
 			this.Controls.Add(this.tabControl1);
-			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "LevelChooser";
 			this.Text = "<_TITLE>";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelChooser_FormClosing);
@@ -941,7 +881,7 @@ namespace NSMBe5 {
         private System.Windows.Forms.Button updateSpriteDataButton;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label versionLabel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label appNameLabel;
         private System.Windows.Forms.Label lblCreditsHeader;
         private System.Windows.Forms.LinkLabel linkRepo;
         private System.Windows.Forms.Label lblLinksHeader;
@@ -976,7 +916,7 @@ namespace NSMBe5 {
         private System.Windows.Forms.ComboBox languagesComboBox;
         private System.Windows.Forms.LinkLabel linkNSMBHD;
         private System.Windows.Forms.LinkLabel linkOgRepo;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label creditsLabel;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox fontTextBox;
 		private System.Windows.Forms.Button setFontBtn;

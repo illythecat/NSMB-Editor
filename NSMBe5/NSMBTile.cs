@@ -22,18 +22,18 @@ using System.Drawing;
 
 namespace NSMBe5
 {
-    public class NSMBObject : LevelItem
+    public class NSMBTile : LevelItem
     {
-        public int ObjNum;
+        public int TileID;
         public int Tileset;
         public int X;
         public int Y;
         public int Width;
         public int Height;
-        private int[,] CachedObj;
+        private int[,] CachedTile;
         private NSMBGraphics GFX;
 
-        public bool badObject;
+        public bool badTile;
         private string error;
 
         //LevelItem implementation.
@@ -50,30 +50,30 @@ namespace NSMBe5
         public bool isResizable { get { return true; } }
         public int snap { get { return 16; } }
 
-        public NSMBObject(int ObjNum, int Tileset, int X, int Y, int Width, int Height, NSMBGraphics GFX)
+        public NSMBTile(int TileID, int Tileset, int X, int Y, int Width, int Height, NSMBGraphics GFX)
         {
-            this.ObjNum = ObjNum;
+            this.TileID = TileID;
             this.Tileset = Tileset;
             this.GFX = GFX;
             this.X = X;
             this.Y = Y;
             this.Width = Width;
             this.Height = Height;
-            CachedObj = new int[Width, Height];
-            UpdateObjCache();
+            CachedTile = new int[Width, Height];
+            UpdateTileCache();
         }
 
-        public NSMBObject(NSMBObject o) // clone constructor: returns an identical object
+        public NSMBTile(NSMBTile t) // clone constructor: returns an identical object
         {
-            this.ObjNum = o.ObjNum;
-            this.Tileset = o.Tileset;
-            this.GFX = o.GFX;
-            this.X = o.X;
-            this.Y = o.Y;
-            this.Width = o.Width;
-            this.Height = o.Height;
-            CachedObj = new int[Width, Height];
-            UpdateObjCache();
+            this.TileID = t.TileID;
+            this.Tileset = t.Tileset;
+            this.GFX = t.GFX;
+            this.X = t.X;
+            this.Y = t.Y;
+            this.Width = t.Width;
+            this.Height = t.Height;
+            CachedTile = new int[Width, Height];
+            UpdateTileCache();
         }
 
         public Rectangle getRectangle()
@@ -81,19 +81,19 @@ namespace NSMBe5
             return new Rectangle(X, Y, Width, Height);
         }
 
-        public void UpdateObjCache() {
+        public void UpdateTileCache() {
             if (GFX == null)
                 return;
 
-            badObject = false;
+            badTile = false;
 
             try
             {
-                CachedObj = GFX.Tilesets[Tileset].RenderObject(ObjNum, Width, Height);
+                CachedTile = GFX.Tilesets[Tileset].RenderTile(TileID, Width, Height);
             }
             catch (NSMBTileset.ObjectRenderingException e)
             {
-                badObject = true;
+                badTile = true;
                 error = e.Message;
             }
         }
@@ -106,7 +106,7 @@ namespace NSMBe5
             //I need to do a lot of hacks to get objects rendered correctly with
             //high and low zoom.
 
-            if (badObject)
+            if (badTile)
             {
                 g.DrawRectangle(new Pen(Color.Red, 4), new Rectangle(X * 16, Y * 16, Width * 16, Height * 16));
                 g.DrawLine(new Pen(Color.Red, 4), new Point(X * 16, (Y + Height) * 16), new Point((X + Width) * 16, (Y) * 16));
@@ -119,10 +119,10 @@ namespace NSMBe5
                 RectangleF srcRect = new RectangleF(0, 0, 16, 16);
                 RectangleF destRect = new RectangleF(X << 4, Y << 4, 16, 16);
 
-                for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
-                    for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
+                for (int xx = 0; xx < CachedTile.GetLength(0); xx++)
+                    for (int yy = 0; yy < CachedTile.GetLength(1); yy++)
                     {
-                        int t = CachedObj[xx, yy];
+                        int t = CachedTile[xx, yy];
                         if (t < 0) continue;
 
                         destRect.X = (X + xx) << 4;
@@ -152,10 +152,10 @@ namespace NSMBe5
                 Rectangle srcRect = new Rectangle(0, 0, 16, 16);
                 Rectangle destRect = new Rectangle(X << 4, Y << 4, 16, 16);
 
-                for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
-                    for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
+                for (int xx = 0; xx < CachedTile.GetLength(0); xx++)
+                    for (int yy = 0; yy < CachedTile.GetLength(1); yy++)
                     {
-                        int t = CachedObj[xx, yy];
+                        int t = CachedTile[xx, yy];
                         if (t < 0) continue;
 
                         destRect.X = (X + xx) << 4;
@@ -189,7 +189,7 @@ namespace NSMBe5
             int xmax = Math.Min(X+Width, bounds.X+bounds.Width);
             int ymax = Math.Min(Y+Height, bounds.Y+bounds.Height);
 
-            if (ObjNum == 0 && Tileset == 0)
+            if (TileID == 0 && Tileset == 0)
             {
                 for (int xx = xmin; xx < xmax; xx++)
                     for (int yy = ymin; yy < ymax; yy++)
@@ -200,7 +200,7 @@ namespace NSMBe5
                 for (int xx = xmin; xx < xmax; xx++)
                     for (int yy = ymin; yy < ymax; yy++)
                     {
-                        int t = CachedObj[xx - X, yy - Y];
+                        int t = CachedTile[xx - X, yy - Y];
                         if (t == -2)
                             continue;
                         else if (t == -1)
@@ -217,7 +217,7 @@ namespace NSMBe5
 
         public void RenderPlain(Graphics g, int X, int Y)
         {
-            if (badObject)
+            if (badTile)
             {
                 g.DrawRectangle(new Pen(Color.Red, 4), new Rectangle(X, Y , Width * 16, Height * 16));
                 g.DrawLine(new Pen(Color.Red, 4), new Point(X , Y + Height * 16), new Point(X + Width * 16, Y));
@@ -227,10 +227,10 @@ namespace NSMBe5
             Rectangle srcRect = new Rectangle(0, 0, 16, 16);
             Rectangle destRect = new Rectangle(X, Y, 16, 16);
 
-            for (int xx = 0; xx < CachedObj.GetLength(0); xx++)
-                for (int yy = 0; yy < CachedObj.GetLength(1); yy++)
+            for (int xx = 0; xx < CachedTile.GetLength(0); xx++)
+                for (int yy = 0; yy < CachedTile.GetLength(1); yy++)
                 {
-                    int t = CachedObj[xx, yy];
+                    int t = CachedTile[xx, yy];
                     if (t < 0) continue;
 
                     destRect.X = X + xx *16;
@@ -257,11 +257,11 @@ namespace NSMBe5
 
         public override string ToString()
         {
-            return String.Format("OBJ:{0}:{1}:{2}:{3}:{4}:{5}", X, Y, Width, Height, Tileset, ObjNum);
+            return String.Format("OBJ:{0}:{1}:{2}:{3}:{4}:{5}", X, Y, Width, Height, Tileset, TileID);
         }
 
-        public static NSMBObject FromString(String[] strs, ref int idx, NSMBGraphics gfx) {
-            NSMBObject o = new NSMBObject(
+        public static NSMBTile FromString(String[] strs, ref int idx, NSMBGraphics gfx) {
+            NSMBTile t = new NSMBTile(
                 int.Parse(strs[6 + idx]),
                 int.Parse(strs[5 + idx]),
                 int.Parse(strs[1 + idx]),
@@ -270,7 +270,7 @@ namespace NSMBe5
                 int.Parse(strs[4 + idx]),
                 gfx);
             idx += 7;
-            return o;
+            return t;
         }
     }
 }

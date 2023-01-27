@@ -36,24 +36,24 @@ namespace NSMBe5
             LanguageManager.ApplyToContainer(this, "CreatePanel");
         }
 
-        private void CreateObject_Click(object sender, EventArgs e)
+        private void CreateTile_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableBlocks;
-            NSMBObject no = new NSMBObject(10, 0, ViewableArea.X + ViewableArea.Width / 2, ViewableArea.Y + ViewableArea.Height / 2, 1, 1, EdControl.GFX);
-            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(no)));
-            EdControl.mode.SelectObject(no);
+            NSMBTile nt = new NSMBTile(10, 0, ViewableArea.X + ViewableArea.Width / 2, ViewableArea.Y + ViewableArea.Height / 2, 1, 1, EdControl.GFX);
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(nt)));
+            EdControl.mode.SelectObject(nt);
         }
 
-        private void CreateSprite_Click(object sender, EventArgs e)
+        private void CreateStageObj_Click(object sender, EventArgs e)
         {
             Rectangle ViewableArea = EdControl.ViewableBlocks;
-            NSMBSprite ns = new NSMBSprite(EdControl.Level);
-            ns.X = ViewableArea.X + ViewableArea.Width / 2;
-            ns.Y = ViewableArea.Y + ViewableArea.Height / 2;
-            ns.Type = 0;
-            ns.Data = new byte[6];
-            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(ns)));
-            EdControl.mode.SelectObject(ns);
+            NSMBStageObj nso = new NSMBStageObj(EdControl.Level);
+            nso.X = ViewableArea.X + ViewableArea.Width / 2;
+            nso.Y = ViewableArea.Y + ViewableArea.Height / 2;
+            nso.Type = 0;
+            nso.Data = new byte[6];
+            EdControl.UndoManager.Do(new AddLvlItemAction(UndoManager.ObjToList(nso)));
+            EdControl.mode.SelectObject(nso);
         }
     }
 }

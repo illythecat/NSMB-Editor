@@ -95,8 +95,8 @@ namespace NSMBe5
         {
             ROM.load(fs);
 
-            SpriteData.Load();
             new LevelChooser().Show();
+            StageObjSettings.Load();
 
             close = false;
             Close();

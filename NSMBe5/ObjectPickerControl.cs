@@ -28,7 +28,7 @@ namespace NSMBe5
     public partial class ObjectPickerControl : UserControl
     {
 
-        private NSMBObject[][] TilesetObjects;
+        private NSMBTile[][] TilesetObjects;
         private bool inited = false;
         private NSMBGraphics GFX;
         private bool Ready = false;
@@ -57,15 +57,15 @@ namespace NSMBe5
 
         private void LoadObjects()
         {
-            TilesetObjects = new NSMBObject[][] { null, null, null };
-            TilesetObjects[0] = new NSMBObject[256];
-            TilesetObjects[1] = new NSMBObject[256];
-            TilesetObjects[2] = new NSMBObject[256];
+            TilesetObjects = new NSMBTile[][] { null, null, null };
+            TilesetObjects[0] = new NSMBTile[256];
+            TilesetObjects[1] = new NSMBTile[256];
+            TilesetObjects[2] = new NSMBTile[256];
             for (int TSIdx = 0; TSIdx < 3; TSIdx++)
             {
                 for (int ObjIdx = 0; ObjIdx < 256; ObjIdx++)
                 {
-                    TilesetObjects[TSIdx][ObjIdx] = new NSMBObject(ObjIdx, TSIdx, 0, 0, 5, 3, GFX);
+                    TilesetObjects[TSIdx][ObjIdx] = new NSMBTile(ObjIdx, TSIdx, 0, 0, 5, 3, GFX);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace NSMBe5
             {
                 try
                 {
-                    TilesetObjects[Tileset][ObjIdx].UpdateObjCache();
+                    TilesetObjects[Tileset][ObjIdx].UpdateTileCache();
                 }
                 catch (Exception) { }
             }

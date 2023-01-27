@@ -54,13 +54,13 @@ namespace NSMBe5
             e.Graphics.Clear(SystemColors.ControlDark);
             e.Graphics.FillRectangle(Brushes.DarkSlateGray, 0, 0, 512, 256);
             // Draws object, but draws with background color if it is object 0
-            foreach (NSMBObject obj in Level.Objects)
-                if (obj.ObjNum == 0 && obj.Tileset == 0)
+            foreach (NSMBTile obj in Level.Objects)
+                if (obj.TileID == 0 && obj.Tileset == 0)
                     e.Graphics.FillRectangle(Brushes.SlateGray, obj.X, obj.Y, obj.Width, obj.Height);
                 else
                     e.Graphics.FillRectangle(Brushes.White, obj.X, obj.Y, obj.Width, obj.Height);
 
-            foreach (NSMBSprite s in Level.Sprites)
+            foreach (NSMBStageObj s in Level.Sprites)
                 e.Graphics.FillRectangle(Brushes.Chartreuse, s.getRectB());
             foreach (NSMBView v in Level.Views)
                 e.Graphics.DrawRectangle(Pens.LightSteelBlue, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);

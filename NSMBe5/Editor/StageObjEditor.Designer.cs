@@ -1,6 +1,6 @@
 ﻿namespace NSMBe5
 {
-    partial class SpriteEditor
+    partial class StageObjEditor
     {
         /// <summary> 
         /// Required designer variable.

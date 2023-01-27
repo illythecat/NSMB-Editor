@@ -33,7 +33,7 @@ namespace NSMBe5 {
         public BackgroundDragEditionMode bgdragem;
 
         public ToolsForm tools;
-        public SpriteEventsViewer sprEvents;
+        public StageObjEventsViewer sprEvents;
 
         public LevelEditor(NSMBLevel Level)
         {
@@ -78,7 +78,7 @@ namespace NSMBe5 {
             levelEditorControl1.minimapctrl = minimapControl1;
 
             tools = new ToolsForm(levelEditorControl1);
-            sprEvents = new SpriteEventsViewer(levelEditorControl1);
+            sprEvents = new StageObjEventsViewer(levelEditorControl1);
             MinimapForm = new LevelMinimap(Level, levelEditorControl1);
             levelEditorControl1.minimap = MinimapForm;
             MinimapForm.Text = string.Format(LanguageManager.Get("LevelEditor", "MinimapTitle"), Level.name);

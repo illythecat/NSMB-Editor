@@ -72,7 +72,7 @@ namespace NSMBe5 {
             saveTextFileDialog.Filter = LanguageManager.Get("Filters", "text");
             Activate();
             //Get Language Files
-			string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
+            string langDir = System.IO.Path.Combine(Application.StartupPath, "Languages");
             if (System.IO.Directory.Exists(langDir)) {
                 string[] files = System.IO.Directory.GetFiles(langDir);
                 for (int l = 0; l < files.Length; l++) {
@@ -100,8 +100,8 @@ namespace NSMBe5 {
             }
 
 
-            Text = "NSMB Editor 5.3.3 - " + ROM.filename;
-            versionLabel.Text = "NSMB Editor 5.3.3 " + Properties.Resources.version.Trim();
+            Text = "NSMB Editor " + Version.GetString() + " - " + ROM.filename;
+            versionLabel.Text = "NSMB Editor " + Version.GetString() + " " + Properties.Resources.BuildDate.Trim();
             Icon = Properties.Resources.nsmbe;
 
             if (!ROM.isNSMBRom)
@@ -127,10 +127,10 @@ namespace NSMBe5 {
             patchMethodComboBox.SelectedIndexChanged += new EventHandler(patchMethodComboBox_SelectedIndexChanged);
 
             fontTextBox.Text = Properties.Settings.Default.UIFont;
-			Program.ApplyFontToControls(Controls);
-		}
+            Program.ApplyFontToControls(Controls);
+        }
 
-		private void LoadLevelNames()
+        private void LoadLevelNames()
         {
             List<string> LevelNames = LanguageManager.GetList("LevelNames");
 
@@ -658,7 +658,7 @@ namespace NSMBe5 {
             fs.close();
         }
 
-		// Code hacking tools
+        // Code hacking tools
         private void decompArm9Bin_Click(object sender, EventArgs e)
         {
             Arm9BinaryHandler handler = new Arm9BinaryHandler();
@@ -713,7 +713,7 @@ namespace NSMBe5 {
 
         private void updateSpriteDataButton_Click(object sender, EventArgs e)
         {
-            SpriteData.Update();
+			StageObjSettings.Update();
         }
         
         //Other crap
@@ -903,7 +903,7 @@ namespace NSMBe5 {
             Properties.Settings.Default.using_signboard_asm = usingSBCodeHackCheckBox.Checked;
             Properties.Settings.Default.Save();
 
-            SpriteData.Load();
+            StageObjSettings.Load();
         }
 
         private void patchMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -944,26 +944,26 @@ namespace NSMBe5 {
             Process.Start("https://nsmbhd.net");
         }
 
-		private bool IsFontInstalled(string fontName)
-		{
-			using (var testFont = new Font(fontName, 8))
-			{
-				return fontName == testFont.Name;
-			}
-		}
+        private bool IsFontInstalled(string fontName)
+        {
+            using (var testFont = new Font(fontName, 8))
+            {
+                return fontName == testFont.Name;
+            }
+        }
 
-		private void setFontBtn_Click(object sender, EventArgs e)
+        private void setFontBtn_Click(object sender, EventArgs e)
         {
             string fontName = fontTextBox.Text;
             if (IsFontInstalled(fontName))
-			{
-				Properties.Settings.Default.UIFont = fontTextBox.Text;
-				Program.ApplyFontToControls(Controls);
-			}
+            {
+                Properties.Settings.Default.UIFont = fontTextBox.Text;
+                Program.ApplyFontToControls(Controls);
+            }
             else
             {
                 MessageBox.Show("Could not find the font \"" + fontName + "\"", "Font not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-		}
+        }
     }
 }

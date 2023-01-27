@@ -9,13 +9,13 @@ using Be.Timvw.Framework.ComponentModel;
 
 namespace NSMBe5
 {
-    public partial class SpriteEventsViewer : Form
+    public partial class StageObjEventsViewer : Form
     {
         LevelEditorControl ed;
         SortableBindingList<SpriteDataRow> spriteList = new SortableBindingList<SpriteDataRow>();
         bool refreshing = false;
 
-        public SpriteEventsViewer(LevelEditorControl ed)
+        public StageObjEventsViewer(LevelEditorControl ed)
         {
             InitializeComponent();
             this.ed = ed;
@@ -31,7 +31,7 @@ namespace NSMBe5
         {
             refreshing = true;
             spriteList.Clear();
-            foreach (NSMBSprite s in ed.Level.Sprites) {
+            foreach (NSMBStageObj s in ed.Level.Sprites) {
                 if (s.Data[0] != 0)
                     spriteList.Add(new SpriteDataRow(s, s.Data[0]));
                 if (s.Data[1] != 0)
@@ -51,7 +51,7 @@ namespace NSMBe5
         {
             if (refreshing) return;
             List<LevelItem> sprites = new List<LevelItem>();
-            NSMBSprite s;
+            NSMBStageObj s;
             foreach (DataGridViewRow row in spriteTable.SelectedRows)
             {
                 s = spriteList[row.Index].sprite;
@@ -66,10 +66,10 @@ namespace NSMBe5
 
         private class SpriteDataRow
         {
-            public NSMBSprite sprite;
+            public NSMBStageObj sprite;
             public int _eventID;
 
-            public SpriteDataRow(NSMBSprite sprite, int eventID)
+            public SpriteDataRow(NSMBStageObj sprite, int eventID)
             {
                 this.sprite = sprite;
                 this._eventID = eventID;
@@ -87,7 +87,7 @@ namespace NSMBe5
             }
             public string spriteName {
                 get {
-                    return SpriteData.spriteNames[sprite.Type];
+                    return StageObjSettings.objectNames[sprite.Type];
                 }
             }
         }

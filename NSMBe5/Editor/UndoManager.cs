@@ -235,7 +235,7 @@ namespace NSMBe5
 
             foreach (LevelItem i in objs)
             {
-                NSMBObject o = i as NSMBObject;
+                NSMBTile o = i as NSMBTile;
                 if (o == null) continue;
 
                 if (found)
@@ -349,8 +349,8 @@ namespace NSMBe5
                 obj.y -= YDelta;
                 obj.width -= XSDelta;
                 obj.height -= YSDelta;
-                if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
-                    (obj as NSMBObject).UpdateObjCache();
+                if (obj is NSMBTile && (this.XSDelta != 0 || this.YSDelta != 0))
+                    (obj as NSMBTile).UpdateTileCache();
             }
             r = Rectangle.Union(r, getObjectRectangle());
             EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
@@ -365,8 +365,8 @@ namespace NSMBe5
                 obj.y += YDelta;
                 obj.width += XSDelta;
                 obj.height += YSDelta;
-                if (obj is NSMBObject && (this.XSDelta != 0 || this.YSDelta != 0))
-                    (obj as NSMBObject).UpdateObjCache();
+                if (obj is NSMBTile && (this.XSDelta != 0 || this.YSDelta != 0))
+                    (obj as NSMBTile).UpdateTileCache();
             }
             r = Rectangle.Union(r, getObjectRectangle());
             EdControl.Level.repaintTilemap(r.X, r.Y, r.Width, r.Height);
@@ -445,14 +445,14 @@ namespace NSMBe5
         public ChangeObjectTypeAction(List<LevelItem> objs, int NewTS, int NewNum)
             : base(objs)
         {
-            NSMBObject o;
+            NSMBTile o;
             OrigTS = new List<int>();
             OrigNum = new List<int>();
             for (int l = 0; l < this.objs.Count; l++)
-                if (this.objs[l] is NSMBObject) {
-                    o = this.objs[l] as NSMBObject;
+                if (this.objs[l] is NSMBTile) {
+                    o = this.objs[l] as NSMBTile;
                     OrigTS.Add(o.Tileset);
-                    OrigNum.Add(o.ObjNum);
+                    OrigNum.Add(o.TileID);
                 } else {
                     this.objs.RemoveAt(l);
                     l--;
@@ -462,23 +462,23 @@ namespace NSMBe5
         }
         public override void Undo()
         {
-            NSMBObject o;
+            NSMBTile o;
             for (int l = 0; l < objs.Count; l++) {
-                o = objs[l] as NSMBObject;
+                o = objs[l] as NSMBTile;
                 o.Tileset = OrigTS[l];
-                o.ObjNum = OrigNum[l];
-                o.UpdateObjCache();
+                o.TileID = OrigNum[l];
+                o.UpdateTileCache();
             }
             repaintObjectRectangle();
         }
         public override void Redo()
         {
-            NSMBObject o;
+            NSMBTile o;
             foreach (LevelItem obj in objs) {
-                o = obj as NSMBObject;
+                o = obj as NSMBTile;
                 o.Tileset = NewTS;
-                o.ObjNum = NewNum;
-                o.UpdateObjCache();
+                o.TileID = NewNum;
+                o.UpdateTileCache();
             }
             repaintObjectRectangle();
         }
@@ -507,8 +507,8 @@ namespace NSMBe5
             OrigType = new List<int>();
             for (int l = 0; l < this.objs.Count; l++)
             {
-                if (this.objs[l] is NSMBSprite)
-                    OrigType.Add((this.objs[l] as NSMBSprite).Type);
+                if (this.objs[l] is NSMBStageObj)
+                    OrigType.Add((this.objs[l] as NSMBStageObj).Type);
                 else {
                     this.objs.RemoveAt(l);
                     l--;
@@ -519,12 +519,12 @@ namespace NSMBe5
         public override void Undo()
         {
             for (int l = 0; l < objs.Count; l++)
-                (objs[l] as NSMBSprite).Type = OrigType[l];
+                (objs[l] as NSMBStageObj).Type = OrigType[l];
         }
         public override void Redo()
         {
             foreach (LevelItem obj in objs)
-                (obj as NSMBSprite).Type = NewType;
+                (obj as NSMBStageObj).Type = NewType;
         }
         public override bool CanMerge(Action act)
         {
@@ -548,40 +548,40 @@ namespace NSMBe5
 
     //This always overwrites all of the sprite data
     //not just the property that was changed
-    public class ChangeSpriteDataAction : LvlItemAction
+    public class ChangeStageObjSettingsAction : LvlItemAction
     {
         byte[][] OrigData;
         byte[] NewData;
-        public ChangeSpriteDataAction(List<LevelItem> objs, byte[] NewData) 
+        public ChangeStageObjSettingsAction(List<LevelItem> objs, byte[] NewData) 
             : base(objs)
         {
             for (int l = 0; l < this.objs.Count; l++)
-                if (!(this.objs[l] is NSMBSprite))
+                if (!(this.objs[l] is NSMBStageObj))
                     this.objs.RemoveAt(l--);
             if (this.objs.Count == 0)
                 cancel = true;
             OrigData = new byte[this.objs.Count][];
             for (int l = 0; l < this.objs.Count; l++)
-                OrigData[l] = (this.objs[l] as NSMBSprite).Data.Clone() as byte[];
+                OrigData[l] = (this.objs[l] as NSMBStageObj).Data.Clone() as byte[];
             this.NewData = NewData;
         }
         public override void Undo()
         {
             for (int l = 0; l < objs.Count; l++)
-                (objs[l] as NSMBSprite).Data = OrigData[l].Clone() as byte[];
+                (objs[l] as NSMBStageObj).Data = OrigData[l].Clone() as byte[];
         }
         public override void Redo()
         {
             foreach (LevelItem obj in objs)
-                (obj as NSMBSprite).Data = NewData.Clone() as byte[];
+                (obj as NSMBStageObj).Data = NewData.Clone() as byte[];
         }
         public override bool CanMerge(Action act)
         {
-            return act is ChangeSpriteDataAction && sameItems(act);
+            return act is ChangeStageObjSettingsAction && sameItems(act);
         }
         public override void Merge(Action act)
         {
-            ChangeSpriteDataAction csda = act as ChangeSpriteDataAction;
+            ChangeStageObjSettingsAction csda = act as ChangeStageObjSettingsAction;
             this.NewData = csda.NewData;
         }
         public override void AfterAction()

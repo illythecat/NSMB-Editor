@@ -15,19 +15,20 @@
 *   along with NSMB Editor 5.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NSMBe4
+namespace NSMBe5
 {
-    public class Version
-    {
-        private static string rev = "$Rev: 147 $";
+	public static class Version
+	{
+		public const int Major = 5;
+		public const int Minor = 4;
+		public const int Patch = 0;
 
-        public static string getRevision()
-        {
-            return rev;
-        }
-    }
+		public static string GetString() {
+			return $"{Major}.{Minor}.{Patch}";
+		}
+	}
 }

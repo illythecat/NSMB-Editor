@@ -67,7 +67,7 @@ namespace NSMBe5.NSBMD
             {
                 textures = new PalettedImage[0];
                 palettes = new PaletteDef[0];
-                MessageBox.Show("This model file doesn't contain any valid texture data.", "NSMBe5.3", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("This model file doesn't contain any valid texture data.", "NSMBe " + Version.GetString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

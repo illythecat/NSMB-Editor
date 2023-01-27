@@ -32,8 +32,8 @@ namespace NSMBe5
         bool inited = false;
         NSMBGraphics gfx;
         int tileset;
-        NSMBObject selected = null;
-        List<NSMBObject> objects = new List<NSMBObject>();
+        NSMBTile selected = null;
+        List<NSMBTile> objects = new List<NSMBTile>();
 
         int tileWidth = -1;
         public int SelectedObject = 0;
@@ -89,13 +89,13 @@ namespace NSMBe5
                     rowheight = 1;
                 }
 
-                NSMBObject o = new NSMBObject(i, tileset, x, y, ow, oh, gfx);
+                NSMBTile o = new NSMBTile(i, tileset, x, y, ow, oh, gfx);
                 if (i == SelectedObject) selected = o;
 
                 x += ow + 1;
                 if (oh > rowheight) rowheight = oh;
 
-                if (!o.badObject)
+                if (!o.badTile)
                     objects.Add(o);
             }
 
@@ -124,7 +124,7 @@ namespace NSMBe5
             System.Drawing.Drawing2D.Matrix tr = e.Graphics.Transform;
             e.Graphics.TranslateTransform(0, -vScrollBar1.Value);
 
-            foreach (NSMBObject obj in objects)
+            foreach (NSMBTile obj in objects)
             {
                 Rectangle or = new Rectangle(obj.X * 16 + 8, obj.Y * 16 + 8, obj.Width * 16, obj.Height * 16);
                 Rectangle or2 = Rectangle.Inflate(or, 4, 4);
@@ -150,14 +150,14 @@ namespace NSMBe5
 
                 int oldSel = SelectedObject;
 
-                foreach (NSMBObject obj in objects)
+                foreach (NSMBTile obj in objects)
                 {
                     Rectangle or = new Rectangle(obj.X * 16 + 8, obj.Y * 16 + 8, obj.Width * 16, obj.Height * 16);
                     or.Inflate(8, 8);
                     if (or.Contains(x, y))
                     {
                         selected = obj;
-                        SelectedObject = obj.ObjNum;
+                        SelectedObject = obj.TileID;
                     }
                 }
 
@@ -196,7 +196,7 @@ namespace NSMBe5
                 int y = e.Y + vScrollBar1.Value;
 
                 bool hov = false;
-                foreach (NSMBObject obj in objects)
+                foreach (NSMBTile obj in objects)
                 {
                     Rectangle or = new Rectangle(obj.X * 16 + 8, obj.Y * 16 + 8, obj.Width * 16, obj.Height * 16);
                     or.Inflate(8, 8);
@@ -211,8 +211,8 @@ namespace NSMBe5
             }
         }
 
-        private NSMBObject hover = null;
-        void objectHovered(NSMBObject obj)
+        private NSMBTile hover = null;
+        void objectHovered(NSMBTile obj)
         {
             if (obj == hover) return;
             hover = obj;
@@ -223,10 +223,10 @@ namespace NSMBe5
             {
                 int x = Width - 16;
                 int y = obj.Y * 16 - 8 + obj.Height * 8 - vScrollBar1.Value;
-                toolTip1.ToolTipTitle = LanguageManager.Get("ObjectPickerControl", "Object") + obj.ObjNum;
+                toolTip1.ToolTipTitle = LanguageManager.Get("ObjectPickerControl", "Object") + obj.TileID;
                 string text = "";
-                if (gfx.Tilesets[tileset].UseNotes && obj.ObjNum < gfx.Tilesets[tileset].ObjNotes.Length)
-                    text = gfx.Tilesets[tileset].ObjNotes[obj.ObjNum];
+                if (gfx.Tilesets[tileset].UseNotes && obj.TileID < gfx.Tilesets[tileset].ObjNotes.Length)
+                    text = gfx.Tilesets[tileset].ObjNotes[obj.TileID];
 
                 toolTip1.Show(text+" ", this, x, y);
             }
@@ -242,8 +242,8 @@ namespace NSMBe5
             SelectedObject = -1;
             selected = null;
 
-            foreach(NSMBObject o in objects)
-                if (o.ObjNum == objectNum)
+            foreach(NSMBTile o in objects)
+                if (o.TileID == objectNum)
                 {
                     selected = o;
                     SelectedObject = objectNum;

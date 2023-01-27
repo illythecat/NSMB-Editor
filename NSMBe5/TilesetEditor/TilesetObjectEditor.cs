@@ -31,7 +31,7 @@ namespace NSMBe5
         NSMBTileset.ObjectDefTile selTile;
         NSMBTileset.ObjectDef obj;
         NSMBTileset tls;
-        NSMBObject previewObject;
+        NSMBTile previewTile;
         public int tnum;
         public TextBox descBox;
         public Label descLbl;
@@ -53,7 +53,7 @@ namespace NSMBe5
         {
             if (tls.Objects[num] == null)
                 return;
-            previewObject.ObjNum = num;
+            previewTile.TileID = num;
             grpTileSettings.Visible = false;
             obj = tls.Objects[num];
             if (obj.tiles.Count == 0)
@@ -72,7 +72,7 @@ namespace NSMBe5
         {
             try
             {
-                previewObject.UpdateObjCache();
+                previewTile.UpdateTileCache();
             }
             catch (Exception)
             {
@@ -88,7 +88,7 @@ namespace NSMBe5
             this.tnum = TilesetNumber;
             this.tls = g.Tilesets[tnum];
             tilePicker1.init(new Bitmap[] { tls.map16.buffer }, 16);
-            previewObject = new NSMBObject(0, tnum, 0, 0, 6, 6, g);
+            previewTile = new NSMBTile(0, tnum, 0, 0, 6, 6, g);
         }
 
         private void editZone_Paint(object sender, PaintEventArgs e)
@@ -271,11 +271,11 @@ namespace NSMBe5
 
         private void previewBox_Paint(object sender, PaintEventArgs e)
         {
-            if (previewObject == null)
+            if (previewTile == null)
                 return;
 
-            e.Graphics.FillRectangle(Brushes.LightSteelBlue, 0, 0, previewObject.Width * 16, previewObject.Height * 16);
-            previewObject.RenderPlain(e.Graphics, 0, 0);
+            e.Graphics.FillRectangle(Brushes.LightSteelBlue, 0, 0, previewTile.Width * 16, previewTile.Height * 16);
+            previewTile.RenderPlain(e.Graphics, 0, 0);
         }
 
         private void previewBox_MouseDown(object sender, MouseEventArgs e)
@@ -287,12 +287,12 @@ namespace NSMBe5
         {
             if (e.Button == MouseButtons.Left)
             {
-                previewObject.Width = e.X / 16 + 1;
-                previewObject.Height = e.Y / 16 + 1;
-                if (previewObject.Width < 1)
-                    previewObject.Width = 1;
-                if (previewObject.Height < 1)
-                    previewObject.Height = 1;
+                previewTile.Width = e.X / 16 + 1;
+                previewTile.Height = e.Y / 16 + 1;
+                if (previewTile.Width < 1)
+                    previewTile.Width = 1;
+                if (previewTile.Height < 1)
+                    previewTile.Height = 1;
                 repaint();
             }
         }

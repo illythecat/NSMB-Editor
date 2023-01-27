@@ -229,7 +229,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Icon = global::NSMBe5.Properties.Resources.nsmbe;
             this.Name = "NSCPrompt";
-            this.Text = "NSMBe 5.3";
+            this.Text = "NSMBe " + Version.GetString();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tilewidth_UpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);

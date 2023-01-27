@@ -52,16 +52,16 @@ namespace NSMBe5
         {
             if (SelectedObjects == null || SelectedObjects.Count == 0)
                 return;
-            NSMBObject o = SelectedObjects[0] as NSMBObject;
+            NSMBTile o = SelectedObjects[0] as NSMBTile;
             DataUpdateFlag = true;
 
             if (o.Tileset != 0) tileset0picker.selectObjectNumber(-1);
             if (o.Tileset != 1) tileset1picker.selectObjectNumber(-1);
             if (o.Tileset != 2) tileset2picker.selectObjectNumber(-1);
 
-            if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.ObjNum);
-            if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.ObjNum);
-            if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.ObjNum);
+            if (o.Tileset == 0) tileset0picker.selectObjectNumber(o.TileID);
+            if (o.Tileset == 1) tileset1picker.selectObjectNumber(o.TileID);
+            if (o.Tileset == 2) tileset2picker.selectObjectNumber(o.TileID);
 
             tabControl1.SelectedIndex = o.Tileset;
             DataUpdateFlag = false;
