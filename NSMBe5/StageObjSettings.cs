@@ -28,9 +28,9 @@ namespace NSMBe5
 	public class StageObjSettings
 	{
 		public static readonly List<StageObjSettings> datas = new List<StageObjSettings>();
-		public static readonly List<int> categoryIds = new List<int>();
-		public static readonly List<string> categories = new List<string>();
-		public static readonly Dictionary<int, List<int>> objectInCategories = new Dictionary<int, List<int>>();
+		public static readonly List<int> categoryIDs = new List<int>();
+		public static readonly List<string> categoryNames = new List<string>();
+		public static readonly Dictionary<int, List<int>> categoryObjs = new Dictionary<int, List<int>>();
 		public static string directory = Path.GetDirectoryName(Application.ExecutablePath);
 		public static string path = Path.Combine(directory, "stageobjsettings.xml");
 		
@@ -112,9 +112,9 @@ namespace NSMBe5
 
 			//Delete existing
 			datas.Clear();
-			categoryIds.Clear();
-			categories.Clear();
-			objectInCategories.Clear();
+			categoryIDs.Clear();
+			categoryNames.Clear();
+			categoryObjs.Clear();
 
 			if (!File.Exists(path))
 			{
@@ -136,9 +136,9 @@ namespace NSMBe5
 				do
 				{
 					int id = int.Parse(xmlr.GetAttribute("id"));
-					categoryIds.Add(id);
-					categories.Add(xmlr.ReadElementContentAsString());
-					objectInCategories.Add(id, new List<int>());
+					categoryIDs.Add(id);
+					categoryNames.Add(xmlr.ReadElementContentAsString());
+					categoryObjs.Add(id, new List<int>());
 				}
 				while (xmlr.ReadToNextSibling("category"));
 
@@ -184,6 +184,12 @@ namespace NSMBe5
 					StageObjSettings d = CreateFromStream(xmlr);
 					if (GetObject(d.ObjectID) == null)
 						datas.Add(d);
+				}
+
+				// assign categories
+				foreach (StageObjSettings settings in datas)
+				{
+					categoryObjs[settings.CategoryID].Add(settings.ObjectID);
 				}
 
 				xmlr.Close();

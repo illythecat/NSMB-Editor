@@ -124,7 +124,7 @@ namespace NSMBe5
 
 		public int StageObjectCount = ROM.NativeStageObjCount;
 		public List<string> StageObjectlist = new List<string>();
-		public Dictionary<int, int> ActorToObjectMap = new Dictionary<int, int>();	// Unused
+		public Dictionary<int, int> ActorToObjectMap = new Dictionary<int, int>();
 		public Dictionary<int, int> StageObjToOverlayMap = new Dictionary<int, int>();
 		public int[,] StageObjBankToOverlayTable;
 		public List<int> CategoryObjectIDs = new List<int>();
@@ -161,7 +161,7 @@ namespace NSMBe5
 				StageObjectlist.Add(i + ": " + objName);
 				ActorToObjectMap[objectID] = i;
 
-				if (objectID < ROM.NativeActorCount)
+				if (objectID < ROM.NativeObjectCount)
 				{
 					int set = stageObjBanks[i * 2];
 					int subset = stageObjBanks[i * 2 + 1];
@@ -186,7 +186,7 @@ namespace NSMBe5
 			categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "All"));
 			categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "InLevel"));
 			categoryList.Items.Add(LanguageManager.Get("SpriteEditor", "InSpriteSets"));
-			foreach (string cat in StageObjSettings.categories)
+			foreach (string cat in StageObjSettings.categoryNames)
 				categoryList.Items.Add(cat);
 			categoryList.SelectedIndex = 0;
 
@@ -478,29 +478,32 @@ namespace NSMBe5
 			CategoryObjectIDs.Clear();
 			switch (categoryList.SelectedIndex)
 			{
-				case 0:
-					for (int i = 0; i < StageObjectCount; i++)
+			case 0:
+				for (int i = 0; i < StageObjectCount; i++)
+					CategoryObjectIDs.Add(i);
+				break;
+			case 1:
+				foreach (NSMBStageObj s in EdControl.Level.Sprites)
+				{
+					if (!CategoryObjectIDs.Contains(s.Type))
+						CategoryObjectIDs.Add(s.Type);
+				}
+				CategoryObjectIDs.Sort();
+				break;
+			case 2:
+				for (int i = 0; i < StageObjectCount; i++)
+				{
+					if (EdControl.Level.ValidSprites[i])
 						CategoryObjectIDs.Add(i);
-					break;
-				case 1:
-					foreach (NSMBStageObj s in EdControl.Level.Sprites)
-						if (!CategoryObjectIDs.Contains(s.Type))
-							CategoryObjectIDs.Add(s.Type);
-					CategoryObjectIDs.Sort();
-					break;
-				case 2:
-					for (int i = 0; i < StageObjectCount; i++)
-						if (EdControl.Level.ValidSprites[i])
-							CategoryObjectIDs.Add(i);
-					break;
-				default:
-					foreach (int spriteId in StageObjSettings.objectInCategories[StageObjSettings.categoryIds[categoryList.SelectedIndex - 3]])
-					{
-						if (ActorToObjectMap.ContainsKey(spriteId))
-						CategoryObjectIDs.Add(ActorToObjectMap[spriteId]);
-					}
-
-					break;
+				}
+				break;
+			default:
+				foreach (int stageObjID in StageObjSettings.categoryObjs[StageObjSettings.categoryIDs[categoryList.SelectedIndex - 3]])
+				{
+					if (ActorToObjectMap.ContainsKey(stageObjID))
+						CategoryObjectIDs.Add(ActorToObjectMap[stageObjID]);
+				}
+				break;
 			}
 			textBox1_TextChanged(sender, e);
 		}

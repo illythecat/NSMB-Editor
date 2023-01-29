@@ -234,6 +234,9 @@ namespace NSMBe5.Plugin
 		{
 			string pluginDir = GetPluginDirectory();
 
+			if (!Directory.Exists(pluginDir))
+				return new PluginInfo[0];
+
 			string[] files = Directory.GetFiles(pluginDir, "*.dll", SearchOption.TopDirectoryOnly);
 			foreach (string file in files)
 			{
@@ -265,6 +268,9 @@ namespace NSMBe5.Plugin
 		public static void LoadEnabledPlugins()
 		{
 			string pluginDir = GetPluginDirectory();
+
+			if (!Directory.Exists(pluginDir))
+				return;
 
 			string enabledPluginsData = Properties.Settings.Default.EnabledPlugins;
 			if (enabledPluginsData.Length != 0)

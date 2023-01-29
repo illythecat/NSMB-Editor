@@ -61,7 +61,7 @@ namespace NSMBe5 {
 		public static uint ASMOffset;
 
 		public const int NativeStageObjCount = 326;
-		public const int NativeActorCount = 385;
+		public const int NativeObjectCount = 385;
 		public static int OverlayCount = 130;
 
 		public static List<string> fileBackups = new List<string>();
