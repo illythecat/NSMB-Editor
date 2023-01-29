@@ -73,7 +73,7 @@ namespace NSMBe5
             Unknown2 = e.Unknown2;
         }
 
-        public void render(Graphics g, LevelEditorControl edControl)
+        public void Render(Graphics g, LevelEditorControl edControl)
         {
 
             int EntranceArrowColour = 0;

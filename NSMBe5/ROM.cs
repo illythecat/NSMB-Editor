@@ -330,7 +330,7 @@ namespace NSMBe5 {
 			Table_Jyotyu_NCL = 14,
 			File_Jyotyu_CHK = 15,
 			File_Modifiers = 16,
-			Table_Sprite_CLASSID = 17,
+			Table_Sprite_OBJID = 17,
 		}
 
 		public static int[,] Offsets = {
@@ -376,9 +376,9 @@ namespace NSMBe5 {
 			return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)) + GetOffset(Data.Number_FileOffset));
 		}
 
-		public static ushort GetClassIDFromTable(int id)
+		public static ushort GetObjIDFromTable(int id)
 		{
-			int off = GetOffset(Data.Table_Sprite_CLASSID) + (id << 1);
+			int off = GetOffset(Data.Table_Sprite_OBJID) + (id << 1);
 			return (ushort)((Overlay0[off] | (Overlay0[off + 1] << 8)));
 		}
 

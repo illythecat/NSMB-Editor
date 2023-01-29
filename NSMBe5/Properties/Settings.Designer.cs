@@ -133,18 +133,6 @@ namespace NSMBe5.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool using_signboard_asm {
-            get {
-                return ((bool)(this["using_signboard_asm"]));
-            }
-            set {
-                this["using_signboard_asm"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int CodePatchingMethod {
             get {
@@ -164,6 +152,30 @@ namespace NSMBe5.Properties {
             }
             set {
                 this["UIFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableRomPlugin {
+            get {
+                return ((bool)(this["EnableRomPlugin"]));
+            }
+            set {
+                this["EnableRomPlugin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EnabledPlugins {
+            get {
+                return ((string)(this["EnabledPlugins"]));
+            }
+            set {
+                this["EnabledPlugins"] = value;
             }
         }
     }

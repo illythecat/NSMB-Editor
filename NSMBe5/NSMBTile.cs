@@ -100,7 +100,7 @@ namespace NSMBe5
 
 //        public void Render(Graphics g, int XOffset, int YOffset, Rectangle Clip, float zoom)
 
-        public void render(Graphics g, LevelEditorControl ed)
+        public void Render(Graphics g, LevelEditorControl ed)
         {
             //This method is really messy due to the quirky rendering of .NET
             //I need to do a lot of hacks to get objects rendered correctly with

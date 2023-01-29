@@ -103,7 +103,7 @@ namespace NSMBe5
                 if (p == lp)
                     pe = Pens.Red;
 
-                p.render(g, ed);
+                p.Render(g, ed);
                 num++;
             }
         }

@@ -16,12 +16,10 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Windows.Forms;
+using NSMBe5.Plugin;
 
 namespace NSMBe5
 {
@@ -30,15 +28,15 @@ namespace NSMBe5
 		public int X;
 		public int Y;
 		public int Type;
-		public int actorID;
+		public int ObjectID;
 		public byte[] Data;
 		private NSMBLevel Level;
 
 		private static SolidBrush invalidBrush = new SolidBrush(Color.FromArgb(100, 255, 0, 0));
-		public int x { get { return getRect().X; } set { X += (value - getRect().X) / snap; } }
-		public int y { get { return getRect().Y; } set { Y += (value - getRect().Y) / snap; } }
-		public int width { get { return getRect().Width; } set { } }
-		public int height { get { return getRect().Height; } set { } }
+		public int x { get { return GetGrabBounds().X; } set { X += (value - GetGrabBounds().X) / snap; } }
+		public int y { get { return GetGrabBounds().Y; } set { Y += (value - GetGrabBounds().Y) / snap; } }
+		public int width { get { return GetGrabBounds().Width; } set { } }
+		public int height { get { return GetGrabBounds().Height; } set { } }
 
 		public int rx { get { return X * snap; } }
 		public int ry { get { return Y * snap; } }
@@ -72,16 +70,22 @@ namespace NSMBe5
 			return Array.IndexOf(AlwaysDrawNums, this.Type) > -1;
 		}
 
-		public Rectangle getRect()
+		public Rectangle GetGrabBounds()
 		{
 			int x = this.X * 16;
 			int y = this.Y * 16;
 			int width = 16;
 			int height = 16;
 
-			actorID = (int)ROM.GetClassIDFromTable(this.Type);
+			this.ObjectID = ROM.GetObjIDFromTable(this.Type);
 
-			switch (actorID)
+			foreach (PluginStageObj obj in PluginManager.GetStageObjects())
+			{
+				if (obj.Settings.ObjectID == ObjectID)
+					return obj.GetGrabBounds(this, x, y);
+			}
+
+			switch (ObjectID)
 			{
 				#region bruh dude
 				case 21:
@@ -768,7 +772,7 @@ namespace NSMBe5
 				case 174:
 					width = Data[5] % 0x8;
 					int s = 2;
-					if (actorID == 174)
+					if (ObjectID == 174)
 					{
 						width = Data[5] % 0x10;
 						width = Math.Max(0, width - 1);
@@ -1089,7 +1093,7 @@ namespace NSMBe5
 				case 234:
 				case 235:
 					int w = 64;
-					if (actorID == 235)
+					if (ObjectID == 235)
 						w = 128;
 					switch (Data[5] % 0x40)
 					{
@@ -1214,9 +1218,25 @@ namespace NSMBe5
 			return new Rectangle(x, y, width, height);
 		}
 
-		public Rectangle getRectB()
+		public Rectangle GetRenderBounds()
 		{
-			Rectangle rect = getRect();
+			int x = this.X * 16;
+			int y = this.Y * 16;
+
+			this.ObjectID = ROM.GetObjIDFromTable(this.Type);
+
+			foreach (PluginStageObj obj in PluginManager.GetStageObjects())
+			{
+				if (obj.Settings.ObjectID == ObjectID)
+					return obj.GetRenderBounds(this, x, y);
+			}
+
+			return GetGrabBounds();
+		}
+
+		public Rectangle GetMinimapBounds()
+		{
+			Rectangle rect = GetGrabBounds();
 			int t = rect.X;
 			rect.X = (int)Math.Floor((float)rect.X / 16);
 			rect.Width += t - 16 * rect.X;
@@ -1228,19 +1248,38 @@ namespace NSMBe5
 			return rect;
 		}
 
-		public void render(Graphics g, LevelEditorControl ed)
+		public void Render(Graphics g, LevelEditorControl ed)
 		{
-			int RenderX = X * 16, RenderX2 = RenderX;
-			int RenderY = Y * 16, RenderY2 = RenderY;
+			bool customRendered = true;
+
+			System.Action renderCustomInvalidSprite = () =>
+			{
+				if (!Level.ValidSprites[this.Type] && customRendered)
+				{
+					g.FillRectangle(invalidBrush, this.GetGrabBounds());
+				}
+			};
+
+			int RenderX = X * 16;
+			int RenderY = Y * 16;
+
+			foreach (PluginStageObj obj in PluginManager.GetStageObjects())
+			{
+				if (obj.Settings.ObjectID == ObjectID)
+				{
+					obj.Render(this, g, ed, RenderX, RenderY, ref customRendered);
+					renderCustomInvalidSprite();
+					return;
+				}
+			}
+
+			int RenderX2 = RenderX;
+			int RenderY2 = RenderY;
 			int width, height;
 			Bitmap img = null;
 			Bitmap img2 = null;
 
-			bool customRendered = true;
-
-			actorID = (int)ROM.GetClassIDFromTable(this.Type);
-
-			switch (actorID)
+			switch (ObjectID)
 			{
 				#region what is this mess
 				case 21:
@@ -1303,7 +1342,7 @@ namespace NSMBe5
 				case 28:
 				case 60:
 					img = Properties.Resources.CheepCheep;
-					if (actorID == 28 && Data[5] % 0x10 == 1)
+					if (ObjectID == 28 && Data[5] % 0x10 == 1)
 						img = Properties.Resources.CheepCheepGreen;
 					g.DrawImage(img, RenderX - 1, RenderY + 4);
 					break;
@@ -1721,7 +1760,7 @@ namespace NSMBe5
 					g.DrawImage(Properties.Resources.SwitchBlock, RenderX, RenderY);
 					break;
 				case 87:
-					Rectangle rect = this.getRect();
+					Rectangle rect = this.GetGrabBounds();
 					rect.Offset(1, 1);
 					g.DrawRectangle(Pens.Black, rect);
 					rect.Offset(-1, -1);
@@ -2034,7 +2073,7 @@ namespace NSMBe5
 					int LiftLength = (Data[5] % 0x10);
 					if (Data[3] % 0x10 == 1)
 						dist = -dist;
-					if (actorID == 161)
+					if (ObjectID == 161)
 					{
 						RenderY2 -= dist;
 						LiftLength = (Data[5] % 0x8);
@@ -2080,10 +2119,10 @@ namespace NSMBe5
 				case 167:
 				case 168:
 					width = Data[5] % 0x10;
-					if (actorID == 165)
+					if (ObjectID == 165)
 						width = Data[5] % 0x8;
 					int spikes = 0;
-					if (actorID == 168)
+					if (ObjectID == 168)
 					{
 						height = Data[5] / 0x10;
 						spikes = Data[2] % 0x10;
@@ -2245,7 +2284,7 @@ namespace NSMBe5
 				case 173:
 				case 174:
 					int w = Data[5] % 0x8, s = 2;
-					if (actorID == 174) { w = Data[5] % 0x10; w = Math.Max(0, w - 1); s = 1; RenderX -= 8; }
+					if (ObjectID == 174) { w = Data[5] % 0x10; w = Math.Max(0, w - 1); s = 1; RenderX -= 8; }
 					RenderX -= (w * s + 1) * 8;
 					g.DrawImage(Properties.Resources.MovingPlatformLeft, RenderX, RenderY);
 					for (int l = 0; l < w * s; l++)
@@ -2642,7 +2681,7 @@ namespace NSMBe5
 						RenderX = RenderX2;
 					}
 					if (height == 0)
-						g.DrawRectangle(Pens.Black, this.getRect());
+						g.DrawRectangle(Pens.Black, this.GetGrabBounds());
 					break;
 				case 207:
 					g.DrawImage(Properties.Resources.GhostGoo, RenderX, RenderY - 32);
@@ -2837,7 +2876,7 @@ namespace NSMBe5
 					break;
 				case 234:
 				case 235:
-					if (actorID == 234)
+					if (ObjectID == 234)
 						img = Properties.Resources.SmallFlamethrower;
 					else
 						img = Properties.Resources.Flamethrower;
@@ -2876,11 +2915,11 @@ namespace NSMBe5
 				case 244:
 				case 246:
 					img = Properties.Resources.QSwitch;
-					if (actorID == 244)
+					if (ObjectID == 244)
 					{
 						img = Properties.Resources.PSwitch;
 					}
-					if (actorID == 246)
+					if (ObjectID == 246)
 					{
 						img = Properties.Resources.RedSwitch;
 					}
@@ -2896,11 +2935,11 @@ namespace NSMBe5
 				case 245:
 				case 247:
 					img = Properties.Resources.QSwitch;
-					if (actorID == 245)
+					if (ObjectID == 245)
 					{
 						img = Properties.Resources.PSwitch;
 					}
-					if (actorID == 247)
+					if (ObjectID == 247)
 					{
 						img = Properties.Resources.RedSwitch;
 					}
@@ -3051,7 +3090,7 @@ namespace NSMBe5
 						g.FillRectangle(Brushes.White, RenderX + 1, RenderY + 7, RenderX2 - 2, 2);
 						g.FillRectangle(Brushes.White, RenderX + RenderX2 - 3, RenderY + 1, 2, 8);
 					}
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 					break;
 				case 286:
 					customRendered = false;
@@ -3063,7 +3102,7 @@ namespace NSMBe5
 						g.FillRectangle(Brushes.White, RenderX + 7, RenderY - RenderX2 + 1, 2, RenderX2 + 14);
 						g.FillRectangle(Brushes.White, RenderX + 1, RenderY - RenderX2 + 1, 14, 2);
 					}
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 					break;
 				case 301:
 					g.DrawImage(Properties.Resources.SeaWeed, RenderX - 32, RenderY - 127);
@@ -3075,7 +3114,7 @@ namespace NSMBe5
 
 
 					customRendered = false;
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 
 					int closestX = int.MaxValue;
 
@@ -3130,7 +3169,7 @@ namespace NSMBe5
 					}
 
 					customRendered = false;
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 					break;
 				}
 
@@ -3142,33 +3181,30 @@ namespace NSMBe5
 
 					if (ed.mode != null && ed.mode is ObjectsEditionMode mode) {
 						if (mode.SelectedObjects.Contains(this))
-							alpha = getLiquidAlpha();
+							alpha = GetLiquidAlpha();
 					}
 
-					renderLiquid(g, getLiquidTexture(), alpha);
+					RenderLiquid(g, GetLiquidTexture(), alpha);
 					customRendered = false;
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 					break;
 				}
 
 				default:
 					customRendered = false;
-					renderDefaultImg(g, RenderX, RenderY);
+					RenderDefaultImg(g, RenderX, RenderY);
 					break;
 			}
 
-			if (!Level.ValidSprites[this.Type] && customRendered)
-			{
-				g.FillRectangle(invalidBrush, this.getRect());
-			}
+			renderCustomInvalidSprite();
 
 			//I dunno what's this user for. ~Dirbaio
 			//            return customRendered;
 		}
 
-		private Bitmap getLiquidTexture()
+		private Bitmap GetLiquidTexture()
 		{
-			switch (actorID)
+			switch (ObjectID)
 			{
 				case 278:
 					return Properties.Resources.liquid_water_0;
@@ -3181,9 +3217,9 @@ namespace NSMBe5
 			}
 		}
 
-		private float getLiquidAlpha()
+		private float GetLiquidAlpha()
 		{
-			switch (actorID)
+			switch (ObjectID)
 			{
 				case 278:
 					return (Data[3] & 0x1F) / 31.0f;
@@ -3196,7 +3232,7 @@ namespace NSMBe5
 			}
 		}
 
-		private void renderLiquid(Graphics g, Bitmap texture, float alpha = 1.0f)
+		private void RenderLiquid(Graphics g, Bitmap texture, float alpha = 1.0f)
 		{
 			int RenderX = X * 16;
 			int RenderY = Y * 16;
@@ -3266,7 +3302,7 @@ namespace NSMBe5
 
 		}
 
-		private void renderDefaultImg(Graphics g, int RenderX, int RenderY)
+		public void RenderDefaultImg(Graphics g, int renderX, int renderY)
 		{
 			Bitmap img;
 			if (Level.ValidSprites[this.Type])
@@ -3276,12 +3312,12 @@ namespace NSMBe5
 
 			InterpolationMode mode = g.InterpolationMode;
 			g.InterpolationMode = InterpolationMode.Bilinear;
-			g.DrawImage(img, new RectangleF(RenderX, RenderY, 16, 16));
-			g.DrawString(Type.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, (float)RenderX, (float)RenderY);
+			g.DrawImage(img, new RectangleF(renderX, renderY, 16, 16));
+			g.DrawString(Type.ToString(), NSMBGraphics.SmallInfoFont, Brushes.White, renderX, renderY);
 			g.InterpolationMode = mode;
 		}
 
-		private static Bitmap RotateBitmap(Bitmap b, float angle)
+		public static Bitmap RotateBitmap(Bitmap b, float angle)
 		{
 			Bitmap newBitmap = new Bitmap(b.Width, b.Height);
 			using (Graphics g = Graphics.FromImage(newBitmap))
@@ -3294,7 +3330,7 @@ namespace NSMBe5
 			return newBitmap;
 		}
 
-		private static Bitmap ScaleBitmap(Bitmap b, int width, int height)
+		public static Bitmap ScaleBitmap(Bitmap b, int width, int height)
 		{
 			Bitmap newImg = new Bitmap(width, height);
 			using (Graphics g = Graphics.FromImage(newImg))
@@ -3363,6 +3399,16 @@ namespace NSMBe5
 			g.Dispose();
 			tempImg.Dispose();
 			return newImg;
+		}
+
+		public uint GetSettings()
+		{
+			return (uint)Data[5] | (uint)Data[4] << 8 | (uint)Data[3] << 16 | (uint)Data[2] << 24;
+		}
+
+		public byte GetEvent(int index)
+		{
+			return Data[index ^ 1];
 		}
 	}
 }

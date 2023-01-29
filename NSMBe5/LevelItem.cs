@@ -47,7 +47,7 @@ namespace NSMBe5
         int snap { get; }
 
         //Renders the object itself.
-        void render(Graphics g, LevelEditorControl ed);
+        void Render(Graphics g, LevelEditorControl ed);
 
         //Renders the white selection box around the object.
 //        void render(Graphics g, LevelEditorControl ed);

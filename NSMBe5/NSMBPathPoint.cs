@@ -67,7 +67,7 @@ namespace NSMBe5
             Unknown6 = p.Unknown6;
         }
 
-        public void render(Graphics g, LevelEditorControl ed)
+        public void Render(Graphics g, LevelEditorControl ed)
         {
             Pen p = null;
             int num = parent.points.IndexOf(this);

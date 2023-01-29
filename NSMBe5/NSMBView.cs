@@ -86,7 +86,7 @@ namespace NSMBe5
             CameraBottomStick = v.CameraBottomStick;
         }
 
-        public void render(Graphics g, LevelEditorControl ed)
+        public void Render(Graphics g, LevelEditorControl ed)
         {
             Pen p = Pens.LightSteelBlue;
             if (isZone)

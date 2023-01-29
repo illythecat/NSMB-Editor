@@ -87,8 +87,9 @@ namespace NSMBe5
             }
             public string spriteName {
                 get {
-                    return StageObjSettings.objectNames[sprite.Type];
-                }
+					int objectID = ROM.GetObjIDFromTable(sprite.Type);
+					return StageObjSettings.GetObjectName(objectID);
+				}
             }
         }
     }

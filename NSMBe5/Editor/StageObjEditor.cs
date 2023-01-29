@@ -152,19 +152,16 @@ namespace NSMBe5
 
 			for (int i = 0; i < ROM.NativeStageObjCount; i++)
 			{
-				int actorID = ROM.GetClassIDFromTable(i);
+				int objectID = ROM.GetObjIDFromTable(i);
 
-				string stageObj;
+				string objName = StageObjSettings.GetObjectName(objectID);
+				if (string.IsNullOrEmpty(objName))
+					objName = string.Format("Actor {0}", objectID);
 
-				if (StageObjSettings.objectNames.ContainsKey(actorID))
-					stageObj = StageObjSettings.objectNames[actorID];
-				else
-					stageObj = string.Format("Actor {0}", actorID);
+				StageObjectlist.Add(i + ": " + objName);
+				ActorToObjectMap[objectID] = i;
 
-				StageObjectlist.Add(i + ": " + stageObj);
-				ActorToObjectMap[actorID] = i;
-
-				if (actorID < ROM.NativeActorCount)
+				if (objectID < ROM.NativeActorCount)
 				{
 					int set = stageObjBanks[i * 2];
 					int subset = stageObjBanks[i * 2 + 1];
@@ -221,18 +218,21 @@ namespace NSMBe5
 
 			int type = getSpriteType();
 
-			if (type != -1 && StageObjSettings.datas.ContainsKey(type))
+			if (type != -1)
 			{
-				sed = new StageObjSettings.StageObjSettingsEditor(SelectedObjects, StageObjSettings.datas[type], EdControl);
-				spriteDataPanel.Controls.Add(sed);
-				sed.Dock = DockStyle.Fill;
-				//sed.Parent = spriteDataPanel;
-				spriteDataPanel.Visible = true;
+				int objectID = ROM.GetObjIDFromTable(type);
+				StageObjSettings settings = StageObjSettings.GetObject(objectID);
+				if (settings != null)
+				{
+					sed = new StageObjSettings.StageObjSettingsEditor(SelectedObjects, settings, EdControl);
+					spriteDataPanel.Controls.Add(sed);
+					sed.Dock = DockStyle.Fill;
+					//sed.Parent = spriteDataPanel;
+					spriteDataPanel.Visible = true;
+					return;
+				}
 			}
-			else
-			{
-				spriteDataPanel.Visible = false;
-			}
+			spriteDataPanel.Visible = false;
 		}
 
 		public void RefreshDataEditor()
@@ -255,7 +255,7 @@ namespace NSMBe5
 			int type = getSpriteType();
 			spriteTypeUpDown.Value = type > -1 ? type : 0;
 			byte[] SpriteData = (SelectedObjects[0] as NSMBStageObj).Data;
-			spriteDataTextBox.Text = String.Format(
+			spriteDataTextBox.Text = string.Format(
 				"{0:X2} {1:X2} {2:X2} {3:X2} {4:X2} {5:X2}",
 				SpriteData[0], SpriteData[1], SpriteData[2],
 				SpriteData[3], SpriteData[4], SpriteData[5]);
@@ -333,7 +333,7 @@ namespace NSMBe5
 					{
 						if (renderActorID)
 						{
-							string txt = ROM.GetClassIDFromTable(objID).ToString();
+							string txt = ROM.GetObjIDFromTable(objID).ToString();
 
 							offsetX -= 26;
 							TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X + e.Bounds.Width + offsetX, e.Bounds.Y, 26, e.Bounds.Height), TextColor, BackColor, TextFormatFlags.Right);
@@ -437,12 +437,14 @@ namespace NSMBe5
 		{
 			int type = -1;
 			foreach (LevelItem obj in SelectedObjects)
+			{
 				if (obj is NSMBStageObj)
 				{
 					NSMBStageObj s = obj as NSMBStageObj;
 					if (type == -1) type = s.Type;
 					if (type != s.Type) return -1;
 				}
+			}
 			return type;
 		}
 

@@ -24,6 +24,7 @@ using NSMBe5.DSFileSystem;
 using NSMBe5.Patcher;
 using System.Diagnostics;
 using System.Drawing;
+using NSMBe5.Plugin;
 
 namespace NSMBe5 {
     public partial class LevelChooser : Form
@@ -48,9 +49,8 @@ namespace NSMBe5 {
         }
 
         private void LevelChooser_Load(object sender, EventArgs e)
-        {
-            dlpCheckBox.Checked = Properties.Settings.Default.dlpMode;
-            usingSBCodeHackCheckBox.Checked = Properties.Settings.Default.using_signboard_asm;
+		{
+			dlpCheckBox.Checked = Properties.Settings.Default.dlpMode;
             chkAutoBackup.Checked = Properties.Settings.Default.AutoBackup > 0;
             if (chkAutoBackup.Checked)
                 autoBackupTime.Value = Properties.Settings.Default.AutoBackup;
@@ -58,7 +58,9 @@ namespace NSMBe5 {
 
             filesystemBrowser1.Load(ROM.FS);
 
-            LoadLevelNames();
+            PluginManager.Initialize();
+
+			LoadLevelNames();
             if (ROM.UserInfo != null)
                 musicList.Items.AddRange(ROM.UserInfo.getFullList("Music").ToArray());
 
@@ -711,7 +713,7 @@ namespace NSMBe5 {
         
         //Settings
 
-        private void updateSpriteDataButton_Click(object sender, EventArgs e)
+        private void updateStageObjSetsButton_Click(object sender, EventArgs e)
         {
 			StageObjSettings.Update();
         }
@@ -898,14 +900,6 @@ namespace NSMBe5 {
             }
         }
 
-        private void Using_sb_asm_checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.using_signboard_asm = usingSBCodeHackCheckBox.Checked;
-            Properties.Settings.Default.Save();
-
-            StageObjSettings.Load();
-        }
-
         private void patchMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.CodePatchingMethod = patchMethodComboBox.SelectedIndex;
@@ -965,5 +959,10 @@ namespace NSMBe5 {
                 MessageBox.Show("Could not find the font \"" + fontName + "\"", "Font not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void managePluginsBtn_Click(object sender, EventArgs e)
+		{
+			PluginSelector.Open();
+		}
     }
 }

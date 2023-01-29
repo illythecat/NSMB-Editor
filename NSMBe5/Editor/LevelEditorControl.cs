@@ -235,17 +235,17 @@ namespace NSMBe5
 
 			// And other stuff.
 			foreach (NSMBStageObj s in Level.Sprites)
-				if(s.AlwaysDraw() || ViewablePixels.IntersectsWith(s.getRect()))
-					s.render(e.Graphics, this);
+				if(s.AlwaysDraw() || ViewablePixels.IntersectsWith(s.GetRenderBounds()))
+					s.Render(e.Graphics, this);
 
 			foreach(NSMBEntrance n in Level.Entrances)
 				if(ViewablePixels.IntersectsWith(new Rectangle(n.x, n.y, n.width, n.height)))
-					n.render(e.Graphics, this);
+					n.Render(e.Graphics, this);
 
 			foreach (NSMBView v in Level.Views)
-				v.render(e.Graphics, this);
+				v.Render(e.Graphics, this);
 			foreach (NSMBView v in Level.Zones)
-				v.render(e.Graphics, this);
+				v.Render(e.Graphics, this);
 
 			foreach (NSMBPath p in Level.Paths)
 				p.render(e.Graphics, this, false);
@@ -257,7 +257,7 @@ namespace NSMBe5
 
 			// DS Screen preview
 			if (showDSScreen) {
-				e.Graphics.DrawImage(Properties.Resources.ndsoverlay, new Point(dsScreenX - 149, dsScreenY - 44));
+				e.Graphics.DrawImage(Properties.Resources.ndsoverlay, new Rectangle(dsScreenX - 149, dsScreenY - 44, 553, 579));
 			}
 
 			e.Graphics.TranslateTransform(hScrollBar.Value * 16, vScrollBar.Value * 16);

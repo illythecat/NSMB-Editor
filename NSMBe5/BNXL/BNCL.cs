@@ -98,7 +98,7 @@ namespace NSMBe5
 
         #region GraphicDefsPresetOperations
         XDocument SizePresetsXML;
-        string XMLDefsFileName = AppDomain.CurrentDomain.BaseDirectory + "/BNCL_defs.xml";
+        string XMLDefsFileName = AppDomain.CurrentDomain.BaseDirectory + "/bncl.xml";
         private void CheckForSizePresetsFilePresence()
         {
             try
@@ -131,7 +131,14 @@ namespace NSMBe5
         {
             CheckForSizePresetsFilePresence();
 
-            for (int i = 0; i < 256; i++)
+            var GraphicContainer = SizePresetsXML
+						.Descendants("Game")
+						.Where(node => (string)node.Attribute("Name") == "New Super Mario Bros.")
+						.Descendants("Scene")
+						.Where(node => node.Attribute("Name").Value.Contains(f.name))
+						.Descendants("Graphic");
+
+			for (int i = 0; i < 256; i++)
             {
                 //Default values if value not found or XML parse failed
                 graphicID_width[i] = 16;
@@ -139,40 +146,21 @@ namespace NSMBe5
                 graphicID_comment[i] = null;
                 try
                 {
-                    var GraphicsWidth = SizePresetsXML
-                        .Descendants("Game")
-                        .Where(node => (string)node.Attribute("Name") == "New Super Mario Bros.")
-                        .Descendants("Scene")
-                        .Where(node => node.Attribute("Name").Value.Contains(f.name))
-                        .Descendants("Graphic")
-                        .Where(node => (int)node.Attribute("ID") == i)
-                        .Attributes("Width");
+                    var GraphicEntry = GraphicContainer.Where(node => (int)node.Attribute("ID") == i);
+
+					var GraphicsWidth = GraphicEntry.Attributes("Width");
                     foreach (var GraphicWidth in GraphicsWidth)
                     {
                         graphicID_width[i] = byte.Parse(GraphicWidth.Value);
                     }
 
-                    var GraphicsHeight = SizePresetsXML
-                        .Descendants("Game")
-                        .Where(node => (string)node.Attribute("Name") == "New Super Mario Bros.")
-                        .Descendants("Scene")
-                        .Where(node => node.Attribute("Name").Value.Contains(f.name))
-                        .Descendants("Graphic")
-                        .Where(node => (int)node.Attribute("ID") == i)
-                        .Attributes("Height");
+                    var GraphicsHeight = GraphicEntry.Attributes("Height");
                     foreach (var GraphicHeight in GraphicsHeight)
                     {
                         graphicID_height[i] = byte.Parse(GraphicHeight.Value);
                     }
 
-                    var GraphicsComment = SizePresetsXML
-                        .Descendants("Game")
-                        .Where(node => (string)node.Attribute("Name") == "New Super Mario Bros.")
-                        .Descendants("Scene")
-                        .Where(node => node.Attribute("Name").Value.Contains(f.name))
-                        .Descendants("Graphic")
-                        .Where(node => (int)node.Attribute("ID") == i)
-                        .Attributes("Comment");
+                    var GraphicsComment = GraphicEntry.Attributes("Comment");
                     foreach (var GraphicComment in GraphicsComment)
                     {
                         graphicID_comment[i] = GraphicComment.Value;

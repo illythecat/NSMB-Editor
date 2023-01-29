@@ -51,7 +51,7 @@ namespace NSMBe5 {
                     e.Graphics.FillRectangle(Brushes.White, obj.X, obj.Y, obj.Width, obj.Height);
 
             foreach (NSMBStageObj s in Level.Sprites)
-                e.Graphics.FillRectangle(Brushes.Chartreuse, s.getRectB());
+                e.Graphics.FillRectangle(Brushes.Chartreuse, s.GetMinimapBounds());
             foreach (NSMBView v in Level.Views)
                 e.Graphics.DrawRectangle(Pens.LightSteelBlue, v.X / 16, v.Y / 16, v.Width / 16, v.Height / 16);
             foreach (NSMBView v in Level.Zones)
