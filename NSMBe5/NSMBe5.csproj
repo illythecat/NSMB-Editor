@@ -137,7 +137,7 @@
     <Compile Include="BNXL\BNCL.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BNXL\BNCL.designer.cs">
+    <Compile Include="BNXL\BNCL.Designer.cs">
       <DependentUpon>BNCL.cs</DependentUpon>
     </Compile>
     <Compile Include="BNXL\BNXLButton.cs">
