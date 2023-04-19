@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSMBe5.DSFileSystem;
+using System;
 using System.Windows.Forms;
 
 namespace NSMBe5.Plugin
@@ -14,12 +15,7 @@ namespace NSMBe5.Plugin
 
 			romPlugsCb.Checked = Properties.Settings.Default.EnableRomPlugin;
 
-			PluginInfo[] infos = PluginManager.GetAvailablePlugins();
-
-			foreach (PluginInfo info in infos)
-			{
-				pluginGridView.Rows.Add(info.id, info.name, info.priority.ToString(), info.enabled);
-			}
+			LoadGridViewElements();
 
 			Current = this;
 		}
@@ -51,6 +47,36 @@ namespace NSMBe5.Plugin
 			Close();
 		}
 
+		private void installButton_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog dialog = new OpenFileDialog();
+
+			dialog.Filter = "NSMBe Plugins (*.dll)|*.dll|All Files (*.*)|*.*";
+			dialog.FilterIndex = 1;
+			dialog.Multiselect = true;
+
+			DialogResult result = dialog.ShowDialog(this);
+
+			if (result != DialogResult.OK)
+				return;
+
+			string pluginPath = PluginManager.GetPluginDirectory();
+
+			if (!System.IO.Directory.Exists(pluginPath))
+				System.IO.Directory.CreateDirectory(pluginPath);
+
+			foreach (string path in dialog.FileNames)
+			{
+				string dest = System.IO.Path.Combine(pluginPath, System.IO.Path.GetFileName(path));
+
+                System.IO.File.Copy(path, dest);
+
+				PluginManager.LoadPlugin(dest);
+			}
+			
+			LoadGridViewElements();
+		}
+
 		private void pluginGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == 2)
@@ -66,6 +92,18 @@ namespace NSMBe5.Plugin
 		private void PluginSelector_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			Current = null;
+		}
+
+		private void LoadGridViewElements()
+		{
+			pluginGridView.Rows.Clear();
+
+			PluginInfo[] infos = PluginManager.GetAvailablePlugins();
+
+			foreach (PluginInfo info in infos)
+			{
+				pluginGridView.Rows.Add(info.id, info.name, info.priority.ToString(), info.enabled);
+			}
 		}
 
 		public static void Open()
