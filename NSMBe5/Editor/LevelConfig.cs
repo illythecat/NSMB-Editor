@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NSMBe5.DSFileSystem;
@@ -27,6 +28,12 @@ using NSMBe5.DSFileSystem;
 
 namespace NSMBe5 {
     public partial class LevelConfig : UserControl {
+
+        private static readonly uint[] ObjectBankSlots = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15 };
+
+        private const int ObjectBanksCount = 10;
+
+
         public LevelConfig(LevelEditorControl EdControl) {
             InitializeComponent();
             this.EdControl = EdControl;
@@ -41,28 +48,74 @@ namespace NSMBe5 {
             loadList("Backgrounds", bgBottomLayerComboBox);
             loadList("Tilesets", tilesetComboBox);
 
-            // Load modifier lists
-            ComboBox target = null;
-            foreach (string name in LanguageManager.GetList("Modifiers")) {
-                string trimmedname = name.Trim();
-                if (trimmedname == "") continue;
-                if (trimmedname[0] == '-') {
-                    switch (trimmedname) {
-                        case "-1": target = set1ComboBox; break;
-                        case "-2": target = set2ComboBox; break;
-                        case "-3": target = set3ComboBox; break;
-                        case "-4": target = set4ComboBox; break;
-                        case "-5": target = set5ComboBox; break;
-                        case "-6": target = set6ComboBox; break;
-                        case "-7": target = set7ComboBox; break;
-                        case "-8": target = set8ComboBox; break;
-                        case "-9": target = set9ComboBox; break;
-                        case "-10": target = set10ComboBox; break;
-                        case "-16": target = set16ComboBox; break;
-                    }
-                } else {
-                    target.Items.Add(trimmedname);
+            ComboBox[] comboBoxes = new ComboBox[] {
+                slot0ComboBox, slot1ComboBox, slot2ComboBox, slot3ComboBox,
+                slot4ComboBox, slot5ComboBox, slot6ComboBox, slot7ComboBox,
+                slot8ComboBox, slot9ComboBox, slot15ComboBox
+            };
+
+            var stageObjBanks = ROM.GetInlineFile(ROM.Data.File_Modifiers);
+            int[,] bankToOverlayTable = ROM.GetObjectBankOverlays();
+
+            var stageObjsInOvs = new Dictionary<int, List<int>>();
+
+            for (int obj = 0; obj < ROM.NativeStageObjCount; obj++)
+            {
+                int slot = stageObjBanks[obj * 2];
+                int bank = stageObjBanks[obj * 2 + 1];
+
+                // Skip bank zero and illegal slots
+                if (slot < 0 || (slot > 9 && slot != 15) || bank == 0)
+                    continue;
+
+                int ov = bankToOverlayTable[slot, bank - 1];
+
+                if (!stageObjsInOvs.ContainsKey(ov))
+                    stageObjsInOvs.Add(ov, new List<int>());
+
+                stageObjsInOvs[ov].Add(obj);
+            }
+
+            // Load object bank slot lists
+            for (int i = 0; i < ObjectBankSlots.Length; i++)
+            {
+                uint slot = ObjectBankSlots[i];
+
+                var items = new string[ObjectBanksCount + 1];
+
+                items[0] = "0: None";
+
+                foreach (string name in LanguageManager.GetList($"ObjectBankSlot{slot}"))
+                {
+                    string[] split = name.Split('=');
+
+                    int index = int.Parse(split[0].Trim());
+                    
+                    // Skip out of bounds elements
+                    if (index <= 0 || index >= items.Length)
+                        continue;
+
+                    items[index] = split[1].Trim();
                 }
+
+                for (int bank = 1; bank < items.Length; bank++)
+                {
+                    int ov = bankToOverlayTable[slot, bank - 1];
+
+                    string suffix = $"[ov{ov}";
+
+                    if (stageObjsInOvs.ContainsKey(ov))
+                    {
+                        suffix += ": ";
+                        suffix += string.Join(", ", stageObjsInOvs[ov].ToArray());
+                    }
+
+                    suffix += "]";
+
+                    items[bank] = $"{bank}: {items[bank]} {suffix}";
+                }
+
+                comboBoxes[i].Items.AddRange(items);
             }
 
         }
@@ -115,31 +168,23 @@ namespace NSMBe5 {
             if (BGIndex == 255) BGIndex = bgBottomLayerComboBox.Items.Count - 1;
             bgBottomLayerComboBox.SelectedIndex = BGIndex;
 
-            ComboBox[] checkthese = new ComboBox[] {
-                set1ComboBox, set2ComboBox, set3ComboBox, set4ComboBox,
-                set5ComboBox, set6ComboBox, set7ComboBox, set8ComboBox,
-                set9ComboBox, set10ComboBox, set16ComboBox
+            ComboBox[] comboBoxes = new ComboBox[] {
+                slot0ComboBox, slot1ComboBox, slot2ComboBox, slot3ComboBox,
+                slot4ComboBox, slot5ComboBox, slot6ComboBox, slot7ComboBox,
+                slot8ComboBox, slot9ComboBox, slot15ComboBox
             };
-
-            int[] checkthese_idx = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15 };
 
             if (Level.Blocks[13].Length == 0) {
                 // works around levels like 1-4 area 2 which have a blank modifier block
                 Level.Blocks[13] = new byte[16];
             }
 
-            for (int CheckIdx = 0; CheckIdx < checkthese.Length; CheckIdx++) {
-                int valid = Level.Blocks[13][checkthese_idx[CheckIdx]];
-                for (int ItemIdx = 0; ItemIdx < checkthese[CheckIdx].Items.Count; ItemIdx++) {
-                    string Item = (string)(checkthese[CheckIdx].Items[ItemIdx]);
-                    int cpos = Item.IndexOf(':');
-                    int modifierval = int.Parse(Item.Substring(0, cpos));
-                    if (modifierval == valid) {
-                        checkthese[CheckIdx].SelectedIndex = ItemIdx;
-                        break;
-                    }
-                }
+            for (int i = 0; i < ObjectBankSlots.Length; i++)
+            {
+                int bank = Level.Blocks[13][ObjectBankSlots[i]];
+                comboBoxes[i].SelectedIndex = bank;
             }
+
             updating = false;
         }
 
@@ -254,19 +299,16 @@ namespace NSMBe5 {
             newData[2][3] = (byte)(BGIndex >> 8); // ncg
 
 
-            ComboBox[] checkthese = new ComboBox[] {
-                set1ComboBox, set2ComboBox, set3ComboBox, set4ComboBox,
-                set5ComboBox, set6ComboBox, set7ComboBox, set8ComboBox,
-                set9ComboBox, set10ComboBox, set16ComboBox
+            ComboBox[] comboBoxes = new ComboBox[] {
+                slot0ComboBox, slot1ComboBox, slot2ComboBox, slot3ComboBox,
+                slot4ComboBox, slot5ComboBox, slot6ComboBox, slot7ComboBox,
+                slot8ComboBox, slot9ComboBox, slot15ComboBox
             };
 
-            int[] checkthese_idx = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15 };
-
-            for (int CheckIdx = 0; CheckIdx < checkthese.Length; CheckIdx++) {
-                string Item = (string)(checkthese[CheckIdx].Items[Math.Max(0, checkthese[CheckIdx].SelectedIndex)]);
-                int cpos = Item.IndexOf(':');
-                int modifierval = int.Parse(Item.Substring(0, cpos));
-                newData[13][checkthese_idx[CheckIdx]] = (byte)modifierval;
+            for (int i = 0; i < ObjectBankSlots.Length; i++)
+            {
+                byte bank = (byte)comboBoxes[i].SelectedIndex;
+                newData[13][ObjectBankSlots[i]] = bank;
             }
 
             EdControl.UndoManager.Do(new ChangeLevelSettingsAction(newData), true);

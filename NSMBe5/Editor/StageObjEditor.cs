@@ -126,8 +126,8 @@ namespace NSMBe5
 		public List<string> StageObjectlist = new List<string>();
 		public Dictionary<int, int> ActorToObjectMap = new Dictionary<int, int>();
 		public Dictionary<int, int> StageObjToOverlayMap = new Dictionary<int, int>();
-		public int[,] StageObjBankToOverlayTable;
-		public List<int> CategoryObjectIDs = new List<int>();
+        public int[,] StageObjBankToOverlayTable;
+        public List<int> CategoryObjectIDs = new List<int>();
 		public List<int> FilteredObjectIDs = new List<int>();
 
 		public StageObjEditor(LevelEditorControl EdControl)
@@ -161,21 +161,18 @@ namespace NSMBe5
 				StageObjectlist.Add(i + ": " + objName);
 				ActorToObjectMap[objectID] = i;
 
-				if (objectID < ROM.NativeObjectCount)
-				{
-					int set = stageObjBanks[i * 2];
-					int subset = stageObjBanks[i * 2 + 1];
+				int slot = stageObjBanks[i * 2];
+				int bank = stageObjBanks[i * 2 + 1];
 
-					if (set < 0 || (set > 9 && set != 15) || subset == 0)
-						continue;
+				if (slot < 0 || (slot > 9 && slot != 15) || bank == 0)
+                    continue;
 
-					int overlay = StageObjBankToOverlayTable[set, subset - 1];
-					if (overlay < 0)
-						continue;
+				int overlay = StageObjBankToOverlayTable[slot, bank - 1];
+				if (overlay < 0)
+                    continue;
 
-					if (!StageObjToOverlayMap.ContainsKey(i))
-						StageObjToOverlayMap[i] = overlay;
-				}
+				if (!StageObjToOverlayMap.ContainsKey(i))
+					StageObjToOverlayMap[i] = overlay;
 
 			}
 
@@ -195,7 +192,7 @@ namespace NSMBe5
 
 			LanguageManager.ApplyToContainer(this, "SpriteEditor");
 			spriteTypeUpDown.Maximum = StageObjectCount - 1;
-		}
+        }
 
 		private StageObjSettings.StageObjSettingsEditor sed;
 
@@ -347,7 +344,7 @@ namespace NSMBe5
 
 						if (renderOverlay)
 						{
-							string txt = StageObjToOverlayMap.ContainsKey(objID) ? string.Format("ov{0}", StageObjToOverlayMap[objID]) : "arm9";
+							string txt = StageObjToOverlayMap.ContainsKey(objID) ? $"ov{StageObjToOverlayMap[objID]}" : "-";
 
 							offsetX -= 40;
 							TextRenderer.DrawText(e.Graphics, txt, spriteListBox.Font, new Rectangle(e.Bounds.X + e.Bounds.Width + offsetX, e.Bounds.Y, 40, e.Bounds.Height), TextColor, BackColor, TextFormatFlags.Right);
