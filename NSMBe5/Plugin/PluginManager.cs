@@ -38,7 +38,7 @@ namespace NSMBe5.Plugin
 			Assembly pluginAsm;
 			Type pluginClass;
 			string pluginName;
-
+			
 			try
 			{
 				pluginAsm = Assembly.LoadFile(pluginPath);

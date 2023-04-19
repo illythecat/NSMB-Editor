@@ -67,9 +67,17 @@ namespace NSMBe5.Plugin
 
 			foreach (string path in dialog.FileNames)
 			{
-				string dest = System.IO.Path.Combine(pluginPath, System.IO.Path.GetFileName(path));
+				string file = System.IO.Path.GetFileName(path);
 
-                System.IO.File.Copy(path, dest);
+				string dest = System.IO.Path.Combine(pluginPath, file);
+
+				if (System.IO.File.Exists(dest))
+				{
+					MessageBox.Show($"Plugin \"{file}\" already exists", "Plugin Selector", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					continue;
+				}
+
+				System.IO.File.Copy(path, dest);
 
 				PluginManager.LoadPlugin(dest);
 			}
