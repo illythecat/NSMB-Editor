@@ -1,40 +1,31 @@
 # NSMB Editor
-Forked from https://github.com/Mero-Mero/NSMB-Editor originally by https://github.com/Dirbaio/NSMB-Editor
+##### Forked from [MeroMero](https://github.com/Mero-Mero/NSMB-Editor) originally by [Dirbaio](https://github.com/Dirbaio/NSMB-Editor)
 
-NSMBe 5.4.0 Git
------------------
-Download NSMBe on the GitHub Release page, older versions available at NSMBHD: https://nsmbhd.net/download/
+## Download
+To download the latest NSMBe build check the [GitHub Release page](https://github.com/MammaMiaTeam/NSMB-Editor/releases/latest/).
 
-To run NSMBe:
- - **Windows:** .NET Framework 4.7.2
- - **Linux, MacOSX, Others:** Mono
+For legacy builds, check the [NSMBHD Downloads page](https://nsmbhd.net/download/all/).
 
-Necessary NSMBe files and directories:
- - Languages
- - Be.Windows.Forms.HexBox.dll
- - LICENSE.txt
- - NSMBe5.exe
+## Community
+Join the [NSMB Central Discord](https://discord.gg/x7gr3M9)!
 
-At first bootup time:
- - You will be prompted to download "stageobjsettings.xml", if there isn't one already present.
+If you want to, you can also join the forums at [NSMBHD](http://nsmbhd.net/).
 
-Be.Windows.Forms.HexBox:
- - Current version is: 1.6.1
+## Requirements
+- Windows: [.NET Framework 4.7.2](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472)
+- Linux, MacOSX, Others: [Mono](https://www.mono-project.com/download/stable/)
 
-Websites:
- - http://nsmbhd.net/ - The NSMB Hacking Domain, a.k.a NSMBe Forum
+## Credits
+- Treeki - Original Developer
+- Dirbaio - Second Developer
+- Piranhaplant - Developer
+- MeroMero - Developer
+- RicBent - Developer
+- Mamma Mia Team - Developers and current maintainers
+- Szymbar - Developer, adopted the structure to work with MKDS assembly
+- And all other contributors!
 
-Credits:
- - Treeki - Original Developer
- - Dirbaio - Second Developer
- - Piranhaplant - Developer
- - MeroMero - Developer
- - RicBent - Developer
- - Mamma Mia Team - Developers and current maintainers
- - Szymbar - Developer, adopted the structure to work with MKDS assembly
- - And all other contributors!
-
-# Previews
+## Previews
 <p align="left">
 <img src="https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/master/screenshots/filebrowser.png" width="385" title="File Browser">
 <img src="https://raw.githubusercontent.com/MammaMiaTeam/NSMB-Editor/master/screenshots/leveleditor.png" width="400" title="Level Editor">
