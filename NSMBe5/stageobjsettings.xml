@@ -2851,25 +2851,25 @@ If Mario/Luigi is inside the AOE (Area of Effect) of this actor, the camera will
 			<field id="33-36" type="checkbox" name="Death below limit" values="1" notes="Must be empty map block, no tiles below. Mario image must fall out of screen." />
 		</class>
 		<class id="274">
-			<name>In air vertical scroll stop left</name>
+			<name>Vertical scroll stop left</name>
 			<flags known="1" complete="1" />
 			<category id="6" />
 			<notes></notes>
 			<files></files>
-			<field id="17-20" type="list" name="Type" values="0=Bottom limit,1=Top limit" notes="" />
+			<field id="17-20" type="list" name="Type" values="0=Bottom limit,1=Top limit" notes="Bottom or top of area that camera can enter." />
 			<field id="41-48" type="value" name="Shift up (in pixels)" values="" notes="Pixels able to be seen past limit." />
-			<field id="33-36" type="checkbox" name="Allow disable" values="1" notes="Can only be set to a max of 31 pixels. Past that move the sprite." />
+			<field id="33-36" type="checkbox" name="Allow disable" values="1" notes="Allow Mario and camera to go past the limit, if Mario touches it." />
 			<field id="37-40" type="value" name="ID" values="" notes="" />
 		</class>
 		<class id="275">
-			<name>In air vertical scroll stop right</name>
+			<name>Vertical scroll stop right</name>
 			<flags known="1" complete="1" />
 			<category id="6" />
 			<notes></notes>
 			<files></files>
-			<field id="17-20" type="list" name="Type" values="0=Bottom limit,1=Top limit" notes="" />
+			<field id="17-20" type="list" name="Type" values="0=Bottom limit,1=Top limit" notes="Bottom or top of area that camera can enter." />
 			<field id="41-48" type="value" name="Shift up (in pixels)" values="" notes="Pixels able to be seen past limit." />
-			<field id="33-36" type="checkbox" name="Allow disable" values="1" notes="" />
+			<field id="33-36" type="checkbox" name="Allow disable" values="1" notes="Allow Mario and camera to go past the limit, if Mario touches it." />
 			<field id="37-40" type="value" name="ID" values="" notes="" />
 		</class>
 		<class id="276">
