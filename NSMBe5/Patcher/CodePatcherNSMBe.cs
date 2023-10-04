@@ -218,7 +218,7 @@ namespace NSMBe5.Patcher
 					}
 				}
 
-				if (ind != -1)
+				if (ind != -1 && l.IndexOf(" _ZZ") != 31)
 				{
 					int destRamAddr= ParseHex(l.Substring(0, 8));    //Redirect dest addr
 
