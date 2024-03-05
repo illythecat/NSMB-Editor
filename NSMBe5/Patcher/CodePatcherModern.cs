@@ -82,7 +82,10 @@ namespace NSMBe5.Patcher
 			foreach (DSFileSystem.File childrenFile in dirByPath2.childrenFiles)
 				File.WriteAllBytes(codedir + "/overlay7/" + childrenFile.name, childrenFile.getContents());
 
-			RunProcessThrow(process, romdir.FullName);
+			string procArgs = process;
+			if (Control.ModifierKeys == Keys.Shift && process == "ncpatcher")
+				procArgs += " -v && pause";
+			RunProcessThrow(procArgs, romdir.FullName);
 		}
 
 		private void ImportPatch()
