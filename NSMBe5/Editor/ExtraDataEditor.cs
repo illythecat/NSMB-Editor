@@ -728,7 +728,7 @@ namespace NSMBe5
 			this.ID.Location = new System.Drawing.Point(364, 48);
 			this.ID.Margin = new System.Windows.Forms.Padding(4);
 			this.ID.Maximum = new decimal(new int[] {
-			325,
+			999,
 			0,
 			0,
 			0});
